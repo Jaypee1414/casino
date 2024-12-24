@@ -106,9 +106,9 @@ const PercentageLoader = ({setIsFinished}) => {
     <div className=" inset-0 flex items-center justify-center bg-gradient-to-b from-[#021821] to-[#3D1D1D] h-screen z-50 relative">
       <div className="w-[30rem] text-center pb-10">
         <div className="w-auto h-auto">
-        <img src="/image/svg_load.svg" alt="My image" className="w-full h-auto" />
+        <img src="/image/loadingImg.png" alt="My image" className="w-full h-auto " />
         </div>
-        <div className="mb-4 h-4 w-full bg-gray-200 rounded-full overflow-hidden absolute top-0">
+        <div className="mb-4 h-4 w-full bg-gray-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-blue-600 transition-all duration-300 ease-out"
             style={{ width: `${progress}%` }}

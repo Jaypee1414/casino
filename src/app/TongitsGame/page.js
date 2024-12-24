@@ -85,7 +85,7 @@ function TogitsGame() {
               </div>
             </div>
           </div>
-          <div className="w-screen bg-black h-16 relative flex justify-center items-center wood">
+          <div className="w-screen h-16 relative flex justify-center items-center wood">
             <div
               className="absolute flex flex-row gap-2"
               style={{
