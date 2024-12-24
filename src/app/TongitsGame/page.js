@@ -11,7 +11,7 @@ function TogitsGame() {
       {!isFinished ? (
         <PercentageLoader setIsFinished={setIsFinished} />
       ) : (
-        <div className="w-full h-full">
+        <div className="w-full h-full relative">
           <div
             className=" inset-0 flex items-center justify-center z-50"
             style={{
@@ -21,6 +21,26 @@ function TogitsGame() {
               height: "91vh",
             }}
           >
+            <div className="left-0 absolute top-0">
+              <div className="flex flex-row gap-5">
+                <div>
+                  <button>
+                  <Image
+              src="/image/contactUs.svg"
+              alt="My image"
+              width={50} // You need to specify width and height
+              height={50} // You need to specify width and height
+            />
+                  </button>
+                </div>
+                <div>
+                  <button>settings</button>
+                </div>
+                <div>
+                  <button>Question</button>
+                </div>
+              </div>
+            </div>
             <div className="w-[30rem] text-center">
               <div className="py-10">
                 <Image
@@ -57,10 +77,7 @@ function TogitsGame() {
                 textStroke: "0.5px black", // Fallback
               }}
             >
-              <input
-                        type="checkbox"
-          id="acceptTerms"
-              />
+              <input type="checkbox" id="acceptTerms" />
               <p>Accept Terms and Condition</p>
             </div>
             <img
