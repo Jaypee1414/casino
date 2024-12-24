@@ -21,23 +21,39 @@ function TogitsGame() {
               height: "91vh",
             }}
           >
-            <div className="left-0 absolute top-0">
-              <div className="flex flex-row gap-5">
+            <div className="left-5 absolute top-5">
+              <div className="flex flex-row gap-3">
                 <div>
                   <button>
-                  <Image
-              src="/image/contactUs.svg"
-              alt="My image"
-              width={50} // You need to specify width and height
-              height={50} // You need to specify width and height
-            />
+                    <Image
+                      src="/image/contactUs.svg"
+                      alt="My image"
+                      width={40} // You need to specify width and height
+                      height={40} // You need to specify width and height
+                    />
                   </button>
                 </div>
                 <div>
-                  <button>settings</button>
+                  <button>
+                    {" "}
+                    <Image
+                      src="/image/settings.svg"
+                      alt="My image"
+                      width={40} // You need to specify width and height
+                      height={40} // You need to specify width and height
+                    />
+                  </button>
                 </div>
                 <div>
-                  <button>Question</button>
+                  <button>
+                    {" "}
+                    <Image
+                      src="/image/question.svg"
+                      alt="My image"
+                      width={40} // You need to specify width and height
+                      height={40} // You need to specify width and height
+                    />
+                  </button>
                 </div>
               </div>
             </div>

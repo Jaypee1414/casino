@@ -17,6 +17,9 @@
     height: 10rem;
 }
 
+.svg-bold-stroke path {
+    stroke-width: 2; /* Adjust the value for a bolder stroke */
+  }
 .wood p{ 
     color: white;
     font-family: 'Jaro', sans-serif;
