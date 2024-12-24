@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaro:wght@400;600;700;800;900;1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    }
+  
+.landing{
+    font-family: 'Jaro', sans-serif;
+    font-size: 40px;
+    height: 10rem;
+}
+
+.wood p{ 
+    color: white;
+    font-family: 'Jaro', sans-serif;
+    font-size: 20px;
+}
+
+.landing button{
+    font-size: 30px;
+    background-color: black;
+    padding: 10px;
+}
+
+.loadingLogo{
+    width: 500px !important;
+    width: 500px !important;
+}
