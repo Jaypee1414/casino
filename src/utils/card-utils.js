@@ -1,16 +1,21 @@
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-export const Card = {};
+/**
+ * @typedef {Object} Card
+ * @property {string} suit - The suit of the card (e.g., "hearts", "diamonds").
+ * @property {string|number} rank - The rank of the card (e.g., "A", "K", "Q", "J", or 2–10).
+ */
 
-function createCard(suit, rank) {
+
+export function createCard(suit, rank) {
     if (!suits.includes(suit) || !ranks.includes(rank)) {
         throw new Error('Invalid suit or rank');
     }
     return { suit, rank };
 }
 
-function createDeck() {
+export function createDeck() {
     const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
     const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     const deck = [];

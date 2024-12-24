@@ -11,7 +11,7 @@ import { MeldedCards } from "./MeldedCards";
 import { motion, AnimatePresence } from 'framer-motion';
 import { isValidMeld } from '../../../utils/card-utils';
 
-export function TongitGame() {
+export default function TongitGame() {
   const [gameMode, setGameMode] = useState(null);
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
   const { 
@@ -29,7 +29,7 @@ export function TongitGame() {
     callDraw
   } = useTongitGame(gameMode);
   const [sapawTarget, setSapawTarget] = useState(null);
-  const [statusMessage, setStatusMessage] = useState<string>('');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleCardClick = useCallback((index) => {
     if (gameState && !gameState.gameEnded && gameState.currentPlayerIndex === 0) {
@@ -135,18 +135,18 @@ export function TongitGame() {
       <h1 className="text-3xl font-bold mb-4">Tongit Game</h1>
       <div className="flex w-full max-w-7xl gap-4">
         <div className="w-1/4">
-          <Card className="h-[calc(100vh-8rem)]">
-            <CardContent className="p-4 h-full flex flex-col">
+          <div className="h-[calc(100vh-8rem)]">
+            <div className="p-4 h-full flex flex-col">
               <h2 className="text-xl font-semibold mb-2">Activity Log</h2>
               <div className="flex-grow overflow-y-auto">
                 <ActivityLog activities={gameActions} />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
         <div className="w-1/2 flex flex-col gap-4">
-          <Card>
-            <CardContent className="p-4">
+          <div>
+            <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">
                 {gameState.gameEnded ? "Game Over" : (isPlayerTurn ? "Your Turn" : `${currentPlayer.name}'s Turn`)}
               </h2>
@@ -185,10 +185,10 @@ export function TongitGame() {
                 )
               )}
               {statusMessage && <p className="text-sm text-blue-600 mt-2">{statusMessage}</p>}
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 flex justify-center space-x-4">
+            </div>
+          </div>
+          <div>
+            <div className="p-4 flex justify-center space-x-4">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -210,39 +210,39 @@ export function TongitGame() {
                   canDraw={canDrawFromDiscard()}
                 />
               </motion.div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
+            </div>
+          </div>
+          <div>
+            <div className="p-4">
               <PlayerHand 
                 hand={gameState.players[0].hand} 
                 onCardClick={handleCardClick} 
                 selectedIndices={gameState.selectedCardIndices} 
                 isCurrentPlayer={isPlayerTurn && !gameState.gameEnded}
               />
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 flex space-x-2">
-              <Button 
+            </div>
+          </div>
+          <div>
+            <div className="p-4 flex space-x-2">
+              <button 
                 onClick={handleDiscard} 
                 disabled={!isPlayerTurn || gameState.selectedCardIndices.length !== 1 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
               >
                 Discard (End Turn)
-              </Button>
-              <Button 
+              </button>
+              <button 
                 onClick={handleMeld} 
                 disabled={!isPlayerTurn || gameState.selectedCardIndices.length < 3 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
               >
                 Meld
-              </Button>
-              <Button 
+              </button>
+              <button 
                 onClick={handleSapaw} 
                 disabled={!isPlayerTurn || !sapawTarget || gameState.selectedCardIndices.length === 0 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
               >
                 Sapaw
-              </Button>
-              <Button 
+              </button>
+              <button 
                 onClick={handleCallDraw} 
                 disabled={
                   !isPlayerTurn || 
@@ -254,13 +254,13 @@ export function TongitGame() {
                 }
               >
                 Call Draw
-              </Button>
-            </CardContent>
-          </Card>
+              </button>
+            </div>
+          </div>
         </div>
         <div className="w-1/4">
-          <Card className="h-[calc(100vh-8rem)] overflow-y-auto">
-            <CardContent className="p-4">
+          <div className="h-[calc(100vh-8rem)] overflow-y-auto">
+            <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">Melded Cards</h2>
               <MeldedCards 
                 players={gameState.players}
@@ -271,8 +271,8 @@ export function TongitGame() {
                 currentPlayerIndex={gameState.currentPlayerIndex}
                 selectedSapawTarget={selectedSapawTarget}
               />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>

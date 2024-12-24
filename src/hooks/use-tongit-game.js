@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Card, createDeck, dealCards, isValidMeld, calculateHandPoints } from '../utils/card-utils';
-import { botPlayTurn } from '../utils/card-utils';
+import { botPlayTurn } from '../utils/bot-utils';
 
 export const Player = {
     id: 0,
