@@ -12,15 +12,15 @@ function TogitsGame() {
         <PercentageLoader setIsFinished={setIsFinished} />
       ) : (
         <div className="w-full h-full relative">
-          <div
-            className=" inset-0 flex items-center justify-center z-50"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(2, 24, 33, 1) 25%, rgba(149, 74, 74,1) 44%)",
-              opacity: "0.8",
-              height: "91vh",
-            }}
-          >
+          <div className=" inset-0 flex items-center justify-center z-50 h-[91vh]">
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(2, 24, 33, 0.8) 25%, rgba(149, 74, 74, 0.8) 44%)",
+                zIndex: -1, // Send it to the background
+              }}
+            ></div>
             <div className="left-5 absolute top-5">
               <div className="flex flex-row gap-3">
                 <div>
