@@ -1,112 +1,90 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import Image from "next/image";
 
-const PercentageLoader = ({setIsFinished}) => {
+const PercentageLoader = ({ setIsFinished }) => {
   const [progress, setProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [networkSpeed, setNetworkSpeed] = useState("4g"); // Store network speed
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  // Function to get network connection info using Network Information API
-  const getNetworkSpeed = () => {
-    if (navigator.connection) {
-      const connection =
-        navigator.connection ||
-        navigator.mozConnection ||
-        navigator.webkitConnection;
-      setNetworkSpeed(connection.effectiveType); // 'slow-2g', '2g', '3g', '4g'
-    }
-  };
+  const [networkSpeed, setNetworkSpeed] = useState("fast"); // fast, medium, or slow
+  const [isHydrated, setIsHydrated] = useState(false); // Ensure hydration
 
   useEffect(() => {
-    // Check network speed on component mount
-    getNetworkSpeed();
-
-    // Add event listener to detect network changes
-    const handleNetworkChange = () => {
-      getNetworkSpeed();
-    };
-
-    // Listen for changes in network type
-    if (navigator.connection) {
-      navigator.connection.addEventListener("change", handleNetworkChange);
-    }
-
-    // Clean up the event listener
-    return () => {
-      if (navigator.connection) {
-        navigator.connection.removeEventListener("change", handleNetworkChange);
-      }
-    };
+    setIsHydrated(true); // Mark the component as hydrated
   }, []);
 
   useEffect(() => {
-    let timer;
-    const startLoading = () => {
-      setIsLoading(true);
-      setProgress(0);
+    if (!isHydrated) return; // Skip logic until hydration is complete
 
-      const getIntervalBasedOnNetwork = () => {
-        switch (networkSpeed) {
-          case "slow-2g":
-            return 200; // Slow interval for very slow connections
-          case "2g":
-            return 150; // Slow connection
-          case "3g":
-            return 100; // Moderate connection
-          case "4g":
-            return 50; // Fast connection
-          default:
-            return 100; // Default to moderate
-        }
+    const connection =
+      navigator.connection ||
+      navigator.mozConnection ||
+      navigator.webkitConnection;
+
+    if (connection) {
+      const determineSpeed = () => {
+        if (connection.downlink < 1) setNetworkSpeed("slow");
+        else if (connection.downlink < 3) setNetworkSpeed("medium");
+        else setNetworkSpeed("fast");
       };
+      determineSpeed();
+      connection.addEventListener("change", determineSpeed);
 
-      const interval = getIntervalBasedOnNetwork();
+      return () => connection.removeEventListener("change", determineSpeed);
+    }
+  }, [isHydrated]);
 
-      timer = setInterval(() => {
-        setProgress((oldProgress) => {
-          if (oldProgress >= 90) {
-            clearInterval(timer);
-            return 90;
+  useEffect(() => {
+    if (!isHydrated) return; // Skip logic until hydration is complete
+
+    if (progress < 100) {
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          let increment;
+
+          switch (networkSpeed) {
+            case "slow":
+              increment = 0.3;
+              break;
+            case "medium":
+              increment = 0.7;
+              break;
+            case "fast":
+              increment = 1;
+              break;
+            default:
+              increment = 1;
+              break;
           }
-          const diff = Math.random() * 10;
-          return Math.min(oldProgress + diff, 90);
+
+          const newProgress = Math.min(prev + increment, 100);
+
+          if (newProgress === 100) {
+            setTimeout(() => {
+              setIsFinished(true);
+            }, 500);
+            clearInterval(interval);
+          }
+
+          return newProgress;
         });
-      }, interval);
-    };
+      }, 100);
 
-    const stopLoading = () => {
-      clearInterval(timer);
-      setProgress(100);
-      setTimeout(() => {
-        setIsFinished(true)
-        setIsLoading(false);
-      }, 500);
-    };
+      return () => clearInterval(interval);
+    }
+  }, [progress, networkSpeed, setIsFinished, isHydrated]);
 
-    startLoading();
-
-    // Stop loading after a small delay
-    setTimeout(stopLoading, 50);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [pathname, searchParams, networkSpeed,setIsFinished]); // Add networkSpeed as dependency
-
-  if (!isLoading && progress === 100) {
-    return null;
+  if (!isHydrated) {
+    return null; // Optionally, render a fallback or nothing until hydrated
   }
 
   return (
-    <div className=" inset-0 flex items-center justify-center bg-gradient-to-b from-[#021821] to-[#3D1D1D] h-screen z-50 relative">
-      <div className="w-[30rem] text-center pb-10">
+    <div className="inset-0 flex items-center justify-center bg-gradient-to-b from-[#021821] to-[#3D1D1D] h-screen z-50 relative">
+      <div className="w-[30rem] text-center pb-10 flex flex-col gap-10">
         <div className="w-auto h-auto">
-        <img src="/image/loadingImg.png" alt="My image" className="w-full h-auto " />
+          <img
+            src="/image/loadingImg.png"
+            alt="My image"
+            className="w-full h-auto "
+          />
         </div>
         <div className="mb-4 h-4 w-full bg-gray-200 rounded-full overflow-hidden">
           <div
@@ -114,9 +92,7 @@ const PercentageLoader = ({setIsFinished}) => {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="text-2xl font-bold text-blue-600">
-          {Math.round(progress)}%
-        </div>
+        <div className="text-2xl font-bold text-blue-600">{progress}%</div>
       </div>
     </div>
   );

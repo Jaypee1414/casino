@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import PercentageLoader from "../components/PercentageLoad";
 import SnowAnimation from "../components/snowflakes";
+
 function TogitsGame() {
   const [isFinished, setIsFinished] = useState(false);
 
