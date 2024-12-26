@@ -9,12 +9,13 @@ import { GameBoard } from "./GameBoard";
 import { ActivityLog } from "./ActivityLog";
 import { MeldedCards } from "./MeldedCards";
 import { motion, AnimatePresence } from "framer-motion";
-import { isValidMeld } from "../../../utils/card-utils";
+import { isValidMeld, shuffleDeck } from "../../../utils/card-utils";
 import NetworkStatus from "@/app/components/NetworkStatus";
 import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 
 export default function TongitGame() {
+  const [playerHand, setPlayerHande] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [scale, setScale] = useState(1);
   const [gameMode, setGameMode] = useState("Bot");
@@ -55,6 +56,15 @@ export default function TongitGame() {
     },
     [gameState, updateSelectedCardIndices]
   );
+  
+  useEffect(()=>{
+    setPlayerHande(gameState?.players[0]?.hand)
+  },[gameState])
+  
+  const shuffleDecks = () =>{
+    const  shuffle = shuffleDeck(gameState.players[0].hand)
+    setPlayerHande(shuffle)
+  }
 
   const handleDiscard = useCallback(() => {
     if (
@@ -183,7 +193,6 @@ export default function TongitGame() {
       setScale(1);
     }, 300);
   };
-
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
@@ -208,6 +217,7 @@ export default function TongitGame() {
         </div>
       </div>
       <div className="flex w-full max-w-7xl gap-4">
+        {/* activity log */}
         <div className="w-1/4">
           <div className="h-[calc(100vh-8rem)]">
             <div className="p-4 h-full flex flex-col">
@@ -218,7 +228,8 @@ export default function TongitGame() {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-4">
+        {/* card and deck */}
+        <div className="w-full flex flex-col justify-between gap-10 ">
           <div>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">
@@ -275,7 +286,8 @@ export default function TongitGame() {
             </div>
           </div>
           <div>
-            <div className="p-4 flex justify-center space-x-4">
+            {/* Deck  */}
+            <div className="p-4 flex justify-center space-x-4 mb-10">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -315,10 +327,11 @@ export default function TongitGame() {
               </motion.div>
             </div>
           </div>
+          {/* Player Hand */}
           <div>
             <div className="p-4">
               <PlayerHand
-                hand={gameState.players[0].hand}
+                hand={playerHand}
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}
                 isCurrentPlayer={isPlayerTurn && !gameState.gameEnded}
@@ -326,6 +339,7 @@ export default function TongitGame() {
             </div>
           </div>
         </div>
+        {/* melded */}
         <div className="w-1/4">
           <div className="h-[calc(100vh-8rem)] overflow-y-auto">
             <div className="p-4">
@@ -452,7 +466,9 @@ export default function TongitGame() {
               }}
             />
           </button>
-          <button>
+          <button
+          onClick={shuffleDecks}
+          >
             <img
               onClick={animateClick}
               src="/image/shuffleButton.svg"

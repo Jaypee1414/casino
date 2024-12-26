@@ -11,11 +11,11 @@ export function PlayerHand({
 }) {
   return (
     <div
-      className={`flex flex-wrap justify-center gap-4 p-4 rounded-lg ${
+      className={`flex flex-wrap justify-center gap-1 p-4 rounded-lg ${
         isCurrentPlayer ? "bg-gray-200 shadow-lg" : "bg-gray-100 opacity-50"
       }`}
     >
-      {hand.map((card, index) => (
+      {hand?.map((card, index) => (
         <motion.div
           key={`${card.suit}-${card.rank}-${index}`}
           layout
