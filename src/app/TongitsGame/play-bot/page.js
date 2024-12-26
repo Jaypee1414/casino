@@ -336,7 +336,7 @@ export default function TongitGame() {
       <div>
         <div className="pl-10 flex space-x-2 w-screen">
           <button
-            onClick={handleDiscard}
+          onClick={handleMeld}
             disabled={
               !isPlayerTurn ||
               gameState.selectedCardIndices.length !== 1 ||
@@ -344,23 +344,19 @@ export default function TongitGame() {
               gameState.gameEnded
             }
           >
-            <svg width="100" height="90">
-              <text
-                x="10"
-                y="50"
-                fontFamily="Jaro"
-                fontSize="30"
-                fill="white"
-                stroke="black"
-                strokeWidth="1"
-                letterSpacing="-2"
-              >
-                DROP
-              </text>
-            </svg>
+                        <img
+              onClick={animateClick}
+              src="/image/dropButton.svg"
+              alt="My image"
+              className="w-[110px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
           </button>
           <button
-            onClick={handleMeld}
+            onClick={handleDiscard}
             disabled={
               !isPlayerTurn ||
               gameState.selectedCardIndices.length < 3 ||
@@ -368,20 +364,16 @@ export default function TongitGame() {
               gameState.gameEnded
             }
           >
-            <svg width="100" height="90">
-              <text
-                x="10"
-                y="50"
-                fontFamily="Jaro"
-                fontSize="30"
-                fill="white"
-                stroke="black"
-                strokeWidth="1"
-                letterSpacing="-2"
-              >
-                MELD
-              </text>
-            </svg>
+            <img
+              onClick={animateClick}
+              src="/image/dumpButton.svg"
+              alt="My image"
+              className="w-[110px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
           </button>
           <button
             onClick={handleSapaw}
