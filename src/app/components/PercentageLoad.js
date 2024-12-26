@@ -6,6 +6,15 @@ const PercentageLoader = ({ setIsFinished }) => {
   const [progress, setProgress] = useState(0);
   const [networkSpeed, setNetworkSpeed] = useState("fast"); // fast, medium, or slow
   const [isHydrated, setIsHydrated] = useState(false); // Ensure hydration
+  const [dots, setDots] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prevDots) => (prevDots.length < 3 ? prevDots + "." : ""));
+    }, 500); // Adjust the interval to control the speed
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
+
 
   useEffect(() => {
     setIsHydrated(true); // Mark the component as hydrated
@@ -86,11 +95,21 @@ const PercentageLoader = ({ setIsFinished }) => {
             className="w-full h-auto "
           />
         </div>
-        <div className="mb-4 h-4 w-full bg-gray-200 rounded-full overflow-hidden">
+        <div className="mb-4 h-10 w-full bg-[url('/image/loading.png')]  bg-no-repeat bg-cover bg-center rounded-full overflow-hidden relative">
           <div
-            className="h-full bg-blue-600 transition-all duration-300 ease-out"
+            className="h-full bg-gradient-to-r from-[#1292E2] to-[#DC9797] transition-all duration-300 ease-out"
             style={{ width: `${progress}%` }}
-          />
+          >
+            <div
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center font-jaro text-white font-extrabold text-3xl"
+              style={{
+                WebkitTextStroke: "0.5px black",
+                textStroke: "0.5px black", // Fallback
+              }}
+            >
+              LOADING{dots}
+            </div>
+          </div>
         </div>
         <div className="text-2xl font-bold text-blue-600">{progress}%</div>
       </div>

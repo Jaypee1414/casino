@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { isValidMeld } from '../../../utils/card-utils';
 
 export default function TongitGame() {
-  const [gameMode, setGameMode] = useState(null);
+  const [gameMode, setGameMode] = useState('Bot');
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
   const { 
     gameState, 
@@ -73,7 +73,6 @@ export default function TongitGame() {
     const topDiscardCard = gameState.discardPile[gameState.discardPile.length - 1];
     const currentPlayer = gameState.players[gameState.currentPlayerIndex];
 
-    // Check if the top discard card can form a valid meld with any combination of cards in the player's hand
     for (let i = 0; i < currentPlayer.hand.length; i++) {
       for (let j = i + 1; j < currentPlayer.hand.length; j++) {
         if (isValidMeld([topDiscardCard, currentPlayer.hand[i], currentPlayer.hand[j]])) {
@@ -82,7 +81,6 @@ export default function TongitGame() {
       }
     }
 
-    // Check if the top discard card can be added to any existing meld
     for (const meld of currentPlayer.exposedMelds) {
       if (isValidMeld([...meld, topDiscardCard])) {
         return true;
@@ -105,23 +103,7 @@ export default function TongitGame() {
     if (gameState && isDeckEmpty() && !gameState.gameEnded) {
       callDraw();
     }
-  }, [gameState, isDeckEmpty, callDraw]); 
-
-  if (!gameMode) {
-    return (
-      <div className="w-full max-w-md">
-        <div className="flex flex-col items-center space-y-4 p-6">
-          <h1 className="text-3xl font-bold mb-4">Choose Game Mode</h1>
-          <button onClick={() => setGameMode('bot')} className="w-full">
-            Play against Bot
-          </button>
-          <button onClick={() => setGameMode('multiplayer')} className="w-full">
-            Multiplayer
-          </button>
-        </div>
-      </div>
-    );
-  }
+  }, [gameState, isDeckEmpty, callDraw]);
 
   if (!gameState) {
     return <div>Loading...</div>;
@@ -131,8 +113,10 @@ export default function TongitGame() {
   const isPlayerTurn = gameState.currentPlayerIndex === 0;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-4 min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">Tongit Game</h1>
+    <div className="flex flex-col items-center justify-center w-full p-4 min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
+      <div className='absolute w-screen h-16 top-0 bg-gradient-to-r from-[#9AD0C2] to-[#4E6A63]'>
+
+      </div>
       <div className="flex w-full max-w-7xl gap-4">
         <div className="w-1/4">
           <div className="h-[calc(100vh-8rem)]">
@@ -278,3 +262,4 @@ export default function TongitGame() {
     </div>
   );
 }
+

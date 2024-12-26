@@ -1,68 +1,50 @@
-const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-
-/**
- * @typedef {Object} Card
- * @property {string} suit - The suit of the card (e.g., "hearts", "diamonds").
- * @property {string|number} rank - The rank of the card (e.g., "A", "K", "Q", "J", or 2–10).
- */
-
-
-
 export function createDeck() {
-    const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-    const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-    const deck = [];
+  const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+  const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const deck = [];
+
+  for (const suit of suits) {
+    for (const rank of ranks) {
+      deck.push({ suit, rank });
+    }
+  }
+
+  return shuffleDeck(deck);
+}
+
+export function shuffleDeck(deck) {
+  const shuffled = [...deck];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+export function dealCards(deck, numPlayers, cardsPerPlayer) {
+  const hands = Array(numPlayers).fill(null).map(() => []);
   
-    for (const suit of suits) {
-      for (const rank of ranks) {
-        deck.push({ suit, rank });
+  for (let i = 0; i < cardsPerPlayer; i++) {
+    for (let j = 0; j < numPlayers; j++) {
+      if (deck.length > 0) {
+        const card = deck.pop();
+        hands[j].push(card);
       }
     }
-  
-    return shuffleDeck(deck);
   }
-  
-  
-  export function shuffleDeck(deck) {
-    const shuffled = [...deck];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }
-  
-  
 
-  export function dealCards(deck, numPlayers, cardsPerPlayer) {
-    const hands = Array(numPlayers).fill(null).map(() => []);
-    
-    for (let i = 0; i < cardsPerPlayer; i++) {
-      for (let j = 0; j < numPlayers; j++) {
-        if (deck.length > 0) {
-          const card = deck.pop();
-          hands[j].push(card);
-        }
-      }
-    }
-  
-    return { hands, remainingDeck: deck };
-  }
-  
-  
+  return { hands, remainingDeck: deck };
+}
 
-  export function isThreeOfAKind(cards) {
-    return cards.length === 3 && cards.every(card => card && card.rank === cards[0] && cards[0].rank);
-  }
-    
+export function isThreeOfAKind(cards) {
+  return cards.length === 3 && cards.every(card => card && card.rank === cards[0]?.rank);
+}
 
 export function isFourOfAKind(cards) {
-    return cards.length === 4 && cards.every(card => card && card.rank === cards[0]?.rank);
+  return cards.length === 4 && cards.every(card => card && card.rank === cards[0]?.rank);
 }
-  
 
-export function isStraightFlush(cards){
+export function isStraightFlush(cards) {
   if (cards.length < 3 || !cards.every(card => card && card.suit && card.rank)) return false;
   const sortedCards = [...cards].sort((a, b) => rankToNumber(a.rank) - rankToNumber(b.rank));
   const sameSuit = sortedCards.every(card => card && card.suit === sortedCards[0]?.suit);
@@ -72,11 +54,11 @@ export function isStraightFlush(cards){
   return sameSuit && consecutive;
 }
 
-export function isValidMeld(cards){
+export function isValidMeld(cards) {
   return isThreeOfAKind(cards) || isFourOfAKind(cards) || isStraightFlush(cards);
 }
 
-export function rankToNumber(rank){
+export function rankToNumber(rank) {
   const rankOrder = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
   return rankOrder.indexOf(rank);
 }
@@ -87,22 +69,20 @@ export function calculateCardPoints(card) {
   return parseInt(card.rank) || 0;
 }
 
-export function calculateHandPoints(hand, secretMelds){
+export function calculateHandPoints(hand, secretMelds = []) {
   const allCards = [...hand];
   const allMelds = [...secretMelds];
 
-  // Find and remove all valid melds from the hand
   while (true) {
     const meldFound = findAndRemoveMeld(allCards);
     if (!meldFound) break;
     allMelds.push(meldFound);
   }
 
-  // Calculate points only for the remaining cards in hand
   return allCards.reduce((total, card) => total + calculateCardPoints(card), 0);
 }
 
-function findAndRemoveMeld(cards){
+export function findAndRemoveMeld(cards) {
   // Check for sets (three or more of the same rank)
   for (let i = 0; i < cards.length - 2; i++) {
     for (let j = i + 1; j < cards.length - 1; j++) {
@@ -119,7 +99,7 @@ function findAndRemoveMeld(cards){
   }
 
   // Check for runs (three or more consecutive cards of the same suit)
-  const sortedCards = [...cards].sort((a, b) => rankToNumber(a.rank) - rankToNumber(b.rank));
+const sortedCards = [...cards].sort((a, b) => rankToNumber(a.rank) - rankToNumber(b.rank));
   for (let i = 0; i < sortedCards.length - 2; i++) {
     if (
       sortedCards[i].suit === sortedCards[i + 1].suit &&
@@ -137,3 +117,4 @@ function findAndRemoveMeld(cards){
 
   return null;
 }
+

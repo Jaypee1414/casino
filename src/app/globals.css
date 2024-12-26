@@ -14,8 +14,13 @@
 .landing{
     font-family: 'Jaro', sans-serif;
     font-size: 40px;
-    height: 10rem;
+    height: 15rem;
 }
+
+.landing h3{
+    font-family: 'Jaro', sans-serif;
+    font-size: 40px;
+} 
 
 .svg-bold-stroke path {
     stroke-width: 2; /* Adjust the value for a bolder stroke */
@@ -27,9 +32,13 @@
 }
 
 .landing button{
-    font-size: 30px;
-    background-color: black;
+    width: 13rem;
+    height: 10rem;
     padding: 10px;
+}
+.landing button p{
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
 .loadingLogo{

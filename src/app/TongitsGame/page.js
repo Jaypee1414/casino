@@ -1,11 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Image from "next/image";
 import PercentageLoader from "../components/PercentageLoad";
 import SnowAnimation from "../components/snowflakes";
+import { useRouter } from 'next/navigation';
 
 function TogitsGame() {
   const [isFinished, setIsFinished] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    router.push('/TongitsGame/play-bot');
+  };
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Render a fallback while ensuring client-side rendering
+  }
 
   return (
     <div>
@@ -63,25 +78,31 @@ function TogitsGame() {
                 <Image
                   src="/image/svg_land.svg"
                   alt="Gon Portrait"
-                  width={1000} // You need to specify width and height
-                  height={1000} // You need to specify width and height
+                  width={500} // You need to specify width and height
+                  height={500} // You need to specify width and height
                 />
               </div>
               <div
-                className="h-24 w-full justify-between overflow-hidden flex flex-col gap-10 stroke-1 text-white stroke-black font-black text-2xl landing"
+                className="justify-between overflow-hidden flex flex-col gap-10 stroke-1 text-white stroke-black font-black text-2xl landing"
                 style={{
                   WebkitTextStroke: "0.5px black",
                   textStroke: "0.5px black", // Fallback
                 }}
               >
-                <div>Choose Your Game Mode</div>
+                <div className="w-auto">
+                <h3 className="bg-clip-text text-transparent bg-text-gradient text-4xl font-bold">Choose Your Game Mode</h3>
                 <div className="flex flex-row gap-5 justify-between ">
                   <div>
-                    <button>Play with bot</button>
+                    <button className="bg-[url('/image/playbotButton.svg')]  bg-no-repeat bg-cover bg-center" onClick={handleButtonClick}>
+                    <p    className="text-4xl font-bold tracking-tight text-transparent text-stroke text-white">Play with bot</p>
+                    </button>
                   </div>
                   <div>
-                    <button>Live Game</button>
+                  <button className="bg-[url('/image/playbotButton.svg')]  bg-no-repeat bg-cover bg-center">
+                    <p    className="text-4xl font-bold tracking-tight text-transparent text-stroke text-white">Live Game</p>
+                    </button>
                   </div>
+                </div>
                 </div>
               </div>
             </div>

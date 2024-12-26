@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
-const SnowAnimation = () => {
+const CrystalSnowAnimation = () => {
   const containerRef = useRef(null)
 
   useEffect(() => {
@@ -13,29 +13,45 @@ const SnowAnimation = () => {
     const width = container.offsetWidth
     const height = container.offsetHeight
 
-    // Create snowflakes
+    // Create crystal snowflakes
     const snowflakes = Array.from({ length: 50 }, (_, i) => {
-      const snowflake = document.createElement('div')
-      snowflake.className = 'snowflake'
+      const snowflake = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+      snowflake.setAttribute("viewBox", "0 0 32 32")
+      snowflake.setAttribute("width", `${Math.random() * 20 + 15}px`)
+      snowflake.setAttribute("height", `${Math.random() * 20 + 10}px`)
+      snowflake.style.position = "absolute"
       snowflake.style.left = `${Math.random() * width}px`
       snowflake.style.top = `${Math.random() * height}px`
-      snowflake.style.opacity = `${Math.random()}`
-      snowflake.style.width = `${Math.random() * 20 + 2}px`
-      snowflake.style.height = snowflake.style.width
+      snowflake.style.opacity = `${Math.random() * 0.5 + 0.5}`
+      snowflake.innerHTML = `
+        <path d="M16 0 L16 32 M0 16 L32 16 M4.6 4.6 L27.4 27.4 M27.4 4.6 L4.6 27.4" 
+              stroke="white" stroke-width="1" fill="none" />
+        <circle cx="16" cy="16" r="2" fill="white" />
+      `
       container.appendChild(snowflake)
       return snowflake
     })
 
-    // Animate snowflakes
+    // Animate crystal snowflakes
     snowflakes.forEach((snowflake) => {
       gsap.to(snowflake, {
         y: height,
         x: `+=${Math.random() * 100 - 50}`,
         rotation: Math.random() * 360,
-        duration: Math.random() * 10 + 5,
+        duration: Math.random() * 15 + 10,
         repeat: -1,
         ease: 'none',
         delay: Math.random() * 5,
+      })
+
+      // Add a subtle pulsing effect
+      gsap.to(snowflake, {
+        scale: 1.2,
+        opacity: 0.8,
+        duration: Math.random() * 2 + 1,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
       })
     })
 
@@ -53,5 +69,5 @@ const SnowAnimation = () => {
   )
 }
 
-export default SnowAnimation
+export default CrystalSnowAnimation
 
