@@ -1,3 +1,28 @@
+/**
+ * @typedef {'hearts' | 'diamonds' | 'clubs' | 'spades'} Suit
+ * @typedef {'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K'} Rank
+ */
+
+/**
+ * @typedef {Object} Card
+ * @property {Suit} suit - The suit of the card
+ * @property {Rank} rank - The rank of the card
+ */
+
+/**
+ * Creates a new Card object.
+ * @param {Suit} suit - The suit of the card
+ * @param {Rank} rank - The rank of the card
+ * @returns {Card} The card object
+ */
+export function createCard(suit, rank) {
+  return { suit, rank };
+}
+
+// Export an example card for default import (optional)
+export const Card = createCard('', '');
+
+
 export function createDeck() {
   const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
   const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];

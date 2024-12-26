@@ -45,7 +45,6 @@ export const GameAction = {
   cardIndex: 0  // Index of the card in hand
 };
 
-
 export function useTongitGame(initialGameMode) {
   const [gameState, setGameState] = useState(null);
   const [gameActions, setGameActions] = useState([]);
@@ -176,7 +175,7 @@ export function useTongitGame(initialGameMode) {
       );
 
       let nextPlayerIndex = (prevState.currentPlayerIndex + 1) % prevState.players.length;
-      if (nextPlayerIndex > 2) nextPlayerIndex = 0; // Stop at Bot 2
+      if (nextPlayerIndex > 2) nextPlayerIndex = 0;
 
       addGameAction({
         type: 'discard',
@@ -428,4 +427,3 @@ export function useTongitGame(initialGameMode) {
     callDraw
   };
 }
-

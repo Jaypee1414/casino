@@ -30,7 +30,7 @@ export function ActivityLog({ activities }) {
       }, 30);
       return () => clearInterval(intervalId);
     }
-  }, [activities,displayedActivities.length]);
+  }, [activities]);
 
   const renderCards = (cards) => {
     return (

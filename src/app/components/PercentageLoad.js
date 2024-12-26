@@ -110,6 +110,9 @@ const PercentageLoader = ({ setIsFinished }) => {
               LOADING{dots}
             </div>
           </div>
+          <div className=" bg-[url('/image/border.svg')] w-full">
+
+          </div>
         </div>
         <div className="text-2xl font-bold text-blue-600">{progress}%</div>
       </div>

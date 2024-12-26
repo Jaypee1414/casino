@@ -2,34 +2,31 @@
 import { GameState, Player } from '../hooks/use-tongit-game';
 import { Card, isValidMeld, calculateCardPoints } from '../utils/card-utils';
 
-export function calculateHandPoints(hand) {
+export const calculateDrawProbability = (hand, discardPile) => {
+  const calculateHandPoints = (hand) => {
   return hand.reduce((sum, card) => sum + calculateCardPoints(card), 0);
-}
-
-export function calculateDrawProbability(hand, discardPile) {
-  const neededRanks = new Set(hand.map(card => card.rank));
-  const availableCards = 52 - hand.length - discardPile.length;
-  const neededCards = neededRanks.size * 4 - hand.length;
-
-  return neededCards / availableCards;
+  }
 }
 
 export function botPlayTurn(gameState) {
   const actions = [];
   const botPlayer = gameState.players[gameState.currentPlayerIndex];
-
+  
   if (!gameState.hasDrawnThisTurn) {
     if (gameState.deck.length === 0) {
+      // If the deck is empty, call draw if possible
       if (botPlayer.exposedMelds.length > 0) {
         actions.push({ type: 'callDraw' });
         return actions;
       }
-    } else {
-      const drawFromDiscard = shouldDrawFromDiscard(gameState.discardPile[gameState.discardPile.length - 1], botPlayer);
-      actions.push({ type: 'draw', fromDiscard: drawFromDiscard });
+      // If can't call draw, end turn without drawing
+      actions.push({ type: 'discard', cardIndex: chooseCardToDiscard(botPlayer.hand) });
+      return actions;
     }
+    const drawFromDiscard = shouldDrawFromDiscard(gameState.discardPile[gameState.discardPile.length - 1], botPlayer);
+    actions.push({ type: 'draw', fromDiscard: drawFromDiscard });
   }
-
+  
   const possibleMelds = findPossibleMelds(botPlayer.hand);
   possibleMelds.forEach(meld => {
     actions.push({ type: 'meld', cardIndices: meld });
