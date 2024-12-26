@@ -12,8 +12,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { isValidMeld } from "../../../utils/card-utils";
 import NetworkStatus from "@/app/components/NetworkStatus";
 import PercentageLoader from "@/app/components/PercentageLoad";
+import Sidebar from "@/app/components/Sidebar";
 
 export default function TongitGame() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [scale, setScale] = useState(1);
   const [gameMode, setGameMode] = useState("Bot");
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
@@ -33,6 +35,10 @@ export default function TongitGame() {
   } = useTongitGame(gameMode);
   const [sapawTarget, setSapawTarget] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
 
   const handleCardClick = useCallback(
     (index) => {
@@ -182,7 +188,7 @@ export default function TongitGame() {
     <div className="flex flex-col items-center justify-center w-full p-4 min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
         <div className="flex flex-row h-full w-full justify-between">
-          <button>
+          <button onClick={toggleSidebar}>
             <img
               onClick={animateClick}
               src="/image/sideBarButton.svg"
@@ -194,6 +200,7 @@ export default function TongitGame() {
               }}
             />
           </button>
+          <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
           <NetworkStatus />
         </div>
       </div>

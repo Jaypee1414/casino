@@ -16,6 +16,7 @@ const config = {
       },
       backgroundImage: {
         'text-gradient': 'linear-gradient(to right, #E88345, #AEAF6C)',
+        'user-name': 'linear-gradient(to right, #DC2424, #999999)',
       },
       textStroke: {
         DEFAULT: '2px #201F17', // Default stroke color and width

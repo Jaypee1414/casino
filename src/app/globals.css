@@ -45,3 +45,16 @@
     width: 500px !important;
     width: 500px !important;
 }
+
+.octagon {
+    clip-path: polygon(
+      30% 0%, 
+      70% 0%, 
+      100% 30%, 
+      100% 70%, 
+      70% 100%, 
+      30% 100%, 
+      0% 70%, 
+      0% 30%
+    );
+  }
