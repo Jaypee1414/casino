@@ -58,12 +58,12 @@ const Sidebar = ({ isOpen, onClose }) => {
                   </button>
                 </div>
               </div>
-              <div className="mt-6 relative flex-1 px-4 sm:px-6">
-                <div className="absolute inset-0 px-4 sm:px-6">
+              <div className="mt-6 relative flex-1 px-2 ">
+                <div className="absolute inset-0 px-2 ">
                   <div className="h-full" aria-hidden="true">
                     <nav className="space-y-4">
-                      <div className="bg-[url('/image/nameBorder.svg')] bg-no-repeat bg-cover bg-center h-20 flex justify-center items-center relative">
-                        <div className="flex flex-col ml-8">
+                      <div className="bg-[url('/image/nameBorder.svg')] bg-no-repeat bg-cover bg-center h-24 flex justify-center items-center relative">
+                        <div className="flex flex-col ml-9">
                           <h3 className="bg-clip-text text-transparent bg-user-name text-2xl  font-bold">
                             Jeorge Pakaw
                           </h3>
@@ -71,7 +71,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                             Jeorge@gmail.com
                           </p>
                         </div>
-                        <div className="absolute left-0 bottom-[-18px] h-auto">
+                        <div className="absolute left-3 bottom-[-18px] h-auto">
                           <img
                             src="https://miro.medium.com/v2/resize:fit:1400/1*rKl56ixsC55cMAsO2aQhGQ@2x.jpeg"
                             className="rounded-full border-black border-2 bg-black w-14 h-14 "
@@ -79,32 +79,32 @@ const Sidebar = ({ isOpen, onClose }) => {
                         </div>
                       </div>
                       <div className="mt-48 space-y-4">
-                        <div className="mt-10  border-gray-500 border-b py-2">
+                        <div className="mt-10  border-gray-500 border-b p-2 hover:bg-[rgba(124,85,75,0.2)] w-full cursor-pointer">
                           <button className="font-jaro text-white font-extrabold text-2xl ">
                             Switch Table
                           </button>
                         </div>
-                        <div className=" border-gray-500 border-b py-2">
+                        <div className=" border-gray-500 border-b p-2 hover:bg-[rgba(124,85,75,0.2)]">
                           <button className="font-jaro text-white font-extrabold text-2xl">
                             Store
                           </button>
                         </div>
-                        <div  className=" border-gray-500 border-b py-2">
-                          <button className="font-jaro text-white font-extrabold text-2xl">
+                        <div  className=" border-gray-500 border-b p-2 hover:bg-[rgba(124,85,75,0.2)]">
+                          <button className="font-jaro text-white font-extrabold text-2xl ">
                             Game Rules
                           </button>
                         </div>
-                        <div  className=" border-gray-500 border-b py-2">
+                        <div  className=" border-gray-500 border-b p-2  hover:bg-[rgba(124,85,75,0.2)]">
                           <button className="font-jaro text-white font-extrabold text-2xl">
                             Stand to Spectate
                           </button>
                         </div>
-                        <div  className=" border-gray-500 border-b py-2">
-                          <button className="font-jaro text-white font-extrabold text-2xl">
+                        <div  className=" border-gray-500 border-b p-2 hover:bg-[rgba(124,85,75,0.2)]">
+                          <button className="font-jaro text-white font-extrabold text-2xl ">
                             Settings
                           </button>
                         </div>
-                        <div  className=" border-gray-500 border-b py-2">
+                        <div  className=" border-gray-500 border-b p-2  hover:bg-[rgba(124,85,75,0.2)]">
                           <button className="font-jaro text-white font-extrabold text-2xl">
                             Quit
                           </button>

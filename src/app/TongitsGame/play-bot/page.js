@@ -15,7 +15,7 @@ import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 
 export default function TongitGame() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [scale, setScale] = useState(1);
   const [gameMode, setGameMode] = useState("Bot");
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
@@ -37,8 +37,8 @@ export default function TongitGame() {
   const [statusMessage, setStatusMessage] = useState("");
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
-  }
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const handleCardClick = useCallback(
     (index) => {
@@ -185,7 +185,7 @@ export default function TongitGame() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-4 min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
+    <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
         <div className="flex flex-row h-full w-full justify-between">
           <button onClick={toggleSidebar}>
@@ -200,7 +200,10 @@ export default function TongitGame() {
               }}
             />
           </button>
-          <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+          <Sidebar
+            isOpen={isSidebarOpen}
+            onClose={() => setIsSidebarOpen(false)}
+          />
           <NetworkStatus />
         </div>
       </div>
@@ -341,47 +344,37 @@ export default function TongitGame() {
         </div>
       </div>
       <div>
-        <div className="pl-10 flex space-x-2 w-screen">
-          <button
-          onClick={handleMeld}
-            disabled={
-              !isPlayerTurn ||
-              gameState.selectedCardIndices.length !== 1 ||
-              !gameState.hasDrawnThisTurn ||
-              gameState.gameEnded
-            }
-          >
-                        <img
+        <div className="pl-10 flex space-x-2 w-screen h-36">
+        <button 
+                onClick={handleMeld} 
+                disabled={!isPlayerTurn || gameState.selectedCardIndices.length < 3 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
+              >
+                            <img
               onClick={animateClick}
               src="/image/dropButton.svg"
               alt="My image"
-              className="w-[110px] h-full"
+              className="w-[115px] h-full"
               style={{
                 transform: `scale(${scale})`,
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-          </button>
-          <button
-            onClick={handleDiscard}
-            disabled={
-              !isPlayerTurn ||
-              gameState.selectedCardIndices.length < 3 ||
-              !gameState.hasDrawnThisTurn ||
-              gameState.gameEnded
-            }
-          >
-            <img
+              </button>
+          <button 
+                onClick={handleDiscard} 
+                disabled={!isPlayerTurn || gameState.selectedCardIndices.length !== 1 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
+              >
+                            <img
               onClick={animateClick}
               src="/image/dumpButton.svg"
               alt="My image"
-              className="w-[110px] h-full"
+              className="w-[115px] h-full"
               style={{
                 transform: `scale(${scale})`,
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-          </button>
+              </button>
           <button
             onClick={handleSapaw}
             disabled={
@@ -432,6 +425,44 @@ export default function TongitGame() {
                 DRAW
               </text>
             </svg>
+          </button>
+                    {/* <button
+          >
+            <img
+              onClick={animateClick}
+              src="/image/userBorder.svg"
+              alt="My image"
+              className="w-[120px] h-[full] aboslute top-0"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+          </button> */}
+          <button
+          >
+            <img
+              onClick={animateClick}
+              src="/image/auoSort.svg"
+              alt="My image"
+              className="w-[120px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+          </button>
+          <button>
+            <img
+              onClick={animateClick}
+              src="/image/shuffleButton.svg"
+              alt="My image"
+              className="w-[120px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
           </button>
         </div>
       </div>
