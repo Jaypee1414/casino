@@ -12,7 +12,7 @@ export function PlayerHand({
   return (
 <div
   className={`flex flex-wrap justify-center p-4 rounded-lg relative ${
-    isCurrentPlayer ? "bg-gray-200 shadow-lg bg-opacity-5 h-44" : "bg-gray-100 opacity-50"
+    isCurrentPlayer ? "bg-gray-200 shadow-lg bg-opacity-5 h-44" : "bg-gray-100 opacity-50 h-44"
   }`}
 >
   {hand?.map((card, index) => (

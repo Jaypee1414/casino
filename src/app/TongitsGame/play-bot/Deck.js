@@ -8,7 +8,7 @@ export function Deck({ cardsLeft, onDraw, disabled }) {
       onClick={onDraw}
       disabled={disabled}
     >
-      <span className="text-white font-bold">{cardsLeft}</span>
+      <span className="text-white font-bold font-jaro text-lg">{cardsLeft}</span>
     </button>
   );
 }

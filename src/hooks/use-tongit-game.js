@@ -174,13 +174,13 @@ export function useTongitGame(initialGameMode) {
           : player
       );
 
-      let nextPlayerIndex = (prevState.currentPlayerIndex + 1) % prevState.players.length;
+      let nextPlayerIndex = (prevState.currentPlayerIndex + 1) % prevState.players?.length;
       if (nextPlayerIndex > 2) nextPlayerIndex = 0;
 
       addGameAction({
         type: 'discard',
         player: currentPlayer.name,
-        details: `Discarded ${discardedCard.rank} of ${discardedCard.suit}`,
+        details: `Discarded ${discardedCard?.rank} of ${discardedCard?.suit}`,
         card: discardedCard
       });
 

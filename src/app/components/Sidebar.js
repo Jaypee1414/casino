@@ -74,7 +74,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         <div className="absolute left-3 bottom-[-18px] h-auto">
                           <img
                             src="https://miro.medium.com/v2/resize:fit:1400/1*rKl56ixsC55cMAsO2aQhGQ@2x.jpeg"
-                            className="rounded-full border-black border-2 bg-black w-14 h-14 "
+                            className="rounded-full border-gray-300 border-2 bg-black w-14 h-14 "
                           />
                         </div>
                       </div>

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect, useCallback } from "react";
 import { useTongitGame } from "../../../hooks/use-tongit-game";
 import { PlayerHand } from "./PlayerHand";
@@ -13,6 +12,7 @@ import { isValidMeld, shuffleDeck } from "../../../utils/card-utils";
 import NetworkStatus from "@/app/components/NetworkStatus";
 import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
+import WinnerGame from "@/app/components/WinnerGame";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
@@ -195,6 +195,7 @@ export default function TongitGame() {
   };
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
+      {/* header game */}
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
         <div className="flex flex-row h-full w-full justify-between">
           <button onClick={toggleSidebar}>
@@ -216,9 +217,19 @@ export default function TongitGame() {
           <NetworkStatus />
         </div>
       </div>
+      <img
+        src="/image/headerGame.svg"
+        alt="My image"
+        className="w-auto h-auto absolute h-40 top-0"
+        style={{
+          transform: `scale(${scale})`,
+          transition: "transform 0.3s ease-in-out",
+        }}
+      />
+
       <div className="flex w-full max-w-7xl gap-4">
-        {/* activity log */}
-        <div className="w-1/4">
+        {/* activity log  */}
+         <div className="w-1/4">
           <div className="h-[calc(100vh-8rem)]">
             <div className="p-4 h-full flex flex-col">
               <h2 className="text-xl font-semibold mb-2">Activity Log</h2>
@@ -241,6 +252,7 @@ export default function TongitGame() {
               </h2>
               {gameState.gameEnded ? (
                 <div>
+                  {/* <WinnerGame/> */}
                   <p className="font-bold">Final Scores:</p>
                   {gameState.players.map((player) => (
                     <div key={player.id}>
@@ -359,11 +371,12 @@ export default function TongitGame() {
       </div>
       <div>
         <div className="pl-10 flex space-x-2 w-screen h-36">
-        <button 
-                onClick={handleMeld} 
-                disabled={!isPlayerTurn || gameState.selectedCardIndices.length < 3 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
-              >
-                            <img
+          <button
+            onClick={handleMeld}
+            disabled={ !isPlayerTurn || gameState.selectedCardIndices.length < 3 || !gameState.hasDrawnThisTurn || gameState.gameEnded
+            }
+          >
+            <img
               onClick={animateClick}
               src="/image/dropButton.svg"
               alt="My image"
@@ -373,12 +386,13 @@ export default function TongitGame() {
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-              </button>
-          <button 
-                onClick={handleDiscard} 
-                disabled={!isPlayerTurn || gameState.selectedCardIndices.length !== 1 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
-              >
-                            <img
+          </button>
+          <button
+            onClick={handleDiscard}
+            disabled={ !isPlayerTurn || gameState.selectedCardIndices.length !== 1 || !gameState.hasDrawnThisTurn || gameState.gameEnded
+            }
+          >
+            <img
               onClick={animateClick}
               src="/image/dumpButton.svg"
               alt="My image"
@@ -388,7 +402,7 @@ export default function TongitGame() {
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-              </button>
+          </button>
           <button
             onClick={handleSapaw}
             disabled={
@@ -416,31 +430,21 @@ export default function TongitGame() {
           </button>
           <button
             onClick={handleCallDraw}
-            disabled={
-              !isPlayerTurn ||
-              currentPlayer.exposedMelds.length === 0 ||
-              gameState.hasDrawnThisTurn ||
-              gameState.gameEnded ||
-              currentPlayer.turnsPlayed <= 1 ||
-              currentPlayer.isSapawed
+            disabled={ !isPlayerTurn || gameState.selectedCardIndices.length < 3 || !gameState.hasDrawnThisTurn || gameState.gameEnded
             }
           >
-            <svg width="100" height="90">
-              <text
-                x="10"
-                y="50"
-                fontFamily="Jaro"
-                fontSize="30"
-                fill="white"
-                stroke="black"
-                strokeWidth="1"
-                letterSpacing="-2"
-              >
-                DRAW
-              </text>
-            </svg>
+            <img
+              onClick={animateClick}
+              src="/image/fightButton.svg"
+              alt="My image"
+              className="w-[115px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
           </button>
-                    {/* <button
+          {/* <button
           >
             <img
               onClick={animateClick}
@@ -453,8 +457,7 @@ export default function TongitGame() {
               }}
             />
           </button> */}
-          <button
-          >
+          <button>
             <img
               onClick={animateClick}
               src="/image/auoSort.svg"
@@ -466,9 +469,7 @@ export default function TongitGame() {
               }}
             />
           </button>
-          <button
-          onClick={shuffleDecks}
-          >
+          <button onClick={shuffleDecks}>
             <img
               onClick={animateClick}
               src="/image/shuffleButton.svg"
