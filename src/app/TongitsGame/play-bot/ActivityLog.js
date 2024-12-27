@@ -43,25 +43,18 @@ export function ActivityLog({ activities }) {
   };
 
   return (
-    <div className="h-full overflow-y-auto">
-      {displayedActivities.map((activity, index) => (
-        <div key={index} className="mb-2 text-sm">
-          <strong>{activity.player}:</strong> {activity.details}
-          {activity.type === 'meld' && activity.cards && renderCards(activity.cards)}
-          {activity.type === 'sapaw' && activity.cards && (
-            <div className="mt-1">
-              <span>Sapawed to Player {activity.playerIndex}, Meld {activity.meldIndex}</span>
-              {renderCards(activity.cards)}
-            </div>
-          )}
-          {(activity.type === 'draw' || activity.type === 'discard') && activity.card && (
-            <div className="transform scale-75 origin-left inline-block ml-2">
-              <Card card={activity.card} small={false} />
-            </div>
-          )}
-        </div>
-      ))}
-      <div ref={logEndRef} />
-    </div>
+    // REMOVE ACTIVITY LOG
+    // <div className="h-full overflow-y-auto">
+    //   {displayedActivities.map((activity, index) => (
+    //     <div key={index} className="mb-2 text-sm">
+    //       {(activity.type === 'draw' || activity.type === 'discard') && activity.card && (
+    //         <div className="transform scale-75 origin-left inline-block ml-2">
+    //           <Card card={activity.card} small={false} />
+    //         </div>
+    //       )}
+    //     </div>
+    //   ))}
+    // </div>
+    <div ref={logEndRef} />
   );
 }

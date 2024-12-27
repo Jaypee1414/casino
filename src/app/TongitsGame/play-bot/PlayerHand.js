@@ -12,7 +12,7 @@ export function PlayerHand({
   return (
 <div
   className={`flex flex-wrap justify-center p-4 rounded-lg relative ${
-    isCurrentPlayer ? "bg-gray-200 shadow-lg bg-opacity-5 h-44" : "bg-gray-100 opacity-50 h-44"
+    isCurrentPlayer ? "bg-gray-200 shadow-lg bg-opacity-5 h-60" : "bg-gray-100 opacity-50 h-60"
   }`}
 >
   {hand?.map((card, index) => (
@@ -26,6 +26,8 @@ export function PlayerHand({
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       style={{
+        borderRadius: "0.5rem",
+        border:"1px solid black",
         bottom: "10px",
         right: "10px",
         position: "absolute", // Absolute positioning for overlap

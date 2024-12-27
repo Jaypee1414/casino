@@ -12,7 +12,7 @@ import { isValidMeld, shuffleDeck } from "../../../utils/card-utils";
 import NetworkStatus from "@/app/components/NetworkStatus";
 import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
-import WinnerGame from "@/app/components/WinnerGame";
+import ScoreDashboard from "@/app/components/ScoreDashboard";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
@@ -220,7 +220,7 @@ export default function TongitGame() {
       <img
         src="/image/headerGame.svg"
         alt="My image"
-        className="w-auto h-auto absolute h-40 top-0"
+        className="w-auto absolute h-40 top-0"
         style={{
           transform: `scale(${scale})`,
           transition: "transform 0.3s ease-in-out",
@@ -252,30 +252,7 @@ export default function TongitGame() {
               </h2>
               {gameState.gameEnded ? (
                 <div>
-                  {/* <WinnerGame/> */}
-                  <p className="font-bold">Final Scores:</p>
-                  {gameState.players.map((player) => (
-                    <div key={player.id}>
-                      <p>
-                        {player.name}: {player.score} points
-                      </p>
-                      {player.secretMelds && player.secretMelds.length > 0 && (
-                        <div>
-                          <p>Secret Melds:</p>
-                          {player.secretMelds.map((meld, index) => (
-                            <div key={index} className="flex space-x-1">
-                              {meld.map((card, cardIndex) => (
-                                <div key={cardIndex} card={card} small />
-                              ))}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  <p className="mt-2 font-bold">
-                    Winner: {gameState.winner?.name}
-                  </p>
+                  <ScoreDashboard gameState={gameState}/>
                 </div>
               ) : gameState.hasDrawnThisTurn ? (
                 <p className="text-sm text-gray-600">

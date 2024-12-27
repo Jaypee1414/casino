@@ -8,7 +8,7 @@ export function DiscardPile({ topCard, onDraw, disabled, canDraw }) {
   if (!topCard) {
     return (
       <button 
-        className="w-16 h-24 bg-gray-300 border border-gray-400 rounded-lg shadow-md flex items-center justify-center"
+        className="w-20 h-28 bg-gray-300 border border-gray-400 rounded-lg shadow-md flex items-center justify-center"
         disabled={true}
       >
         Empty
