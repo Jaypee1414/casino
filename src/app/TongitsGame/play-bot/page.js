@@ -319,7 +319,7 @@ export default function TongitGame() {
           </div>
           {/* Player Hand */}
           <div>
-            <div className="pb-28  pr-20 2xl:py-24 2xl:pr-0">
+            <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
                 cardSize={"w-16 h-22 p-3 text-2xl"}
                 hand={playerHand}
