@@ -8,15 +8,17 @@ import { GameBoard } from "./GameBoard";
 import { ActivityLog } from "./ActivityLog";
 import { MeldedCards } from "./MeldedCards";
 import { motion, AnimatePresence } from "framer-motion";
-import { isValidMeld, shuffleDeck } from "../../../utils/card-utils";
+import { isValidMeld, shuffleDeck, sortCards } from "../../../utils/card-utils";
 import NetworkStatus from "@/app/components/NetworkStatus";
 import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 import ScoreDashboard from "@/app/components/ScoreDashboard";
 import ChatSideBar from "@/app/components/ChatSideBar";
 
+
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
+  const [isAutoSort, setIsAutoSort] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [scale, setScale] = useState(1);
@@ -71,6 +73,11 @@ export default function TongitGame() {
 
   const shuffleDecks = () => {
     const shuffle = shuffleDeck(gameState.players[0].hand);
+    setPlayerHande(shuffle);
+  };
+
+  const autoSort = () => {
+    const shuffle = sortCards(gameState.players[0].hand);
     setPlayerHande(shuffle);
   };
 
@@ -462,7 +469,9 @@ export default function TongitGame() {
           </div>
           {/* right button */}
           <div className="h-full flex justify-center items-center">
-            <button>
+            <button
+            onClick={autoSort}
+            >
               <img
                 onClick={animateClick}
                 src="/image/auoSort.svg"

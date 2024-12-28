@@ -143,3 +143,12 @@ const sortedCards = [...cards].sort((a, b) => rankToNumber(a.rank) - rankToNumbe
   return null;
 }
 
+
+export function sortCards(cards){
+  return [...cards].sort((a, b) => {
+    const suitOrder = ['♠', '♥', '♦', '♣'];
+    const suitDiff = suitOrder.indexOf(a.suit) - suitOrder.indexOf(b.suit);
+    if (suitDiff !== 0) return suitDiff;
+    return rankToNumber(b.rank) - rankToNumber(a.rank);
+  });
+}
