@@ -1,7 +1,7 @@
 import React from 'react';
 import { Player } from '../../../hooks/use-tongit-game';
 import { Card as CardType } from '../../../utils/card-utils';
-export function Card({cardSize, card, onClick, small = false, }) {
+export function Card({opacityCard, cardSize, card, onClick, small = false, }) {
   const { suit, rank } = card;
   const color = suit === 'hearts' || suit === 'diamonds' ? 'text-red-500' : 'text-black';
 
@@ -14,7 +14,7 @@ export function Card({cardSize, card, onClick, small = false, }) {
       default: return '';
     }
   };
-  const baseClasses = `bg-white border border-gray-300 rounded-md shadow-sm flex flex-col justify-between cursor-pointer ${color}`;
+  const baseClasses = `${opacityCard} bg-white border border-gray-300 rounded-md shadow-sm flex flex-col justify-between cursor-pointer ${color}`;
 
   // Make the card bigger by adjusting width, height, and padding
   const sizeClasses = small 

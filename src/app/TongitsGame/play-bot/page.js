@@ -13,11 +13,12 @@ import NetworkStatus from "@/app/components/NetworkStatus";
 import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 import ScoreDashboard from "@/app/components/ScoreDashboard";
-
+import ChatSideBar from "@/app/components/ChatSideBar";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [scale, setScale] = useState(1);
   const [gameMode, setGameMode] = useState("Bot");
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
@@ -38,8 +39,14 @@ export default function TongitGame() {
   const [sapawTarget, setSapawTarget] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
 
+  // Open left bar
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // open right bar
+  const toggleChat = () => {
+    setIsChatOpen(!isSidebarOpen);
   };
 
   const handleCardClick = useCallback(
@@ -194,9 +201,10 @@ export default function TongitGame() {
       setScale(1);
     }, 300);
   };
+
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
-                      {/* User border */}
+      {/* User border */}
 
       {/* header game */}
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
@@ -241,14 +249,14 @@ export default function TongitGame() {
           </div>
         </div>
         {/* card and deck */}
-        <div className="w-full flex flex-col justify-between gap-10 ">
+        <div className="w-full flex flex-col justify-between items-center gap-10 ">
           <div>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">
                 {gameState.gameEnded
                   ? "Game Over"
                   : isPlayerTurn
-                  ? "Your Turn"
+                  ? ""
                   : `${currentPlayer.name}'s Turn`}
               </h2>
               {gameState.gameEnded ? (
@@ -265,7 +273,11 @@ export default function TongitGame() {
           </div>
           <div>
             {/* Deck  */}
-            <div className="p-4 flex justify-center space-x-2 mb-10 mt-3">
+            <div className="p-4 2xl:px-8 rounded-md flex justify-center space-x-2 mb-10 mt-3 w-full"
+            style={{
+  background: 'linear-gradient(to bottom, rgba(0, 40, 56, 0.2), rgba(122, 210, 175, 0.2))'
+}}
+            >
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -307,7 +319,7 @@ export default function TongitGame() {
           </div>
           {/* Player Hand */}
           <div>
-            <div className="p-14">
+            <div className="pb-28  pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
                 cardSize={"w-16 h-22 p-3 text-2xl"}
                 hand={playerHand}
@@ -337,23 +349,33 @@ export default function TongitGame() {
         </div>
       </div>
       <div>
-      
-  <button
-    className="absolute bottom-0 left-96 transform translate-x-1/2 mb-4"
-  >
-    <img
-      onClick={animateClick}
-      src="/image/userBorder.svg"
-      alt="My image"
-      className="w-30 h-36 2xl:h-40"
-      style={{
-        transform: `scale(${scale})`,
-        transition: "transform 0.3s ease-in-out",
-      }}
-    />
-  </button>
+        <button className="absolute bottom-0 left-96 2xl:left-[36rem] transform translate-x-1/2 mb-4">
+          <img
+            onClick={animateClick}
+            src="/image/userBorder.svg"
+            alt="My image"
+            className="w-30 h-36 2xl:h-40"
+            style={{
+              transform: `scale(${scale})`,
+              transition: "transform 0.3s ease-in-out",
+            }}
+          />
+        </button>
+        <button onClick={toggleChat}>
+          <img
+            onClick={animateClick}
+            src="/image/chatButton.svg"
+            alt="My image"
+            className="w-32 h-32 absolute right-0 2xl:right-10 bottom-20" // Explicit width and height
+            style={{
+              transform: `scale(${scale})`,
+              transition: "transform 0.3s ease-in-out",
+            }}
+          />
+        </button>
+        <ChatSideBar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
-        <div className="px-28 2xl:px-36 flex w-screen gap-10 h-32 justify-between">
+        <div className="px-28 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
           <div>
             {" "}
             {/* left button */}
@@ -370,7 +392,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/dropButton.svg"
                 alt="My image"
-                className="w-[115px] 2xl:w-[130px] h-full"
+                className="w-[115px] 2xl:w-[145px] h-full"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -390,7 +412,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/dumpButton.svg"
                 alt="My image"
-                className="w-[115px] 2xl:w-[130px] h-full"
+                className="w-[115px] 2xl:w-[145px] h-full"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -410,7 +432,7 @@ export default function TongitGame() {
                 onClick={handleSapaw}
                 src="/image/sapawButton.svg"
                 alt="My image"
-                className="w-[125px] 2xl:w-[140px] h-full"
+                className="w-[125px] 2xl:w-[160px] h-full"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -430,7 +452,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/fightButton.svg"
                 alt="My image"
-                className="w-[115px] 2xl:w-[130px] h-full"
+                className="w-[115px] 2xl:w-[145px] h-full"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",

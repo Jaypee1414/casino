@@ -10,6 +10,9 @@ const config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'custom-dark': '#002838',
+        'custom-light': '#7AD2AF',
+
       },
       fontFamily: {
         jaro: ['Jaro', 'sans-serif'], // Add Jaro as the font name
@@ -17,6 +20,8 @@ const config = {
       backgroundImage: {
         'text-gradient': 'linear-gradient(to right, #E88345, #AEAF6C)',
         'user-name': 'linear-gradient(to right, #DC2424, #999999)',
+        'rightBar-Button': 'linear-gradient(to right, #EB4C3D, #1664AD)',
+        'deck-background': 'linear-gradient(to bottom, #002838, #7AD2AF)',
       },
       textStroke: {
         DEFAULT: '2px #201F17', // Default stroke color and width

@@ -22,6 +22,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
+      <div className="fixed inset-0 bg-black bg-opacity-30 "></div>
       <div className="absolute inset-0 overflow-hidden ">
         <div
           className={`absolute inset-0 bg-opacity-75 transition-opacity duration-300 ease-in-out ${

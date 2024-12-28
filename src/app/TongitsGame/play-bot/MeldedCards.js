@@ -30,7 +30,7 @@ export function MeldedCards({
           className={`
             absolute pointer-events-auto w-72 
             ${playerIndex === 0 ? "bottom-80 left-1/2 -translate-x-1/2" : ""}
-            ${playerIndex === 1 ? "top-72 left-72 2xl:left-96 " : ""}
+            ${playerIndex === 1 ? "top-64 2xl:top-72 left-72 2xl:left-96 " : ""}
             ${playerIndex === 2 ? "top-72 right-72 2xl:right-96" : ""}
           `}
         >
