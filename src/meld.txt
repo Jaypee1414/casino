@@ -1,0 +1,182 @@
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Card } from './Card';
+import { Player } from '../../../hooks/use-tongit-game';
+import { Card as CardType } from '../../../utils/card-utils';
+
+export function MeldedCards({ players, onSapawSelect, currentPlayerIndex, selectedSapawTarget }) {
+  return (
+    <div className="fixed inset-0 pointer-events-none">
+      {players.map((player, playerIndex) => (
+        <div 
+          key={player.id} 
+          className={`
+            absolute pointer-events-auto w-72 
+            ${playerIndex === 0 ? 'bottom-80 left-1/2 -translate-x-1/2' : ''}
+            ${playerIndex === 1 ? 'top-80 left-96 ' : ''}
+            ${playerIndex === 2 ? 'top-80 right-96' : ''}
+          `}
+        >
+          <div className="bg-white p-2 rounded-lg shadow">
+            <h3 className="font-semibold text-sm mb-1">
+              {player.name}'s Melds ({player.hand.length} cards)
+            </h3>
+            <AnimatePresence>
+              {player.exposedMelds.map((meld, meldIndex) => (
+                <motion.div
+                  key={meldIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    scale: selectedSapawTarget?.playerIndex === playerIndex && selectedSapawTarget?.meldIndex === meldIndex ? 1.05 : 1
+                  }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className={`mb-2 p-2 rounded-lg ${
+                    selectedSapawTarget?.playerIndex === playerIndex && 
+                    selectedSapawTarget?.meldIndex === meldIndex ? 'bg-blue-100' : ''
+                  }`}
+                  onClick={() => onSapawSelect({ playerIndex, meldIndex })}
+                >
+                  <p className="text-xs mb-1">Meld {meldIndex + 1}:</p>
+                  <div className="flex flex-wrap gap-1">
+                    {meld.map((card, cardIndex) => (
+                      <motion.div
+                        key={cardIndex}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: cardIndex * 0.1 }}
+                        className="transform scale-75 origin-top-left cursor-pointer"
+                      >
+                        <Card card={card} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            {playerIndex === currentPlayerIndex && (
+              <p className="text-xs font-bold text-green-600 mt-1">Current Turn</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+export function MeldedCards({ players, onSapawSelect, currentPlayerIndex, selectedSapawTarget }) {
+  if (!players || players.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="fixed inset-x-0 bottom-32 px-4">
+      <div className="flex justify-center gap-8">
+        {players.map((player, playerIndex) => (
+          <div key={player.id}>
+            <AnimatePresence>
+              {player.exposedMelds.map((meld, meldIndex) => (
+                <motion.div
+                  key={meldIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    scale: selectedSapawTarget?.playerIndex === playerIndex && 
+                           selectedSapawTarget?.meldIndex === meldIndex ? 1.05 : 1
+                  }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={() => onSapawSelect({ playerIndex, meldIndex })}
+                  className="relative"
+                >
+                  <div className="flex">
+                    {meld.map((card, cardIndex) => (
+                      <motion.div
+                        key={cardIndex}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: cardIndex * 0.1 }}
+                        style={{
+                          marginLeft: cardIndex === 0 ? '0' : '-3rem',
+                          zIndex: cardIndex
+                        }}
+                        className={`
+                          cursor-pointer hover:z-10
+                          ${selectedSapawTarget?.playerIndex === playerIndex && 
+                            selectedSapawTarget?.meldIndex === meldIndex ? 'ring-2 ring-blue-400' : ''}
+                        `}
+                      >
+                        <Card 
+                          cardSize="w-20 h-28" 
+                          card={card}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            {playerIndex === currentPlayerIndex && (
+              <p className="text-xs font-bold text-green-600 mt-1 text-center">Current Turn</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+
+// Right Button 
+          <button>
+            <img
+              onClick={animateClick}
+              src="/image/auoSort.svg"
+              alt="My image"
+              className="w-[120px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+          </button>
+          <button onClick={shuffleDecks}>
+            <img
+              onClick={animateClick}
+              src="/image/shuffleButton.svg"
+              alt="My image"
+              className="w-[120px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+          </button>
+          <button onClick={shuffleDecks}>
+            <img
+              onClick={animateClick}
+              src="/image/withdrawButton.svg"
+              alt="My image"
+              className="w-[120px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+          </button>
+          <button onClick={shuffleDecks}>
+            <img
+              onClick={animateClick}
+              src="/image/depositButton.svg"
+              alt="My image"
+              className="w-[120px] h-full"
+              style={{
+                transform: `scale(${scale})`,
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+          </button>

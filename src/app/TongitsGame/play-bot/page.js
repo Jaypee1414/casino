@@ -14,6 +14,7 @@ import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 import ScoreDashboard from "@/app/components/ScoreDashboard";
 
+
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -56,15 +57,15 @@ export default function TongitGame() {
     },
     [gameState, updateSelectedCardIndices]
   );
-  
-  useEffect(()=>{
-    setPlayerHande(gameState?.players[0]?.hand)
-  },[gameState])
-  
-  const shuffleDecks = () =>{
-    const  shuffle = shuffleDeck(gameState.players[0].hand)
-    setPlayerHande(shuffle)
-  }
+
+  useEffect(() => {
+    setPlayerHande(gameState?.players[0]?.hand);
+  }, [gameState]);
+
+  const shuffleDecks = () => {
+    const shuffle = shuffleDeck(gameState.players[0].hand);
+    setPlayerHande(shuffle);
+  };
 
   const handleDiscard = useCallback(() => {
     if (
@@ -195,6 +196,8 @@ export default function TongitGame() {
   };
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
+                      {/* User border */}
+
       {/* header game */}
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
         <div className="flex flex-row h-full w-full justify-between">
@@ -220,20 +223,18 @@ export default function TongitGame() {
       <img
         src="/image/headerGame.svg"
         alt="My image"
-        className="w-auto absolute h-40 top-0"
+        className="w-auto absolute h-36 2xl:h-40 top-0"
         style={{
           transform: `scale(${scale})`,
           transition: "transform 0.3s ease-in-out",
         }}
       />
-
       <div className="flex w-full max-w-7xl gap-4">
         {/* activity log  */}
-         <div className="w-1/4">
+        <div className="">
           <div className="h-[calc(100vh-8rem)]">
-            <div className="p-4 h-full flex flex-col">
-              <h2 className="text-xl font-semibold mb-2">Activity Log</h2>
-              <div className="flex-grow overflow-y-auto">
+            <div className="h-full flex flex-col">
+              <div className="flex-grow">
                 <ActivityLog activities={gameActions} />
               </div>
             </div>
@@ -252,22 +253,10 @@ export default function TongitGame() {
               </h2>
               {gameState.gameEnded ? (
                 <div>
-                  <ScoreDashboard gameState={gameState}/>
+                  <ScoreDashboard gameState={gameState} />
                 </div>
-              ) : gameState.hasDrawnThisTurn ? (
-                <p className="text-sm text-gray-600">
-                  {isPlayerTurn ? "You have" : `${currentPlayer.name} has`}{" "}
-                  drawn a card.
-                  {isPlayerTurn ? "You can" : "They can"} meld, sapaw, or
-                  discard to end the turn.
-                </p>
               ) : (
-                <p className="text-sm text-gray-600">
-                  {isPlayerTurn
-                    ? "Draw a card"
-                    : `${currentPlayer.name} needs to draw a card`}{" "}
-                  from the deck or discard pile to start the turn.
-                </p>
+                " "
               )}
               {statusMessage && (
                 <p className="text-sm text-blue-600 mt-2">{statusMessage}</p>
@@ -276,7 +265,7 @@ export default function TongitGame() {
           </div>
           <div>
             {/* Deck  */}
-            <div className="p-4 flex justify-center space-x-4 mb-10">
+            <div className="p-4 flex justify-center space-x-2 mb-10 mt-3">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -318,8 +307,9 @@ export default function TongitGame() {
           </div>
           {/* Player Hand */}
           <div>
-            <div className="p-4">
+            <div className="p-14">
               <PlayerHand
+                cardSize={"w-16 h-22 p-3 text-2xl"}
                 hand={playerHand}
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}
@@ -329,11 +319,11 @@ export default function TongitGame() {
           </div>
         </div>
         {/* melded */}
-        <div className="w-1/4">
+        <div className="absolute">
           <div className="h-[calc(100vh-8rem)] overflow-y-auto">
             <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">Melded Cards</h2>
               <MeldedCards
+                cardSize={"w-16 h-22 p-3 text-2xl"}
                 players={gameState.players}
                 onSapawSelect={(target) => {
                   setSapawTarget(target);
@@ -347,117 +337,158 @@ export default function TongitGame() {
         </div>
       </div>
       <div>
-        <div className="pl-10 flex space-x-2 w-screen h-36">
-          <button
-            onClick={handleMeld}
-            disabled={ !isPlayerTurn || gameState.selectedCardIndices.length < 3 || !gameState.hasDrawnThisTurn || gameState.gameEnded
-            }
-          >
-            <img
-              onClick={animateClick}
-              src="/image/dropButton.svg"
-              alt="My image"
-              className="w-[115px] h-full"
-              style={{
-                transform: `scale(${scale})`,
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
-          </button>
-          <button
-            onClick={handleDiscard}
-            disabled={ !isPlayerTurn || gameState.selectedCardIndices.length !== 1 || !gameState.hasDrawnThisTurn || gameState.gameEnded
-            }
-          >
-            <img
-              onClick={animateClick}
-              src="/image/dumpButton.svg"
-              alt="My image"
-              className="w-[115px] h-full"
-              style={{
-                transform: `scale(${scale})`,
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
-          </button>
-          <button
-            onClick={handleSapaw}
-            disabled={
-              !isPlayerTurn ||
-              !sapawTarget ||
-              gameState.selectedCardIndices.length === 0 ||
-              !gameState.hasDrawnThisTurn ||
-              gameState.gameEnded
-            }
-          >
-            <svg width="100" height="90">
-              <text
-                x="10"
-                y="50"
-                fontFamily="Jaro"
-                fontSize="30"
-                fill="white"
-                stroke="black"
-                strokeWidth="1"
-                letterSpacing="-2"
-              >
-                SAPAW
-              </text>
-            </svg>
-          </button>
-          <button
-            onClick={handleCallDraw}
-            disabled={ !isPlayerTurn || gameState.selectedCardIndices.length < 3 || !gameState.hasDrawnThisTurn || gameState.gameEnded
-            }
-          >
-            <img
-              onClick={animateClick}
-              src="/image/fightButton.svg"
-              alt="My image"
-              className="w-[115px] h-full"
-              style={{
-                transform: `scale(${scale})`,
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
-          </button>
-          {/* <button
-          >
-            <img
-              onClick={animateClick}
-              src="/image/userBorder.svg"
-              alt="My image"
-              className="w-[120px] h-[full] aboslute top-0"
-              style={{
-                transform: `scale(${scale})`,
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
-          </button> */}
-          <button>
-            <img
-              onClick={animateClick}
-              src="/image/auoSort.svg"
-              alt="My image"
-              className="w-[120px] h-full"
-              style={{
-                transform: `scale(${scale})`,
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
-          </button>
-          <button onClick={shuffleDecks}>
-            <img
-              onClick={animateClick}
-              src="/image/shuffleButton.svg"
-              alt="My image"
-              className="w-[120px] h-full"
-              style={{
-                transform: `scale(${scale})`,
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
-          </button>
+      
+  <button
+    className="absolute bottom-0 left-96 transform translate-x-1/2 mb-4"
+  >
+    <img
+      onClick={animateClick}
+      src="/image/userBorder.svg"
+      alt="My image"
+      className="w-30 h-36 2xl:h-40"
+      style={{
+        transform: `scale(${scale})`,
+        transition: "transform 0.3s ease-in-out",
+      }}
+    />
+  </button>
+
+        <div className="px-28 2xl:px-36 flex w-screen gap-10 h-32 justify-between">
+          <div>
+            {" "}
+            {/* left button */}
+            <button
+              onClick={handleMeld}
+              disabled={
+                !isPlayerTurn ||
+                gameState.selectedCardIndices.length < 3 ||
+                !gameState.hasDrawnThisTurn ||
+                gameState.gameEnded
+              }
+            >
+              <img
+                onClick={animateClick}
+                src="/image/dropButton.svg"
+                alt="My image"
+                className="w-[115px] 2xl:w-[130px] h-full"
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+            <button
+              onClick={handleDiscard}
+              disabled={
+                !isPlayerTurn ||
+                gameState.selectedCardIndices.length !== 1 ||
+                !gameState.hasDrawnThisTurn ||
+                gameState.gameEnded
+              }
+            >
+              <img
+                onClick={animateClick}
+                src="/image/dumpButton.svg"
+                alt="My image"
+                className="w-[115px] 2xl:w-[130px] h-full"
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+            <button
+              onClick={handleCallDraw}
+              disabled={
+                !isPlayerTurn ||
+                gameState.selectedCardIndices.length < 3 ||
+                !gameState.hasDrawnThisTurn ||
+                gameState.gameEnded
+              }
+            >
+              <img
+                onClick={handleSapaw}
+                src="/image/sapawButton.svg"
+                alt="My image"
+                className="w-[125px] 2xl:w-[140px] h-full"
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+            <button
+              onClick={handleCallDraw}
+              disabled={
+                !isPlayerTurn ||
+                gameState.selectedCardIndices.length < 3 ||
+                !gameState.hasDrawnThisTurn ||
+                gameState.gameEnded
+              }
+            >
+              <img
+                onClick={animateClick}
+                src="/image/fightButton.svg"
+                alt="My image"
+                className="w-[115px] 2xl:w-[130px] h-full"
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+          </div>
+          {/* right button */}
+          <div className="h-full flex justify-center items-center">
+            <button>
+              <img
+                onClick={animateClick}
+                src="/image/auoSort.svg"
+                alt="My image"
+                className="w-32 h-32" // Explicit width and height
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+            <button onClick={shuffleDecks}>
+              <img
+                onClick={animateClick}
+                src="/image/shuffleButton.svg"
+                alt="My image"
+                className="w-32 h-32" // Explicit width and height
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+            <button onClick={shuffleDecks}>
+              <img
+                onClick={animateClick}
+                src="/image/withdrawButton.svg"
+                alt="My image"
+                className="w-32 h-32" // Explicit width and height
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+            <button onClick={shuffleDecks}>
+              <img
+                onClick={animateClick}
+                src="/image/depositButton.svg"
+                alt="My image"
+                className="w-32 h-32" // Explicit width and height
+                style={{
+                  transform: `scale(${scale})`,
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
+            </button>
+          </div>
         </div>
       </div>
     </div>

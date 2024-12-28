@@ -135,13 +135,17 @@ function ScoreDashboard({ gameState }) {
           {gameState.players.map((player, index) => (
             <React.Fragment key={index}>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className=" flex flex-col items-center justify-center  text-2xl border-2 font-jaro text-white tracking-tight"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
                 }}
               >
                 {player.name}
+                <p className="mt-2 font-bold text-lg text-[#FFCD06]"                 style={{
+                  WebkitTextStroke: "0.5px black",
+                  textStroke: "0.5px black",
+                }}> {gameState?.winner?.id === player.id ? "Winner" : ""}</p>
               </div>
               <div
                 className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"

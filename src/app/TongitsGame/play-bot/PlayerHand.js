@@ -4,6 +4,7 @@ import { Card } from "./Card";
 import { motion } from "framer-motion";
 
 export function PlayerHand({
+  cardSize,
   hand,
   onCardClick,
   selectedIndices,
@@ -12,7 +13,7 @@ export function PlayerHand({
   return (
 <div
   className={`flex flex-wrap justify-center p-4 rounded-lg relative ${
-    isCurrentPlayer ? "bg-gray-200 shadow-lg bg-opacity-5 h-60" : "bg-gray-100 opacity-50 h-60"
+    isCurrentPlayer ? "bg-opacity-10  shadow-lg h-60" : "bg-opacity-10 h-44"
   }`}
 >
   {hand?.map((card, index) => (
@@ -25,7 +26,10 @@ export function PlayerHand({
         x: index * -45, // Slightly adjust for overlap horizontally
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      whileHover={{ rotate: 5 }}
       style={{
+        transformStyle: 'preserve-3d',
+        transform: 'perspective(1000px)',
         borderRadius: "0.5rem",
         border:"1px solid black",
         bottom: "10px",
@@ -35,6 +39,7 @@ export function PlayerHand({
       }}
     >
       <Card
+      cardSize={cardSize}
         card={card}
         onClick={() => isCurrentPlayer && onCardClick(index)}
       />
