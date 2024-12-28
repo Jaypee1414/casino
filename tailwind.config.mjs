@@ -16,6 +16,7 @@ const config = {
       },
       fontFamily: {
         jaro: ['Jaro', 'sans-serif'], // Add Jaro as the font name
+        robotoSans: ['Roboto', 'sans-serif'], 
       },
       backgroundImage: {
         'text-gradient': 'linear-gradient(to right, #E88345, #AEAF6C)',

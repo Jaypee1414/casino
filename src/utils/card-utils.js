@@ -143,7 +143,6 @@ const sortedCards = [...cards].sort((a, b) => rankToNumber(a.rank) - rankToNumbe
   return null;
 }
 
-
 export function sortCards(cards){
   return [...cards].sort((a, b) => {
     const suitOrder = ['♠', '♥', '♦', '♣'];

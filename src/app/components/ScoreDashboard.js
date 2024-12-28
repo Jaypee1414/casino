@@ -1,21 +1,23 @@
-import React, { useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import { gsap } from 'gsap';
+"use client";
+import { useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { gsap } from "gsap";
 
 function ScoreDashboard({ gameState }) {
   const scoreboardRef = useRef(null);
   const router = useRouter();
-
+  const [scale, setScale] = useState(1);
 
   const handleButtonClick = () => {
-    router.push('/TongitsGame');
+    router.push("/TongitsGame");
   };
 
   useEffect(() => {
     const scoreboard = scoreboardRef.current;
-    
+
     gsap.set(scoreboard, { scale: 0.5, opacity: 0 });
-    
+
     gsap.to(scoreboard, {
       duration: 0.5,
       scale: 1,
@@ -23,35 +25,65 @@ function ScoreDashboard({ gameState }) {
       ease: "back.out(1.7)",
       onComplete: () => {
         // Animation complete callback if needed
-      }
+      },
     });
   }, []);
+
+  const animateClick = () => {
+    setScale(0.99);
+    setTimeout(() => {
+      setScale(1);
+    }, 300);
+  };
   console.log(gameState, "Game State");
   return (
     <div>
       {/* Overlay */}
-      <div className="fixed inset-0 bg-black bg-opacity-30 z-10"></div>
-      {/* ScoreBoard */}
-      <div ref={scoreboardRef}  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-[#2B385F] to-[#ABB9C2] lg:w-8/12 lg:h-4/6 z-30 rounded-lg border border-gray-600 shadow-2xl">
-        <button className="text-black hover:text-gray-500 -right-3 absolute -top-4 focus:outline-none  octagon bg-white p-1 shadow-md focus:text-gray-500 transition ease-in-out duration-150 z-10 " onClick={handleButtonClick}>
-          <svg
-            className="h-7 w-7"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="3"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+      <div
+        className="fixed inset-0  z-20"
+        style={{
+          background: "linear-gradient(to bottom, #021821, #954A4A)",
+          height: "100vh",
+        }}
+      >
+        {/* Button */}
+        <button
+          className="text-black hover:text-gray-500 top-0 left-0 focus:outline-none  shadow-md focus:text-gray-500 transition ease-in-out duration-150 z-10 "
+          onClick={handleButtonClick}
+        >
+          <img
+            onClick={animateClick}
+            src="/image/existButton.svg"
+            alt="My image"
+            className="w-[95px] 2xl:w-[95px] h-full"
+            style={{
+              transform: `scale(${scale})`,
+              transition: "transform 0.3s ease-in-out",
+            }}
+          />
         </button>
+      </div>
+      {/* Score board Title */}
+      <div className="w-full h-24  top-24 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 absolute lg:w-10/12 ">
+        <img
+          onClick={animateClick}
+          src="/image/scoreboardHeader.svg"
+          alt="My image"
+          className="w-full 2xl:w-[95px] h-full"
+          style={{
+            transition: "transform 0.3s ease-in-out",
+          }}
+        />
+      </div>
+      {/* ScoreBoard */}
+      <div
+        ref={scoreboardRef}
+        className="absolute bottom-20 left-1/2 transform -translate-x-1/2 lg:w-10/12 lg:h-4/6 z-30 rounded-lg border border-gray-600 shadow-2xl opacity-80"
+      >
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 grid grid-rows-4 grid-cols-9 h-5/6 w-11/12">
           {/* Dashboard */}
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -60,7 +92,7 @@ function ScoreDashboard({ gameState }) {
             Players
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -69,7 +101,7 @@ function ScoreDashboard({ gameState }) {
             Score
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -78,7 +110,7 @@ function ScoreDashboard({ gameState }) {
             Profit
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -87,7 +119,7 @@ function ScoreDashboard({ gameState }) {
             Consecutive wins
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -96,7 +128,7 @@ function ScoreDashboard({ gameState }) {
             Tongits
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -105,7 +137,7 @@ function ScoreDashboard({ gameState }) {
             Secret melds
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center "
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -114,7 +146,7 @@ function ScoreDashboard({ gameState }) {
             Burned Players
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -123,7 +155,7 @@ function ScoreDashboard({ gameState }) {
             Challengers
           </div>
           <div
-            className="border-2 text-[#FFCD06] font-jaro flex items-center justify-center text-2xl tracking-tight text-center"
+            className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
             style={{
               WebkitTextStroke: "1px black",
               textStroke: "0.5px black",
@@ -135,20 +167,26 @@ function ScoreDashboard({ gameState }) {
           {gameState.players.map((player, index) => (
             <React.Fragment key={index}>
               <div
-                className=" flex flex-col items-center justify-center  text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white flex-col font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
                 }}
               >
                 {player.name}
-                <p className="mt-2 font-bold text-lg text-[#FFCD06]"                 style={{
-                  WebkitTextStroke: "0.5px black",
-                  textStroke: "0.5px black",
-                }}> {gameState?.winner?.id === player.id ? "Winner" : ""}</p>
+                <p
+                  className="mt-2 font-bold text-lg text-[#FFCD06]"
+                  style={{
+                    WebkitTextStroke: "0.5px black",
+                    textStroke: "0.5px black",
+                  }}
+                >
+                  {" "}
+                  {gameState?.winner?.id === player.id ? "Winner" : ""}
+                </p>
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
@@ -157,7 +195,7 @@ function ScoreDashboard({ gameState }) {
                 {player.score}
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
@@ -166,7 +204,7 @@ function ScoreDashboard({ gameState }) {
                 0
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
@@ -175,7 +213,7 @@ function ScoreDashboard({ gameState }) {
                 {player.consecutiveWins}
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
@@ -184,7 +222,7 @@ function ScoreDashboard({ gameState }) {
                 0
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
@@ -193,16 +231,16 @@ function ScoreDashboard({ gameState }) {
                 {player.secretMelds.length}
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
                 }}
               >
-                {player.exposedMelds.length > 0 ? "0" : "1" }
+                {player.exposedMelds.length > 0 ? "0" : "1"}
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
@@ -211,7 +249,7 @@ function ScoreDashboard({ gameState }) {
                 {player.turnsPlayed}
               </div>
               <div
-                className=" flex items-center justify-center text-2xl border-2 font-jaro text-white tracking-tight"
+                className="border-2 text-white font-extrabold font-robotoSans flex items-center justify-center text-2xl tracking-tight text-center"
                 style={{
                   WebkitTextStroke: "1px black",
                   textStroke: "0.5px black",
@@ -228,4 +266,3 @@ function ScoreDashboard({ gameState }) {
 }
 
 export default ScoreDashboard;
-

@@ -8,8 +8,7 @@ function PlayerIcon({ playerIndex,players, positioning  }) {
   }else{
     imageUrl = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVCTEOejHb2Cc4W8KxhLqz8_o5K2rO3XrfpA&s`
   }
-  console.log(positioning)
-  console.log(players)
+  
   return (
     <div className={`text-2xl absolute ${positioning}` }>
           <div className="bg-gray-800 text-white p-4 rounded-lg shadow-lg max-w-xs w-full">
@@ -26,13 +25,13 @@ function PlayerIcon({ playerIndex,players, positioning  }) {
           />
         </div>
         <div>
-          <h2 className="text-xl font-bold">{players.name}</h2>
-          <p className="text-gray-300">Cards: {players.hand}</p>
+          <h2 className="text-xl font-bold">{players[playerIndex].name}</h2>
+          <p className="text-gray-300">Cards: {players[playerIndex]?.hand.length}</p>
         </div>
       </div>
       <div className="mt-4">
         <p className="text-lg">
-          Pot Money: <span className="font-semibold text-green-400">$123</span>
+          Pot Money: <span className="font-semibold text-green-400">₱ NAN</span>
         </p>
       </div>
     </div>

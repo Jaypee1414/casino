@@ -19,7 +19,7 @@ export function MeldedCards({
             playerIndex={playerIndex}
             players={players}
             positioning={`${playerIndex === 0 ? "hidden" : ""}${
-              playerIndex === 1 ? "top-44 2xl:top-48 left-14 2xl:left-32" : ""
+              playerIndex === 1 ? "top-40 2xl:top-48 left-14 2xl:left-32" : ""
             } ${playerIndex === 2 ? "top-44 right-14 2xl:right-32" : ""}`}
           />
           <div
@@ -71,7 +71,7 @@ export function MeldedCards({
                           className="transform scale-75 origin-top-left cursor-pointer border-black border rounded-md"
                         >
                           <Card
-                            cardSize={"w-12 h-auto p-2 text-sm"}
+                            cardSize={"w-14 h-auto p-2 text-sm"}
                             card={card}
                           />
                         </motion.div>
@@ -82,7 +82,7 @@ export function MeldedCards({
               </AnimatePresence>
               {playerIndex === currentPlayerIndex && (
                 <p className="text-xs font-bold text-green-600 mt-1">
-                  Current Turn
+                  
                 </p>
               )}
             </div>

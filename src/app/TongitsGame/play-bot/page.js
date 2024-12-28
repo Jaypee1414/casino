@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useTongitGame } from "../../../hooks/use-tongit-game";
 import { PlayerHand } from "./PlayerHand";
 import { Deck } from "./Deck";
@@ -14,6 +14,7 @@ import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 import ScoreDashboard from "@/app/components/ScoreDashboard";
 import ChatSideBar from "@/app/components/ChatSideBar";
+import { gsap } from 'gsap';
 
 
 export default function TongitGame() {
@@ -40,6 +41,9 @@ export default function TongitGame() {
   } = useTongitGame(gameMode);
   const [sapawTarget, setSapawTarget] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
+
+
+  
 
   // Open left bar
   const toggleSidebar = () => {
@@ -328,7 +332,7 @@ export default function TongitGame() {
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
-                cardSize={"w-16 h-22 p-3 text-2xl"}
+                cardSize={"w-20 h-22 p-3 text-2xl"}
                 hand={playerHand}
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}
