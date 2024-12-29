@@ -14,6 +14,7 @@ import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 import ScoreDashboard from "@/app/components/ScoreDashboard";
 import ChatSideBar from "@/app/components/ChatSideBar";
+import DealingAnimation from "@/app/components/DealingCard";
 import { gsap } from 'gsap';
 
 
@@ -195,10 +196,29 @@ export default function TongitGame() {
     }
   }, [gameState, isDeckEmpty, callDraw]);
 
-  if (!gameState) {
+  const [isDealingDone, setIsDealingDone] = useState(false);
+
+  useEffect(() => {
+    // Simulate fetching game state
+    const fetchGameState = async () => {
+      // Replace this with your actual game state fetching logic
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    };
+
+    fetchGameState();
+
+    // Simulate the dealing animation duration with a timeout
+    const timer = setTimeout(() => {
+      setIsDealingDone(true);
+    }, 900); // 3 seconds animation duration
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isDealingDone) {
     return (
-      <div>
-        <PercentageLoader />
+      <div className="flex flex-col items-center justify-center w-full min-h-screen bg-[url('/image/TableBot.svg')] bg-no-repeat bg-cover bg-center relative">
+        <DealingAnimation />
       </div>
     );
   }
