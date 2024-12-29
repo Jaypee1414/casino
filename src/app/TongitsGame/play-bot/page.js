@@ -42,10 +42,7 @@ export default function TongitGame() {
   } = useTongitGame(gameMode);
   const [sapawTarget, setSapawTarget] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
-
-
   
-
   // Open left bar
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
