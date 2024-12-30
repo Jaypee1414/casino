@@ -3,6 +3,7 @@ import { useState } from "react";
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
+import CrystalSnowAnimation from "./snowflakes";
 
 function ScoreDashboard({ gameState }) {
   const scoreboardRef = useRef(null);
@@ -40,7 +41,7 @@ function ScoreDashboard({ gameState }) {
     <div>
       {/* Overlay */}
       <div
-        className="fixed inset-0  z-20"
+        className="fixed inset-0  z-20 bg-opacity-90"
         style={{
           background: "linear-gradient(to bottom, #021821, #954A4A)",
           height: "100vh",
@@ -261,6 +262,7 @@ function ScoreDashboard({ gameState }) {
           ))}
         </div>
       </div>
+      <CrystalSnowAnimation />
     </div>
   );
 }

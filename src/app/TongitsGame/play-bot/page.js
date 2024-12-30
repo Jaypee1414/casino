@@ -448,7 +448,7 @@ export default function TongitGame() {
               />
             </button>
             <button
-              onClick={handleCallDraw}
+              onClick={handleSapaw}
               disabled={
                 !isPlayerTurn ||
                 gameState.selectedCardIndices.length < 3 ||

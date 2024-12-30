@@ -1,5 +1,4 @@
-"use client"
-import {React,useState,useEffect} from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "./Card";
 import { Player } from "../../../hooks/use-tongit-game";
@@ -12,37 +11,6 @@ export function MeldedCards({
   currentPlayerIndex,
   selectedSapawTarget,
 }) {
-  const randomizePositions = () => {
-    const randomPositions = [
-      "top-40 2xl:top-48 left-14 2xl:left-32", // Position 1
-      "top-44 right-14 2xl:right-32", // Position 2
-    ];
-
-    // Randomly choose a position from the array
-    const randomIndex1 = Math.floor(Math.random() * randomPositions.length);
-    let randomIndex2 = Math.floor(Math.random() * randomPositions.length);
-
-    // Ensure position1 and position2 are not the same
-    while (randomIndex1 === randomIndex2) {
-      randomIndex2 = Math.floor(Math.random() * randomPositions.length);
-    }
-
-    return {
-      position1: randomPositions[randomIndex1],
-      position2: randomPositions[randomIndex2],
-    };
-  };
-
-    const [positions, setPositions] = useState({
-      position1: "",
-      position2: "",
-    });
-
-    // Update positions when component mounts or when needed
-    useEffect(() => {
-      const { position1, position2 } = randomizePositions();
-      setPositions({ position1, position2 });
-    }, []); // Only run once on mount
 
   return (
     <div className="fixed inset-0 pointer-events-none">
@@ -51,19 +19,19 @@ export function MeldedCards({
           <PlayerIcon
             playerIndex={playerIndex}
             players={players}
-            positioning={`${playerIndex === 0 ? "hidden" : ""} ${
-              playerIndex === 2 ? positions.position2 : ""
-            } ${playerIndex === 1 ? positions.position1 : ""}`}
+            positioning={`${playerIndex === 0 ? "hidden" : ""}${
+              playerIndex === 1 ? "top-40 2xl:top-48 left-14 2xl:left-32 z-20" : ""
+            } ${playerIndex === 2 ? "top-44 right-14 2xl:right-32 z-20" : ""}`}
           />
           <div
             className={`
             absolute pointer-events-auto w-72 
-            ${playerIndex === 0 ? "bottom-80 left-1/2 -translate-x-1/2" : ""}
-            ${playerIndex === 2 ? "top-56 2xl:top-72 left-72 2xl:left-96 " : ""}
-            ${playerIndex === 1 ? "top-56 right-72 2xl:right-96" : ""}
+            ${playerIndex === 0 ? "bottom-72 left-1/2 -translate-x-1/2 z-10" : ""}
+            ${playerIndex === 2 ? "top-56 2xl:top-72 left-72 2xl:left-96 z-10" : ""}
+            ${playerIndex === 1 ? "top-56 right-64 2xl:right-96 z-10" : ""}
           `}
           >
-            <div className="bg-opacity-10 bg-black p-2 rounded-lg">
+            <div className="bg-opacity-10 bg-white  w-auto rounded-lg ">
               {/* <h3 className="font-semibold text-sm mb-1">
               {player.name}'s Melds ({player.hand.length} cards)
             </h3> */}
@@ -83,11 +51,11 @@ export function MeldedCards({
                     }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
-                    className={`mb-2 p-2 rounded-lg first-line: ${
+                    className={`p-1 rounded-lg  first-line: ${
                       selectedSapawTarget?.playerIndex === playerIndex &&
                       selectedSapawTarget?.meldIndex === meldIndex
-                        ? "bg-black bg-opacity-30 w-auto"
-                        : ""
+                        ? "bg-black bg-opacity-30 flex justify-center"
+                        : "flex justify-center"
                     }`}
                     onClick={() => onSapawSelect({ playerIndex, meldIndex })}
                   >
@@ -98,13 +66,13 @@ export function MeldedCards({
                           initial={{ scale: 0 }}
                           animate={{
                             scale: 1,
-                            x: cardIndex * -18, // Shift each card along the X axis
+                            x: cardIndex * -35, // Shift each card along the X axis
                           }}
                           transition={{ delay: cardIndex * 0.1 }}
                           className="transform scale-75 origin-top-left cursor-pointer border-black border rounded-md"
                         >
                           <Card
-                            cardSize={"w-14 h-auto p-2 text-sm"}
+                            cardSize={"w-14 h-auto p-1 text-xs 2xl:text-sm"}
                             card={card}
                           />
                         </motion.div>
@@ -114,7 +82,9 @@ export function MeldedCards({
                 ))}
               </AnimatePresence>
               {playerIndex === currentPlayerIndex && (
-                <p className="text-xs font-bold text-green-600 mt-1"></p>
+                <p className="text-xs font-bold text-green-600 mt-1">
+                  
+                </p>
               )}
             </div>
           </div>

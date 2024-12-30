@@ -26,7 +26,7 @@ function PlayerIcon({ playerIndex,players, positioning  }) {
         </div>
         <div>
           <h2 className="text-xl font-bold">{players[playerIndex].name}</h2>
-          <p className="text-gray-300">Cards: {players[playerIndex]?.hand.length}</p>
+          {/* <p className="text-gray-300">Cards: {players[playerIndex]?.hand.length}</p> */}
         </div>
       </div>
       <div className="mt-4">
