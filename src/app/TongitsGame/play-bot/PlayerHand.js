@@ -71,7 +71,7 @@ ref={containerRef}
       initial={false}
       animate={{
         y: selectedIndices.includes(index) ? -16 : 0,
-        x: index * -45, // Slightly adjust for overlap horizontally
+        x: index * -50, // Slightly adjust for overlap horizontally
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       whileHover={{ rotate: 5 }}

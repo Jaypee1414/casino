@@ -72,6 +72,7 @@ export function MeldedCards({
                           className="transform scale-75 origin-top-left cursor-pointer rounded-md"
                         >
                           <Card
+                          border={`1px solid black`}
                             transformCard={`perspective(500px) rotateX(45deg)`}
                             cardSize={"w-14 h-auto p-1 text-md 2xl:text-lg"}
                             card={card}

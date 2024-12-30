@@ -2,7 +2,7 @@ import {React,useRef, useEffect} from 'react';
 import { motion } from 'framer-motion';
 import { Player } from '../../../hooks/use-tongit-game';
 import { Card as CardType } from '../../../utils/card-utils';
-export function Card({transformCard,id ,opacityCard, cardSize, card, onClick, small = false,}) {
+export function Card({border,transformCard,id ,opacityCard, cardSize, card, onClick, small = false,}) {
   const { suit, rank } = card;
   const boxRef = useRef(null)
   const color = suit === 'hearts' || suit === 'diamonds' ? 'text-red-500' : 'text-black';
@@ -10,9 +10,9 @@ export function Card({transformCard,id ,opacityCard, cardSize, card, onClick, sm
   useEffect(() => {
     if (boxRef.current) {
       boxRef.current.style.transform = transformCard ? transformCard : " ";
-      boxRef.current.style.border = '1px solid black'; 
+      boxRef.current.style.border = border ? border : ''; 
     }
-  }, [transformCard])
+  }, [transformCard,border])
 
   const getSuitSymbol = (suit) => {
     switch (suit) {
