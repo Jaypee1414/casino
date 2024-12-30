@@ -42,10 +42,7 @@ export default function TongitGame() {
   } = useTongitGame(gameMode);
   const [sapawTarget, setSapawTarget] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
-
-
   
-
   // Open left bar
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -451,7 +448,7 @@ export default function TongitGame() {
               />
             </button>
             <button
-              onClick={handleCallDraw}
+              onClick={handleSapaw}
               disabled={
                 !isPlayerTurn ||
                 gameState.selectedCardIndices.length < 3 ||

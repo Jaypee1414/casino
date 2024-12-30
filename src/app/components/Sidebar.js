@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Sidebar = ({ isOpen, onClose }) => {
+  const router = useRouter();
+
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === "Escape") {
@@ -16,6 +19,12 @@ const Sidebar = ({ isOpen, onClose }) => {
     };
   }, [onClose]);
 
+
+  const handleButtonClick = () => {
+    router.push("/TongitsGame");
+  };
+
+  
   return (
     <div
       className={`fixed inset-0 z-50 overflow-hidden transition-opacity duration-300 ease-in-out ${
@@ -106,7 +115,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                           </button>
                         </div>
                         <div  className=" border-gray-500 border-b p-2  hover:bg-[rgba(124,85,75,0.2)]">
-                          <button className="font-jaro text-white font-extrabold text-2xl">
+                          <button className="font-jaro text-white font-extrabold text-2xl" onClick={handleButtonClick}>
                             Quit
                           </button>
                         </div>

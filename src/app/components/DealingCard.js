@@ -1,10 +1,46 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
+import { Volume2, VolumeX } from 'lucide-react'
 import gsap from "gsap"
 
 export default function DealingAnimation({ onComplete }) {
   const containerRef = useRef(null)
+  const audioRef = useRef(null)
+  const [isAudioEnabled, setIsAudioEnabled] = useState(false)
+  const [isAudioInitialized, setIsAudioInitialized] = useState(false)
+
+  // Initialize audio context
+  useEffect(() => {
+    audioRef.current = new Audio('/audio/dealingCard.mp3') // Replace with your sound file
+    audioRef.current.volume = 0.5
+  }, [])
+
+  // Handle audio initialization
+  const initializeAudio = async () => {
+    if (audioRef.current && !isAudioInitialized) {
+      try {
+        // Try to play and immediately pause to initialize
+        await audioRef.current.play()
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+        setIsAudioEnabled(true)
+        setIsAudioInitialized(true)
+      } catch (error) {
+        console.log('Audio initialization failed:', error)
+      }
+    }
+  }
+
+//   Future use for settings
+
+  const toggleAudio = async () => {
+    if (!isAudioInitialized) {
+      await initializeAudio()
+    } else {
+      setIsAudioEnabled(!isAudioEnabled)
+    }
+  }
   
   useEffect(() => {
     const cards = Array.from({ length: 36 }, (_, i) => ({
@@ -19,13 +55,22 @@ export default function DealingAnimation({ onComplete }) {
       div.style.left = '50%'
       div.style.top = '30%'
       div.style.transform = 'translate(-50%, -50%)'
-      containerRef.current.appendChild(div)
+      containerRef.current?.appendChild(div)
       return div
     })
 
+    const playCardSound = () => {
+      if (audioRef.current && isAudioEnabled && isAudioInitialized) {
+        audioRef.current.currentTime = 0
+        audioRef.current.play().catch(error => {
+          console.log('Audio playback failed:', error)
+        })
+      }
+    }
+
     const tl = gsap.timeline({
       onComplete: () => {
-        setTimeout(onComplete, 300)
+        setTimeout(onComplete, 600)
       }
     })
 
@@ -44,10 +89,11 @@ export default function DealingAnimation({ onComplete }) {
       stagger: {
         each: 0.01,
         from: "center",
+        onStart: playCardSound
       }
     })
     .to(cardElements, {
-      duration: 0.3,
+      duration: 1,
       opacity: 0,
       delay: 0.2,
       stagger: 0.01,
@@ -56,13 +102,27 @@ export default function DealingAnimation({ onComplete }) {
     return () => {
       tl.kill()
       cardElements.forEach(card => card.remove())
+      audioRef.current.pause()
     }
-  }, [])
+  }, [onComplete, isAudioEnabled, isAudioInitialized])
 
   return (
-    <div className="fixed inset-0 pointer-events-none" ref={containerRef}>
-      <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="w-20 2xl:w-24 h-24 2xl:h-28 bg-[url(/image/cardBackground.svg)]  bg-no-repeat bg-cover bg-center rounded-lg shadow-xl" />
+    <div className="fixed inset-0" ref={containerRef}>
+      {/* Sound toggle button */}
+      <button
+        onClick={toggleAudio}
+        className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
+        aria-label={isAudioEnabled ? "Disable sound" : "Enable sound"}
+      >
+        {isAudioEnabled ? (
+          <Volume2 className="w-6 h-6" />
+        ) : (
+          <VolumeX className="w-6 h-6" />
+        )}
+      </button>
+
+      <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <div className="w-20 2xl:w-24 h-24 2xl:h-28 bg-[url(/image/cardBackground.svg)] bg-no-repeat bg-cover bg-center rounded-lg shadow-xl" />
       </div>
       <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-50">
         <path

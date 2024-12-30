@@ -2,7 +2,7 @@
 import React, { useState,useEffect } from "react";
 import Image from "next/image";
 import PercentageLoader from "../components/PercentageLoad";
-import SnowAnimation from "../components/snowflakes";
+import CrystalSnowAnimation from "../components/snowflakes";
 import { useRouter } from 'next/navigation';
 
 function TogitsGame() {
@@ -13,6 +13,11 @@ function TogitsGame() {
   const handleButtonClick = () => {
     router.push('/TongitsGame/play-bot');
   };
+
+  const handleButtonClickLive = () => {
+    router.push('/TongitsGame/live-game');
+  };
+  
 
   useEffect(() => {
     setIsClient(true);
@@ -98,7 +103,7 @@ function TogitsGame() {
                     </button>
                   </div>
                   <div>
-                  <button className="bg-[url('/image/playbotButton.svg')]  bg-no-repeat bg-cover bg-center">
+                  <button className="bg-[url('/image/playbotButton.svg')]  bg-no-repeat bg-cover bg-center" onClick={handleButtonClickLive}>
                     <p    className="text-4xl font-bold tracking-tight text-transparent text-stroke text-white">Live Game</p>
                     </button>
                   </div>
@@ -124,7 +129,7 @@ function TogitsGame() {
               className="w-full h-auto"
             />
           </div>
-          <SnowAnimation />
+          <CrystalSnowAnimation />
         </div>
       )}
     </div>
