@@ -66,8 +66,8 @@ function TogitsGame() {
                     <Image
                       src="/image/question.svg"
                       alt="My image"
-                      width={40} // You need to specify width and height
-                      height={40} // You need to specify width and height
+                      width={40} 
+                      height={40} 
                     />
                   </button>
                 </div>
@@ -86,7 +86,7 @@ function TogitsGame() {
                 className="justify-between overflow-hidden flex flex-col gap-10 stroke-1 text-white stroke-black font-black text-2xl landing"
                 style={{
                   WebkitTextStroke: "0.5px black",
-                  textStroke: "0.5px black", // Fallback
+                  textStroke: "0.5px black", 
                 }}
               >
                 <div className="w-auto">
