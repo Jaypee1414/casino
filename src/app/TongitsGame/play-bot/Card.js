@@ -10,6 +10,7 @@ export function Card({transformCard,id ,opacityCard, cardSize, card, onClick, sm
   useEffect(() => {
     if (boxRef.current) {
       boxRef.current.style.transform = transformCard ? transformCard : " ";
+      boxRef.current.style.border = '1px solid black'; 
     }
   }, [transformCard])
 
