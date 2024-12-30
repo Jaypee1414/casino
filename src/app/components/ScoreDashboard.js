@@ -11,7 +11,7 @@ function ScoreDashboard({ gameState }) {
   const [scale, setScale] = useState(1);
 
   const handleButtonClick = () => {
-    router.push("/TongitsGame");
+    window.location.reload();
   };
 
   useEffect(() => {

@@ -15,7 +15,6 @@ const PercentageLoader = ({ setIsFinished }) => {
     return () => clearInterval(interval); // Cleanup on component unmount
   }, []);
 
-
   useEffect(() => {
     setIsHydrated(true); // Mark the component as hydrated
   }, []);
@@ -86,7 +85,7 @@ const PercentageLoader = ({ setIsFinished }) => {
   }
 
   return (
-    <div className="inset-0 flex items-center justify-center bg-gradient-to-b from-[#021821] to-[#3D1D1D] h-screen z-50 relative">
+    <div className="inset-0 flex items-center justify-center bg-gradient-to-b from-[#021821] to-[#3D1D1D] h-screen z-40 relative">
       <div className="w-[30rem] text-center pb-10 flex flex-col gap-10">
         <div className="w-auto h-auto">
           <img
@@ -95,7 +94,13 @@ const PercentageLoader = ({ setIsFinished }) => {
             className="w-full h-auto "
           />
         </div>
-        <div className="mb-4 h-10 w-full bg-[url('/image/loading.png')]  bg-no-repeat bg-cover bg-center rounded-full overflow-hidden relative">
+        <div className=" flex justify-center items-center">
+        <div className="mb-4 h-10 w-96 flex bg-[url('/image/loadingBackground.svg')]  bg-no-repeat bg-cover bg-center rounded-full overflow-hidden relative">
+        <img
+        src="/image/loadingBorder.svg"
+        alt="My image"
+        className="w-[27rem] h-auto  absolute bottom-56 z-50"
+      />
           <div
             className="h-full bg-gradient-to-r from-[#1292E2] to-[#DC9797] transition-all duration-300 ease-out"
             style={{ width: `${progress}%` }}
@@ -110,9 +115,8 @@ const PercentageLoader = ({ setIsFinished }) => {
               LOADING{dots}
             </div>
           </div>
-          <div className=" bg-[url('/image/border.svg')] w-full">
-
-          </div>
+          {/* <div className=" bg-[url('/image/border.svg')] w-full"></div> */}
+        </div>
         </div>
         <div className="text-2xl font-bold text-blue-600">{progress}%</div>
       </div>

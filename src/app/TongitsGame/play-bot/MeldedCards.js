@@ -21,17 +21,17 @@ export function MeldedCards({
             players={players}
             positioning={`${playerIndex === 0 ? "hidden" : ""}${
               playerIndex === 1 ? "top-40 2xl:top-48 left-14 2xl:left-32 z-20" : ""
-            } ${playerIndex === 2 ? "top-44 right-14 2xl:right-32 z-20" : ""}`}
+            } ${playerIndex === 2 ? "top-40 right-14 2xl:right-32 z-20" : ""}`}
           />
           <div
             className={`
             absolute pointer-events-auto w-72 
-            ${playerIndex === 0 ? "bottom-72 left-1/2 -translate-x-1/2 z-10" : ""}
+            ${playerIndex === 0 ? "bottom-72 left-96 right-96 -translate-x-1/2 z-10" : ""}
             ${playerIndex === 2 ? "top-56 2xl:top-72 left-72 2xl:left-96 z-10" : ""}
             ${playerIndex === 1 ? "top-56 right-64 2xl:right-96 z-10" : ""}
           `}
           >
-            <div className="bg-opacity-10 bg-white  w-auto rounded-lg ">
+            <div className={`bg-opacity-5 bg-black  ${playerIndex === 0 ? "w-[1000px] flex" : ""} rounded-lg `}>
               {/* <h3 className="font-semibold text-sm mb-1">
               {player.name}'s Melds ({player.hand.length} cards)
             </h3> */}

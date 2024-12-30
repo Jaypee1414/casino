@@ -102,9 +102,9 @@ export default function TongitGame() {
       !gameState.gameEnded
     ) {
       meldCards(gameState.selectedCardIndices);
-      setStatusMessage("Meld successful. You can continue your turn.");
+      // setStatusMessage("Meld successful. You can continue your turn.");
     }
-  }, [gameState, meldCards, setStatusMessage]);
+  }, [gameState, meldCards]);
 
   const handleSapaw = useCallback(() => {
     if (
@@ -360,7 +360,7 @@ export default function TongitGame() {
         </div>
         {/* melded */}
         <div className="absolute">
-          <div className="h-[calc(100vh-8rem)] overflow-y-auto">
+          <div className="h-[calc(100vh-8rem)] overflow-y-auto justify-center flex items-center">
             <div className="p-4">
               <MeldedCards
                 cardSize={"w-16 h-22 p-3 text-2xl"}
@@ -448,16 +448,10 @@ export default function TongitGame() {
               />
             </button>
             <button
-              onClick={handleSapaw}
-              disabled={
-                !isPlayerTurn ||
-                gameState.selectedCardIndices.length < 3 ||
-                !gameState.hasDrawnThisTurn ||
-                gameState.gameEnded
-              }
+                onClick={handleSapaw} 
+                disabled={!isPlayerTurn || !sapawTarget || gameState.selectedCardIndices.length === 0 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
             >
               <img
-                onClick={handleSapaw}
                 src="/image/sapawButton.svg"
                 alt="My image"
                 className="w-[125px] 2xl:w-[160px] h-full"
