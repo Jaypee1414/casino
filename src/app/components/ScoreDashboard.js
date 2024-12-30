@@ -4,15 +4,12 @@ import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import CrystalSnowAnimation from "./snowflakes";
+import { motion } from 'framer-motion'
 
-function ScoreDashboard({ gameState }) {
+function ScoreDashboard({ gameState, onClose }) {
   const scoreboardRef = useRef(null);
   const router = useRouter();
   const [scale, setScale] = useState(1);
-
-  const handleButtonClick = () => {
-    window.location.reload();
-  };
 
   useEffect(() => {
     const scoreboard = scoreboardRef.current;
@@ -38,6 +35,13 @@ function ScoreDashboard({ gameState }) {
   };
   console.log(gameState, "Game State");
   return (
+    <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.8 }}
+    transition={{ duration: 0.1 }}
+    className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+  >
     <div>
       {/* Overlay */}
       <div
@@ -50,7 +54,7 @@ function ScoreDashboard({ gameState }) {
         {/* Button */}
         <button
           className="text-black hover:text-gray-500 top-0 left-0 focus:outline-none  shadow-md focus:text-gray-500 transition ease-in-out duration-150 z-10 "
-          onClick={handleButtonClick}
+          onClick={onClose}
         >
           <img
             onClick={animateClick}
@@ -264,6 +268,7 @@ function ScoreDashboard({ gameState }) {
       </div>
       <CrystalSnowAnimation />
     </div>
+    </motion.div>
   );
 }
 

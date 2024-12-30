@@ -26,6 +26,7 @@ export default function TongitGame() {
   const [scale, setScale] = useState(1);
   const [gameMode, setGameMode] = useState("Bot");
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
+  const [isScoreboardVisible, setIsScoreboardVisible] = useState(false)
   const {
     gameState,
     gameActions,
@@ -230,9 +231,15 @@ export default function TongitGame() {
     }, 300);
   };
 
+
+
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
-      {/* User border */}
+      <AnimatePresence>
+        {isScoreboardVisible && (
+          <ScoreDashboard onClose={() => setIsScoreboardVisible(false)} gameState={gameState}/>
+        )}
+      </AnimatePresence>
 
       {/* header game */}
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
@@ -280,7 +287,7 @@ export default function TongitGame() {
         <div className="w-full flex flex-col justify-between items-center gap-10 ">
           <div>
             <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">
+              <h2 className="-xl font-semibold mb-2">
                 {gameState.gameEnded
                   ? "Game Over"
                   : isPlayerTurn
@@ -349,7 +356,7 @@ export default function TongitGame() {
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
-                cardSize={"w-20 h-22 p-3 text-2xl"}
+                cardSize={" w-10 md:w-20 h-22 p-3 text-4xl"}
                 hand={playerHand}
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}
@@ -363,7 +370,7 @@ export default function TongitGame() {
           <div className="h-[calc(100vh-8rem)] overflow-y-auto justify-center flex items-center">
             <div className="p-4">
               <MeldedCards
-                cardSize={"w-16 h-22 p-3 text-2xl"}
+                cardSize={"w-16 h-22 p-3 text-3xl"}
                 players={gameState.players}
                 onSapawSelect={(target) => {
                   setSapawTarget(target);
@@ -522,7 +529,7 @@ export default function TongitGame() {
                 }}
               />
             </button>
-            <button onClick={shuffleDecks}>
+            <button onClick={() => setIsScoreboardVisible(true)}>
               <img
                 onClick={animateClick}
                 src="/image/depositButton.svg"

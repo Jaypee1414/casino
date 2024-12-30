@@ -1,10 +1,17 @@
-import React from 'react';
+import {React,useRef, useEffect} from 'react';
 import { motion } from 'framer-motion';
 import { Player } from '../../../hooks/use-tongit-game';
 import { Card as CardType } from '../../../utils/card-utils';
-export function Card({id ,opacityCard, cardSize, card, onClick, small = false,}) {
+export function Card({transformCard,id ,opacityCard, cardSize, card, onClick, small = false,}) {
   const { suit, rank } = card;
+  const boxRef = useRef(null)
   const color = suit === 'hearts' || suit === 'diamonds' ? 'text-red-500' : 'text-black';
+
+  useEffect(() => {
+    if (boxRef.current) {
+      boxRef.current.style.transform = transformCard ? transformCard : " ";
+    }
+  }, [transformCard])
 
   const getSuitSymbol = (suit) => {
     switch (suit) {
@@ -32,6 +39,7 @@ export function Card({id ,opacityCard, cardSize, card, onClick, small = false,})
   id={`card-${id}`}
     className={`${baseClasses} ${sizeClasses}`}
     onClick={onClick}
+    ref={boxRef} 
   >
     <div className="text-left font-bold">{rank}</div>
     <div className="text-center text-3xl 2xl:text-4xl">

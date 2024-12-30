@@ -69,10 +69,11 @@ export function MeldedCards({
                             x: cardIndex * -35, // Shift each card along the X axis
                           }}
                           transition={{ delay: cardIndex * 0.1 }}
-                          className="transform scale-75 origin-top-left cursor-pointer border-black border rounded-md"
+                          className="transform scale-75 origin-top-left cursor-pointer rounded-md"
                         >
                           <Card
-                            cardSize={"w-14 h-auto p-1 text-xs 2xl:text-sm"}
+                            transformCard={`perspective(500px) rotateX(45deg)`}
+                            cardSize={"w-14 h-auto p-1 text-md 2xl:text-lg"}
                             card={card}
                           />
                         </motion.div>
