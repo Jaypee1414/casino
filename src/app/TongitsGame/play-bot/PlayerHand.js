@@ -32,7 +32,7 @@ export function PlayerHand({
 
       // Animate cards spreading out horizontally
       gsap.to(cards, {
-        x: (index) => index * -50,  // Spread the cards horizontally
+        x: (index) => index * -45,  // Spread the cards horizontally
         opacity: 1,
         stagger: 0.05,  // Increase stagger for faster animation
         duration: 0.8,  // Faster duration for the spread
@@ -73,7 +73,7 @@ ref={containerRef}
       initial={false}
       animate={{
         y: selectedIndices.includes(index) ? -16 : 0,
-        x: index * -50, // Slightly adjust for overlap horizontally
+        x: index * -45, // Slightly adjust for overlap horizontally
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       whileHover={{ rotate: 5 }}

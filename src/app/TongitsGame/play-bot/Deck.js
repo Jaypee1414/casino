@@ -4,7 +4,7 @@ export function Deck({ cardsLeft, onDraw, disabled }) {
   return (
     <button 
     
-      className="w-20 2xl:w-24 h-24 2xl:h-28 bg-[url('/image/cardBackground.svg')]  bg-no-repeat bg-cover bg-center rounded-lg shadow-md flex items-center justify-center"
+      className="w-14 2xl:w-24 h-20 2xl:h-28 bg-[url('/image/cardBackground.svg')]  bg-no-repeat bg-cover bg-center rounded-lg shadow-md flex items-center justify-center"
       onClick={onDraw}
       disabled={disabled}
     >

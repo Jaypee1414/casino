@@ -51,7 +51,7 @@ export function MeldedCards({
                     }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
-                    className={`p-1 rounded-lg  first-line: ${
+                    className={`rounded-lg  first-line: ${
                       selectedSapawTarget?.playerIndex === playerIndex &&
                       selectedSapawTarget?.meldIndex === meldIndex
                         ? "bg-black bg-opacity-30 flex justify-center"
@@ -73,8 +73,8 @@ export function MeldedCards({
                         >
                           <Card
                           border={`1px solid black`}
-                            transformCard={`perspective(500px) rotateX(45deg)`}
-                            cardSize={"w-14 h-auto p-1 text-md 2xl:text-lg"}
+                            transformCard={`perspective(500px) rotateX(20deg)`}
+                            cardSize={"w-14 h-auto p-1 text-sm 2xl:text-lg"}
                             card={card}
                           />
                         </motion.div>
