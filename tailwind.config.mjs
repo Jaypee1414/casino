@@ -15,14 +15,16 @@ const config = {
 
       },
       fontFamily: {
-        jaro: ['Jaro', 'sans-serif'], // Add Jaro as the font name
+        jaro: ['Jaro', 'sans-serif'], 
         robotoSans: ['Roboto', 'sans-serif'], 
+        jainiPurva: ['Jaini Purva', 'sans-serif'], 
       },
       backgroundImage: {
         'text-gradient': 'linear-gradient(to right, #E88345, #AEAF6C)',
         'user-name': 'linear-gradient(to right, #DC2424, #999999)',
         'rightBar-Button': 'linear-gradient(to right, #EB4C3D, #1664AD)',
         'deck-background': 'linear-gradient(to bottom, #002838, #7AD2AF)',
+        'custom-gradient': 'linear-gradient(to right, rgba(78,106,99, 1), rgba(6,100,167, 1), rgba(16,0,224, 0.04), rgba(16,0,224, 0.04),rgba(6,100,167, 1), rgba(78,106,99, 1))',
       },
       textStroke: {
         DEFAULT: '2px #201F17', // Default stroke color and width

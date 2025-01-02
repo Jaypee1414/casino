@@ -266,7 +266,6 @@ function ScoreDashboard({ gameState, onClose }) {
           ))}
         </div>
       </div>
-      <CrystalSnowAnimation />
     </div>
     </motion.div>
   );

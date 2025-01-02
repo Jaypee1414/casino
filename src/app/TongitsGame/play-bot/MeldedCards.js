@@ -20,15 +20,15 @@ export function MeldedCards({
             playerIndex={playerIndex}
             players={players}
             positioning={`${playerIndex === 0 ? "hidden" : ""}${
-              playerIndex === 1 ? "top-40 2xl:top-48 left-14 2xl:left-32 z-20" : ""
-            } ${playerIndex === 2 ? "top-40 right-14 2xl:right-32 z-20" : ""}`}
+              playerIndex === 1 ? "top-36 2xl:top-48 left-14 2xl:left-32 z-20" : ""
+            } ${playerIndex === 2 ? "top-36 right-14 2xl:right-32 z-20" : ""}`}
           />
           <div
             className={`
             absolute pointer-events-auto w-72 
             ${playerIndex === 0 ? "bottom-72 left-96 right-96 -translate-x-1/2 z-10" : ""}
-            ${playerIndex === 2 ? "top-56 2xl:top-72 left-72 2xl:left-96 z-10" : ""}
-            ${playerIndex === 1 ? "top-56 right-64 2xl:right-96 z-10" : ""}
+            ${playerIndex === 2 ? "top-52 2xl:top-72 left-72 2xl:left-96 z-10" : ""}
+            ${playerIndex === 1 ? "top-52 right-64 2xl:right-96 z-10" : ""}
           `}
           >
             <div className={`bg-opacity-5 bg-black  ${playerIndex === 0 ? "w-[1000px] flex" : ""} rounded-lg `}>
@@ -66,15 +66,15 @@ export function MeldedCards({
                           initial={{ scale: 0 }}
                           animate={{
                             scale: 1,
-                            x: cardIndex * -35, // Shift each card along the X axis
+                            x: cardIndex * -20, // Shift each card along the X axis
                           }}
                           transition={{ delay: cardIndex * 0.1 }}
                           className="transform scale-75 origin-top-left cursor-pointer rounded-md"
                         >
                           <Card
-                          border={`1px solid black`}
-                            transformCard={`perspective(500px) rotateX(20deg)`}
-                            cardSize={"w-14 h-auto p-1 text-sm 2xl:text-lg"}
+                            border={`1px solid black`}
+                            transformCard={`perspective(500px) rotateX(40deg)`}
+                            cardSize={"w-14 h-auto p-1 text-xl 2xl:text-lg"}
                             card={card}
                           />
                         </motion.div>

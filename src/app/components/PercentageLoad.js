@@ -85,7 +85,7 @@ const PercentageLoader = ({ setIsFinished }) => {
   }
 
   return (
-    <div className="inset-0 flex items-center justify-center bg-gradient-to-b from-[#021821] to-[#3D1D1D] h-screen z-40 relative">
+    <div className="inset-0 flex items-center justify-center bg-gradient-to-b from-[#1798CC] to-[#140950] h-screen z-40 relative">
       <div className="w-[30rem] text-center pb-10 flex flex-col gap-10">
         <div className="w-auto h-auto">
           <img
