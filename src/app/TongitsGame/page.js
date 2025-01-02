@@ -83,6 +83,7 @@ function TogitsGame() {
                 <Image
                   src="/image/svg_land.svg"
                   alt="Gon Portrait"
+                  className="slow-high-bounce"
                   width={500} // You need to specify width and height
                   height={500} // You need to specify width and height
                 />

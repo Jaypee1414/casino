@@ -1,10 +1,12 @@
 import {React,useRef, useEffect} from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { Player } from '../../../hooks/use-tongit-game';
 import { Card as CardType } from '../../../utils/card-utils';
-export function Card({border,transformCard,id ,opacityCard, cardSize, card, onClick, small = false,}) {
+export function Card({border,transformCard,id ,opacityCard, cardSize, card, onClick, small = false,isDiscarding}) {
   const { suit, rank } = card;
   const boxRef = useRef(null)
+    // Animation controls for the card
+    const controls = useAnimation();
   const color = suit === 'hearts' || suit === 'diamonds' ? 'text-red-500' : 'text-black';
 
   useEffect(() => {
@@ -13,6 +15,19 @@ export function Card({border,transformCard,id ,opacityCard, cardSize, card, onCl
       boxRef.current.style.border = border ? border : ''; 
     }
   }, [transformCard,border])
+
+    // Effect to trigger discard animation
+    useEffect(() => {
+      if (isDiscarding) {
+        controls.start({
+          x: 'calc(10vw - 50%)', // Random horizontal movement
+          y: [0, -310], // Upward movement
+          rotate: [0, Math.random() * 720 - 360], // Random rotation
+          // opacity: [1, 0], // Fade out Transition
+          transition: { duration: 0.5, ease: "easeIn" }
+        });
+      }
+    }, [isDiscarding, controls]);
 
   const getSuitSymbol = (suit) => {
     switch (suit) {
@@ -36,6 +51,7 @@ export function Card({border,transformCard,id ,opacityCard, cardSize, card, onCl
     onClick={onClick}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
+    animate={controls}
   >   <div 
   id={`card-${id}`}
     className={`${baseClasses} ${sizeClasses}`}

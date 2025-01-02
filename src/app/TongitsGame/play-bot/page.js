@@ -54,6 +54,13 @@ export default function TongitGame() {
     setIsChatOpen(!isSidebarOpen);
   };
 
+
+  // CARD ANIMATION THROW
+  // State to keep track of selected card indices
+  const [selectedIndices, setSelectedIndices] = useState([]);
+ // State to manage the index of the card being discarded
+ const [discardingIndex, setDiscardingIndex] = useState(null);
+
   const handleCardClick = useCallback(
     (index) => {
       if (
@@ -65,6 +72,7 @@ export default function TongitGame() {
           ? gameState.selectedCardIndices.filter((i) => i !== index)
           : [...gameState.selectedCardIndices, index];
         updateSelectedCardIndices(newSelectedIndices);
+        setSelectedIndices(newSelectedIndices) //Track card selected 
       }
     },
     [gameState, updateSelectedCardIndices]
@@ -91,9 +99,18 @@ export default function TongitGame() {
       gameState.selectedCardIndices.length === 1 &&
       !gameState.gameEnded
     ) {
-      discardCard(gameState.selectedCardIndices[0]);
+      const indexToDiscard = selectedIndices[0];
+      // Set the discarding index to trigger the animation
+      setDiscardingIndex(indexToDiscard);
+      
+      // After animation completes, remove the card from the hand
+      setTimeout(() => {
+        discardCard(gameState.selectedCardIndices[0]);
+        setSelectedIndices([]);
+        setDiscardingIndex(null);
+      }, 1000); 
     }
-  }, [gameState, discardCard]);
+  }, [gameState, discardCard,selectedIndices]);
 
   const handleMeld = useCallback(() => {
     if (
@@ -231,8 +248,6 @@ export default function TongitGame() {
     }, 300);
   };
 
-
-
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
       <AnimatePresence>
@@ -361,6 +376,7 @@ export default function TongitGame() {
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}
                 isCurrentPlayer={isPlayerTurn && !gameState.gameEnded}
+                discardingIndex={discardingIndex}
               />
             </div>
           </div>
