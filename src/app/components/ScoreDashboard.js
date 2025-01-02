@@ -10,7 +10,7 @@ function ScoreDashboard({ gameState, onClose }) {
   const scoreboardRef = useRef(null);
   const router = useRouter();
   const [scale, setScale] = useState(1);
-  const [isWinner, setIsWinner] = useState()
+  const [isWinner, setIsWinner] = useState();
 
   useEffect(() => {
     const scoreboard = scoreboardRef.current;
@@ -35,15 +35,13 @@ function ScoreDashboard({ gameState, onClose }) {
     }, 300);
   };
   console.log(gameState, "Game State");
-  console.log(gameState.winner.id === 0 )
-  useEffect(()=>{
-    if(gameState){
-      setIsWinner(gameState.winner.id)
+  console.log(gameState.winner.id === 0);
+  useEffect(() => {
+    if (gameState) {
+      setIsWinner(gameState.winner.id);
     }
-  },[gameState])
+  }, [gameState]);
 
-  
-  
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -67,22 +65,34 @@ function ScoreDashboard({ gameState, onClose }) {
         >
           {/* Dashboard */}
           <div className="w-auto h-auto">
-          <img
-            src=" /image/scoreboardBG.svg"
-            alt="My image"
-            className="w-screen 2xl:w-[145px] h-full"
-            style={{
-              transition: "transform 0.3s ease-in-out",
-            }}
-          />
-                    <img
-            src={isWinner ? "/image/scoreboardWinner.svg" : "/image/scoreboardDefeat.svg"} 
-            alt="My image"
-            className="w-96 2xl:w-[145px] h-auto absolute -top-28 left-1/2 transform -translate-x-1/2"
-            style={{
-              transition: "transform 0.3s ease-in-out",
-            }}
-          />
+            <img
+              src=" /image/scoreboardBG.svg"
+              alt="My image"
+              className="w-screen 2xl:w-[145px] h-full"
+              style={{
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+            <img
+              src={
+                isWinner
+                  ? "/image/scoreboardWinner.svg"
+                  : "/image/scoreboardDefeat.svg"
+              }
+              alt="My image"
+              className="w-96 2xl:w-[145px] h-auto absolute -top-28 left-1/2 transform -translate-x-1/2"
+              style={{
+                transition: "transform 0.3s ease-in-out",
+              }}
+            />
+          </div>
+          <div className="  text-white absolute -bottom-20 flex flex-row gap-5 left-1/2 transform -translate-x-1/2">
+            <div>
+              <button>Continue </button>
+            </div>
+            <div>
+              <button>Details</button>
+            </div>
           </div>
         </div>
       </div>
