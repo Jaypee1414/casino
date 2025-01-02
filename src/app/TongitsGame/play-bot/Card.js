@@ -62,7 +62,7 @@ export function Card({border,transformCard,id ,opacityCard, cardSize, card, onCl
     ref={boxRef} 
   >
     <div className="text-left font-bold">{rank}</div>
-    <div className="text-center text-3xl 2xl:text-4xl">
+    <div className="text-center text-4xl 2xl:text-4xl">
       {getSuitSymbol(suit)}
     </div>
   </div></motion.div> 

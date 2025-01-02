@@ -16,6 +16,7 @@ import ScoreDashboard from "@/app/components/ScoreDashboard";
 import ChatSideBar from "@/app/components/ChatSideBar";
 import DealingAnimation from "@/app/components/DealingCard";
 import { gsap } from 'gsap';
+import Bet from "@/app/components/Bet";
 
 
 export default function TongitGame() {
@@ -367,6 +368,10 @@ export default function TongitGame() {
               </motion.div>
             </div>
           </div>
+          {/* Game Bet Money */}
+          <div className="absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Bet bet={200000}/>
+          </div>
           {/* Player Hand */}
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
@@ -417,7 +422,7 @@ export default function TongitGame() {
             onClick={animateClick}
             src="/image/chatButton.svg"
             alt="My image"
-            className="w-32 h-32 absolute right-0 2xl:right-10 bottom-20" // Explicit width and height
+            className="w-24 h-24 absolute right-0 2xl:right-10 bottom-20" // Explicit width and height
             style={{
               transform: `scale(${scale})`,
               transition: "transform 0.3s ease-in-out",
@@ -426,8 +431,8 @@ export default function TongitGame() {
         </button>
         <ChatSideBar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
-        <div className="px-28 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
-          <div>
+        <div className="px-24 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
+          <div className="space-x-3">
             {" "}
             {/* left button */}
             <button
@@ -477,7 +482,7 @@ export default function TongitGame() {
               <img
                 src="/image/sapawButton.svg"
                 alt="My image"
-                className="w-[125px] 2xl:w-[160px] h-full"
+                className="w-[115px] 2xl:w-[145px] h-full"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -506,7 +511,7 @@ export default function TongitGame() {
             </button>
           </div>
           {/* right button */}
-          <div className="h-full flex justify-center items-center">
+          <div className="h-full flex justify-center items-center ">
             <button
             onClick={autoSort}
             >
@@ -538,7 +543,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/withdrawButton.svg"
                 alt="My image"
-                className="w-32 h-32" // Explicit width and height
+                className="w-36 h-32" // Explicit width and height
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -550,7 +555,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/depositButton.svg"
                 alt="My image"
-                className="w-32 h-32" // Explicit width and height
+                className="w-36 h-32" // Explicit width and height
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",

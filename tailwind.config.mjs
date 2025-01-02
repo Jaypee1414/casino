@@ -15,8 +15,9 @@ const config = {
 
       },
       fontFamily: {
-        jaro: ['Jaro', 'sans-serif'], // Add Jaro as the font name
+        jaro: ['Jaro', 'sans-serif'], 
         robotoSans: ['Roboto', 'sans-serif'], 
+        jainiPurva: ['Jaini Purva', 'sans-serif'], 
       },
       backgroundImage: {
         'text-gradient': 'linear-gradient(to right, #E88345, #AEAF6C)',

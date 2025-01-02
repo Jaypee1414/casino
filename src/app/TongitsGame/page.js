@@ -38,7 +38,7 @@ function TogitsGame() {
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(2, 24, 33, 0.8) 25%, rgba(149, 74, 74, 0.8) 44%)",
+                  "linear-gradient(to bottom, rgba(8, 14, 129, 0.8) 25%, rgba(37, 79, 100, 0.8) 44%)",
                 zIndex: -1, // Send it to the background
               }}
             ></div>
