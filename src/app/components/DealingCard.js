@@ -12,7 +12,7 @@ export default function DealingAnimation({ onComplete }) {
 
   // Initialize audio context
   useEffect(() => {
-    audioRef.current = new Audio('/audio/dealingCard.mp3') // Replace with your sound file
+    audioRef.current = new Audio('/audio/dealingCard.mp3') 
     audioRef.current.volume = 0.5
   }, [])
 
@@ -20,7 +20,6 @@ export default function DealingAnimation({ onComplete }) {
   const initializeAudio = async () => {
     if (audioRef.current && !isAudioInitialized) {
       try {
-        // Try to play and immediately pause to initialize
         await audioRef.current.play()
         audioRef.current.pause()
         audioRef.current.currentTime = 0
@@ -31,8 +30,6 @@ export default function DealingAnimation({ onComplete }) {
       }
     }
   }
-
-//   Future use for settings
 
   const toggleAudio = async () => {
     if (!isAudioInitialized) {
@@ -78,7 +75,7 @@ export default function DealingAnimation({ onComplete }) {
       duration: 0.5,
       y: (i) => {
         const position = Math.floor(i / 12)
-        return position === 1 ? 350 : 80
+        return position === 1 ? 310 : 80
       },
       x: (i) => {
         const position = Math.floor(i / 12)
@@ -122,7 +119,7 @@ export default function DealingAnimation({ onComplete }) {
       </button>
 
       <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        <div className="w-20 2xl:w-24 h-24 2xl:h-28 bg-[url(/image/cardBackground.svg)] bg-no-repeat bg-cover bg-center rounded-lg shadow-xl" />
+        <div className="w-14 2xl:w-24 h-20 2xl:h-28 bg-[url(/image/cardBackground.svg)] bg-no-repeat bg-cover bg-center rounded-lg shadow-xl" />
       </div>
       <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-50">
         <path

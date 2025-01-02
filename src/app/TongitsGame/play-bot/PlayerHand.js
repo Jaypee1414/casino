@@ -11,6 +11,7 @@ export function PlayerHand({
   onCardClick,
   selectedIndices,
   isCurrentPlayer,
+  discardingIndex
 }) {
 
   const containerRef = useRef(null);
@@ -44,17 +45,18 @@ export function PlayerHand({
   }, [hand]); // Runs only when 'hand' changes
 
 
+  // Handler for selecting/deselecting cards
   const handleCardClick = (index) => {
     setSelectedCards(prev => {
-      const newSet = new Set(prev)
+      const newSet = new Set(prev);
       if (newSet.has(index)) {
-        newSet.delete(index)
+        newSet.delete(index);
       } else {
-        newSet.add(index)
+        newSet.add(index);
       }
-      return newSet
-    })
-  }
+      return newSet;
+    });
+  };
 
 
   return (
@@ -96,6 +98,7 @@ ref={containerRef}
           }
           handleCardClick(index);  // New handler
         }}
+        isDiscarding={discardingIndex === index}
       />
     </motion.div>
   ))}

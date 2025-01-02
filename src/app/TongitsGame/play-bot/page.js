@@ -26,6 +26,7 @@ export default function TongitGame() {
   const [scale, setScale] = useState(1);
   const [gameMode, setGameMode] = useState("Bot");
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
+  const [isScoreboardVisible, setIsScoreboardVisible] = useState(false)
   const {
     gameState,
     gameActions,
@@ -53,6 +54,13 @@ export default function TongitGame() {
     setIsChatOpen(!isSidebarOpen);
   };
 
+
+  // CARD ANIMATION THROW
+  // State to keep track of selected card indices
+  const [selectedIndices, setSelectedIndices] = useState([]);
+ // State to manage the index of the card being discarded
+ const [discardingIndex, setDiscardingIndex] = useState(null);
+
   const handleCardClick = useCallback(
     (index) => {
       if (
@@ -64,6 +72,7 @@ export default function TongitGame() {
           ? gameState.selectedCardIndices.filter((i) => i !== index)
           : [...gameState.selectedCardIndices, index];
         updateSelectedCardIndices(newSelectedIndices);
+        setSelectedIndices(newSelectedIndices) //Track card selected 
       }
     },
     [gameState, updateSelectedCardIndices]
@@ -90,9 +99,18 @@ export default function TongitGame() {
       gameState.selectedCardIndices.length === 1 &&
       !gameState.gameEnded
     ) {
-      discardCard(gameState.selectedCardIndices[0]);
+      const indexToDiscard = selectedIndices[0];
+      // Set the discarding index to trigger the animation
+      setDiscardingIndex(indexToDiscard);
+      
+      // After animation completes, remove the card from the hand
+      setTimeout(() => {
+        discardCard(gameState.selectedCardIndices[0]);
+        setSelectedIndices([]);
+        setDiscardingIndex(null);
+      }, 1000); 
     }
-  }, [gameState, discardCard]);
+  }, [gameState, discardCard,selectedIndices]);
 
   const handleMeld = useCallback(() => {
     if (
@@ -102,9 +120,9 @@ export default function TongitGame() {
       !gameState.gameEnded
     ) {
       meldCards(gameState.selectedCardIndices);
-      setStatusMessage("Meld successful. You can continue your turn.");
+      // setStatusMessage("Meld successful. You can continue your turn.");
     }
-  }, [gameState, meldCards, setStatusMessage]);
+  }, [gameState, meldCards]);
 
   const handleSapaw = useCallback(() => {
     if (
@@ -232,7 +250,11 @@ export default function TongitGame() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
-      {/* User border */}
+      <AnimatePresence>
+        {isScoreboardVisible && (
+          <ScoreDashboard onClose={() => setIsScoreboardVisible(false)} gameState={gameState}/>
+        )}
+      </AnimatePresence>
 
       {/* header game */}
       <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
@@ -280,7 +302,7 @@ export default function TongitGame() {
         <div className="w-full flex flex-col justify-between items-center gap-10 ">
           <div>
             <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">
+              <h2 className="-xl font-semibold mb-2">
                 {gameState.gameEnded
                   ? "Game Over"
                   : isPlayerTurn
@@ -349,21 +371,22 @@ export default function TongitGame() {
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
-                cardSize={"w-20 h-22 p-3 text-2xl"}
+                cardSize={" w-10 md:w-20 h-22 p-3 text-4xl"}
                 hand={playerHand}
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}
                 isCurrentPlayer={isPlayerTurn && !gameState.gameEnded}
+                discardingIndex={discardingIndex}
               />
             </div>
           </div>
         </div>
         {/* melded */}
         <div className="absolute">
-          <div className="h-[calc(100vh-8rem)] overflow-y-auto">
+          <div className="h-[calc(100vh-8rem)] overflow-y-auto justify-center flex items-center">
             <div className="p-4">
               <MeldedCards
-                cardSize={"w-16 h-22 p-3 text-2xl"}
+                cardSize={"w-16 h-22 p-3 text-3xl"}
                 players={gameState.players}
                 onSapawSelect={(target) => {
                   setSapawTarget(target);
@@ -448,16 +471,10 @@ export default function TongitGame() {
               />
             </button>
             <button
-              onClick={handleSapaw}
-              disabled={
-                !isPlayerTurn ||
-                gameState.selectedCardIndices.length < 3 ||
-                !gameState.hasDrawnThisTurn ||
-                gameState.gameEnded
-              }
+                onClick={handleSapaw} 
+                disabled={!isPlayerTurn || !sapawTarget || gameState.selectedCardIndices.length === 0 || !gameState.hasDrawnThisTurn || gameState.gameEnded}
             >
               <img
-                onClick={handleSapaw}
                 src="/image/sapawButton.svg"
                 alt="My image"
                 className="w-[125px] 2xl:w-[160px] h-full"
@@ -528,7 +545,7 @@ export default function TongitGame() {
                 }}
               />
             </button>
-            <button onClick={shuffleDecks}>
+            <button onClick={() => setIsScoreboardVisible(true)}>
               <img
                 onClick={animateClick}
                 src="/image/depositButton.svg"

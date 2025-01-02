@@ -1,10 +1,36 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import {React,useRef, useEffect, useState} from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { Player } from '../../../hooks/use-tongit-game';
 import { Card as CardType } from '../../../utils/card-utils';
-export function Card({id ,opacityCard, cardSize, card, onClick, small = false,}) {
+
+export function Card({border,transformCard,id ,opacityCard, cardSize, card, onClick, small = false,isDiscarding}) {
   const { suit, rank } = card;
+  const boxRef = useRef(null)
+  const [isPosition, setIsPosition] = useState()
+    // Animation controls for the card
+    const controls = useAnimation();
   const color = suit === 'hearts' || suit === 'diamonds' ? 'text-red-500' : 'text-black';
+
+  useEffect(() => {
+    if (boxRef.current) {
+      boxRef.current.style.transform = transformCard ? transformCard : " ";
+      boxRef.current.style.border = border ? border : ''; 
+    }
+  }, [transformCard,border])
+    // Effect to trigger discard animation
+    useEffect(() => {
+      if (isDiscarding) {
+        const rect = boxRef.current.getBoundingClientRect();
+        setIsPosition(rect.x)
+        controls.start({
+          x: 'calc(10vw - 50%)', // Random horizontal movement
+          y: [0, -310], // Upward movement
+          rotate: [0, 720 - 360], // Random rotation
+          // opacity: [1, 0], // Fade out Transition
+          transition: { duration: 0.5, ease: "easeIn" }
+        });
+      }
+    }, [isDiscarding, controls]);
 
   const getSuitSymbol = (suit) => {
     switch (suit) {
@@ -28,10 +54,12 @@ export function Card({id ,opacityCard, cardSize, card, onClick, small = false,})
     onClick={onClick}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
+    animate={controls}
   >   <div 
   id={`card-${id}`}
     className={`${baseClasses} ${sizeClasses}`}
     onClick={onClick}
+    ref={boxRef} 
   >
     <div className="text-left font-bold">{rank}</div>
     <div className="text-center text-3xl 2xl:text-4xl">
