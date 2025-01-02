@@ -23,8 +23,8 @@ export function Card({border,transformCard,id ,opacityCard, cardSize, card, onCl
         const rect = boxRef.current.getBoundingClientRect();
         setIsPosition(rect.x)
         controls.start({
-          x: 'calc(10vw - 50%)', // Random horizontal movement
-          y: [0, -310], // Upward movement
+          x: 0, // Random horizontal movement
+          y:  -310, // Upward movement
           rotate: [0, 720 - 360], // Random rotation
           // opacity: [1, 0], // Fade out Transition
           transition: { duration: 0.5, ease: "easeIn" }

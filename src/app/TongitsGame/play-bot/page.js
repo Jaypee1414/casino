@@ -257,7 +257,7 @@ export default function TongitGame() {
       </AnimatePresence>
 
       {/* header game */}
-      <div className="absolute w-screen h-16 top-0  bg-gradient-to-r from-[#9AD0C2] rgba(112,35,28,0.8)  rgba(91,36,36,1) via-[#583332] to-[#4E6A63]">
+      <div className="absolute w-screen h-16 top-0 bg-custom-gradient">
         <div className="flex flex-row h-full w-full justify-between">
           <button onClick={toggleSidebar}>
             <img
