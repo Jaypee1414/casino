@@ -207,7 +207,7 @@ function ScoreDashboard({ gameState, onClose }) {
                       />
                       <h3 className="text-white text-3xl font-extrabold font-robotoSans" 
                       style={{
-                        color: isWinner === 0 ? "#00FF22" : "#FF0000",
+                        color: player.id === isWinner ? "#00FF22" : "#FF0000",
                         textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                       }}
                       > {player.id === isWinner ? "+" : "-" }25000</h3>
@@ -220,11 +220,12 @@ function ScoreDashboard({ gameState, onClose }) {
               })}
             </div>
           </div>
-          <div className="  text-white absolute -bottom-20 flex flex-row gap-5 left-1/2 transform -translate-x-1/2">
-            <div>
+          <div className="  text-white absolute -bottom-16 flex flex-row gap-5 left-1/2 transform -translate-x-1/2">
+            <div className="bg-gradient-to-b from-[#FF8D0B] border-4 border-[#B9BFD8] to-[#C5A683] text-2xl font-extrabold py-2  px-4 rounded-3xl text-stroke"
+            >
               <button>Continue </button>
             </div>
-            <div>
+            <div className="bg-gradient-to-b from-[#B4C5FB] to-[#180CFF] border-4 border-[#B9BFD8] text-2xl font-extrabold py-2  px-4 rounded-3xl text-stroke">
               <button>Details</button>
             </div>
           </div>
