@@ -53,7 +53,7 @@ function ScoreDashboard({ gameState, onClose }) {
       <div>
         {/* Overlay */}
         <div
-          className="fixed inset-0  z-20 bg-black bg-opacity-5"
+          className="fixed inset-0  z-10 bg-white bg-opacity-5"
           style={{
             height: "100vh",
           }}
@@ -64,7 +64,7 @@ function ScoreDashboard({ gameState, onClose }) {
           className=" lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl opacity-80"
         >
           {/* Dashboard */}
-          <div className="w-auto h-auto">
+          <div className="w-auto h-auto z-30">
             {/* Scoreboard */}
             <img
               src=" /image/scoreboardBG.svg"
@@ -82,142 +82,142 @@ function ScoreDashboard({ gameState, onClose }) {
                   : "/image/scoreboardDefeat.svg"
               }
               alt="My image"
-              className="w-96 2xl:w-[145px] h-auto absolute -top-28 left-1/2 transform -translate-x-1/2"
+              className="w-96 2xl:w-[145px] h-auto absolute -top-28 left-1/2 transform -translate-x-1/2 z-40"
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-1/2  flex flex-col gap-3 pt-10">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-1/2  flex flex-col gap-3 pt-14">
               {/* scoreboard user list */}
-              <div className=" w-full h-36 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg flex flex-row gap-3 relative">
-                <div className="flex h-full items-center pl-5">
-                  <img
-                    src="https://miro.medium.com/v2/resize:fit:1400/1*rKl56ixsC55cMAsO2aQhGQ@2x.jpeg"
-                    className="rounded-full border-2 border-yellow-300 border-2 bg-black w-24 h-24 "
-                  />
-                </div>
-                <div className="w-96">
-                  <div className="flex flex-col my-3 gap-2">
-                    {/* Player name */}
-                    <h3
-                      className="font-robotoSans font-extrabold text-white text-2xl"
-                      style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
-                    >
-                      {gameState.players[0].name}
-                    </h3>
-                    {/* Line */}
-                    <div
-                      className="w-full h-1 bg-yellow-300 border   rounded-lg"
-                      style={{ backgroundColor: "yellow !important" }}
-                    ></div>
-                    {/* Deduction */}
-                    <div className="flex flex-col">
-                      <div className="flex flex-row justify-between">
-                        <h3
-                          className="font-robotoSans font-extrabold text-white text-xl"
-                          style={{
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                          }}
-                        >
-                          Tongits
-                        </h3>
-                        <h3
-                          className="font-robotoSans font-extrabold text-white text-xl"
-                          style={{
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                          }}
-                        >
-                          Special Cards
-                        </h3>
-                        <h3
-                          className="font-robotoSans font-extrabold text-white text-xl"
-                          style={{
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                          }}
-                        >
-                          Burned Players
-                        </h3>
+              
+              {gameState.players.map((player, index) => {
+                return(
+                  <div className=" w-full h-36 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg flex flex-row gap-3 relative" key={index}>
+                  <div className="flex h-full items-center pl-5">
+                    <img
+                      src="https://miro.medium.com/v2/resize:fit:1400/1*rKl56ixsC55cMAsO2aQhGQ@2x.jpeg"
+                      className="rounded-full border-2 border-yellow-300 border-2 bg-black w-24 h-24 "
+                    />
+                  </div>
+                  <div className="w-96">
+                    <div className="flex flex-col my-3 gap-2">
+                      {/* Player name */}
+                      <h3
+                        className="font-robotoSans font-extrabold text-white text-2xl"
+                        style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+                      >
+                        {player.name}
+                      </h3>
+                      {/* Line */}
+                      <div
+                        className="w-full h-1 bg-yellow-300 border   rounded-lg"
+                        style={{ backgroundColor: "yellow !important" }}
+                      ></div>
+                      {/* Deduction */}
+                      <div className="flex flex-col">
+                        <div className="flex flex-row justify-between">
+                          <h3
+                            className="font-robotoSans font-extrabold text-white text-xl"
+                            style={{
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                            }}
+                          >
+                            Tongits
+                          </h3>
+                          <h3
+                            className="font-robotoSans font-extrabold text-white text-xl"
+                            style={{
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                            }}
+                          >
+                            Special Cards
+                          </h3>
+                          <h3
+                            className="font-robotoSans font-extrabold text-white text-xl"
+                            style={{
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                            }}
+                          >
+                            Burned Players
+                          </h3>
+                        </div>
                       </div>
-                    </div>
-                    {/* Deduction */}
-                    <div className="flex flex-col">
-                      <div className="flex flex-row justify-between">
-                        <h3
-                          className="font-robotoSans font-extrabold  text-xl"
-                          style={{
-                            color: "#60F900",
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                          }}
-                        >
-                          +2300
-                        </h3>
-                        <h3
-                          className="font-robotoSans font-extrabold text-xl"
-                          style={{
-                            color: "#60F900",
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                          }}
-                        >
-                          +2300
-                        </h3>
-                        <h3
-                          className="font-robotoSans font-extrabold  text-xl"
-                          style={{
-                            color: "#60F900",
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                          }}
-                        >
-                          +2300
-                        </h3>
+                      {/* Deduction */}
+                      <div className="flex flex-col">
+                        <div className="flex flex-row justify-between">
+                          <h3
+                            className="font-robotoSans font-extrabold  text-xl"
+                            style={{
+                              color: "#60F900",
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                            }}
+                          >
+                            +2300
+                          </h3>
+                          <h3
+                            className="font-robotoSans font-extrabold text-xl"
+                            style={{
+                              color: "#60F900",
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                            }}
+                          >
+                            +2300
+                          </h3>
+                          <h3
+                            className="font-robotoSans font-extrabold  text-xl"
+                            style={{
+                              color: "#60F900",
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                            }}
+                          >
+                            +2300
+                          </h3>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex flex-col my-3 w-56 items-center">
-                  <div className="">
-                    <h3
-                      className="font-robotoSans font-extrabold text-3xl"
+                  <div className="flex flex-col my-3 w-56 items-center">
+                    <div className="">
+                      <h3
+                        className="font-robotoSans font-extrabold text-3xl"
+                        style={{
+                          color: "#FFEE00",
+                          textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                        }}
+                      >
+                        {player.id === isWinner ? "WINNER!" : "" }
+                      </h3>
+    
+                      <img
+                        src=" /image/scoreboardBGDeduction.svg"
+                        alt="My image"
+                        className="w-48 2xl:w-[145px] absolute right-0 bottom-0"
+                        style={{
+                          transition: "transform 0.3s ease-in-out",
+                        }}
+                      />
+                      <div className="absolute right-3 -bottom-5 flex flex-row items-center justify-center">
+                      <img
+                        src=" /image/scoreboardCoints.svg"
+                        alt="My image"
+                        className="w-20 2xl:w-[145px] "
+                        style={{
+                          transition: "transform 0.3s ease-in-out",
+                        }}
+                      />
+                      <h3 className="text-white text-3xl font-extrabold font-robotoSans" 
                       style={{
-                        color: "#FFEE00",
+                        color: isWinner === 0 ? "#00FF22" : "#FF0000",
                         textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                       }}
-                    >
-                      WINNER!!
-                    </h3>
-
-                    <img
-                      src=" /image/scoreboardBGDeduction.svg"
-                      alt="My image"
-                      className="w-48 2xl:w-[145px] absolute right-0 bottom-0"
-                      style={{
-                        transition: "transform 0.3s ease-in-out",
-                      }}
-                    />
-                    <div className="absolute right-3 -bottom-5 flex flex-row items-center justify-center">
-                    <img
-                      src=" /image/scoreboardCoints.svg"
-                      alt="My image"
-                      className="w-20 2xl:w-[145px] "
-                      style={{
-                        transition: "transform 0.3s ease-in-out",
-                      }}
-                    />
-                    <h3 className="text-white text-3xl font-extrabold font-robotoSans" 
-                    style={{
-                      color: isWinner === 0 ? "#00FF22" : "#FF0000",
-                      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                    }}
-                    > {isWinner === 0 ? "+" : "-" }25000</h3>
+                      > {player.id === isWinner ? "+" : "-" }25000</h3>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className=" w-full h-32 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg">
-                asasd
-              </div>
-              <div className=" w-full h-32 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg">
-                asasd
-              </div>
+    
+                )
+              })}
             </div>
           </div>
           <div className="  text-white absolute -bottom-20 flex flex-row gap-5 left-1/2 transform -translate-x-1/2">
