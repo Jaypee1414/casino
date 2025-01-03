@@ -61,10 +61,11 @@ function ScoreDashboard({ gameState, onClose }) {
         {/* ScoreBoard */}
         <div
           ref={scoreboardRef}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl opacity-80"
+          className=" lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl opacity-80"
         >
           {/* Dashboard */}
           <div className="w-auto h-auto">
+            {/* Scoreboard */}
             <img
               src=" /image/scoreboardBG.svg"
               alt="My image"
@@ -73,6 +74,7 @@ function ScoreDashboard({ gameState, onClose }) {
                 transition: "transform 0.3s ease-in-out",
               }}
             />
+            {/* Scoreboard Emblem Winner or Defeat */}
             <img
               src={
                 isWinner
@@ -85,6 +87,17 @@ function ScoreDashboard({ gameState, onClose }) {
                 transition: "transform 0.3s ease-in-out",
               }}
             />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-1/2  flex flex-col gap-3 pt-10">
+              <div className=" w-full h-32 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg">
+                asasd
+              </div>
+              <div className=" w-full h-32 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg">
+                asasd
+              </div>
+              <div className=" w-full h-32 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg">
+                asasd
+              </div>
+            </div>
           </div>
           <div className="  text-white absolute -bottom-20 flex flex-row gap-5 left-1/2 transform -translate-x-1/2">
             <div>
