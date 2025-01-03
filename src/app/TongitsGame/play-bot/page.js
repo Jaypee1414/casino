@@ -29,6 +29,7 @@ export default function TongitGame() {
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
   const [isScoreboardVisible, setIsScoreboardVisible] = useState(false)
   const {
+    resetGame,
     gameState,
     gameActions,
     drawCard,
@@ -253,7 +254,7 @@ export default function TongitGame() {
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
       <AnimatePresence>
         {isScoreboardVisible && (
-          <ScoreDashboard onClose={() => setIsScoreboardVisible(false)} gameState={gameState}/>
+          <ScoreDashboard onClose={() => setIsScoreboardVisible(false)} gameState={gameState} resetGame={resetGame}/>
         )}
       </AnimatePresence>
 
@@ -308,17 +309,17 @@ export default function TongitGame() {
                   ? "Game Over"
                   : isPlayerTurn
                   ? ""
-                  : `${currentPlayer.name}'s Turn`}
+                  : ""}
               </h2>
               {gameState.gameEnded ? (
                 <div>
-                  <ScoreDashboard gameState={gameState} />
+                  <ScoreDashboard gameState={gameState} resetGame={resetGame} onClose={() => setIsScoreboardVisible(false)}/>
                 </div>
               ) : (
                 " "
               )}
               {statusMessage && (
-                <p className="text-sm text-blue-600 mt-2">{statusMessage}</p>
+                ""
               )}
             </div>
           </div>

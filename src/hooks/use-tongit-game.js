@@ -403,6 +403,37 @@ export function useTongitGame(initialGameMode) {
     }
   }, [initialGameMode]);
 
+  const resetGame = useCallback(() => {
+    const deck = createDeck();
+    const { hands, remainingDeck } = dealCards(deck, 3, 12);
+    const players = hands.map((hand, index) => ({
+      id: index,
+      name: index === 0 ? 'You' : `Bot ${index}`,
+      hand,
+      exposedMelds: [],
+      secretMelds: [],
+      score: 0,
+      consecutiveWins: 0,
+      isSapawed: false,
+      points: 0,
+      turnsPlayed: 0,
+    }));
+    setGameState({
+      players,
+      currentPlayerIndex: 0,
+      deck: remainingDeck,
+      discardPile: [],
+      winner: null,
+      potMoney: 0,
+      tableCharge: 50,
+      entryFee: 100,
+      hasDrawnThisTurn: false,
+      selectedCardIndices: [],
+      gameEnded: false,
+    });
+    gameInitializedRef.current = true;
+  }, []);
+
   useEffect(() => {
     if (gameState && isDeckEmpty() && !gameState.gameEnded) {
       const newState = callDraw();
@@ -413,6 +444,7 @@ export function useTongitGame(initialGameMode) {
   }, [gameState, isDeckEmpty, callDraw]);
 
   return {
+    resetGame,
     gameState,
     gameActions,
     drawCard,

@@ -6,12 +6,14 @@ import { gsap } from "gsap";
 import CrystalSnowAnimation from "./snowflakes";
 import { motion } from "framer-motion";
 
-function ScoreDashboard({ gameState, onClose }) {
+function ScoreDashboard({ gameState, onClose, resetGame }) {
   const scoreboardRef = useRef(null);
   const router = useRouter();
   const [scale, setScale] = useState(1);
   const [isWinner, setIsWinner] = useState();
+  const [countdown, setCountdown] = useState(10);
 
+  // animate for pop up
   useEffect(() => {
     const scoreboard = scoreboardRef.current;
 
@@ -41,6 +43,22 @@ function ScoreDashboard({ gameState, onClose }) {
       setIsWinner(gameState.winner.id);
     }
   }, [gameState]);
+
+    // Countdown and auto-close effect
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setCountdown((prevCount) => {
+          if (prevCount === 1) {
+            clearInterval(timer);
+          }
+          resetGame()
+          router.push('/TongitsGame/play-bot');
+          return prevCount - 1;
+        });
+      }, 1000);
+  
+      return () => clearInterval(timer);
+    }, [resetGame,router]);
 
   return (
     <motion.div
@@ -226,7 +244,7 @@ function ScoreDashboard({ gameState, onClose }) {
               <button>Continue </button>
             </div>
             <div className="bg-gradient-to-b from-[#B4C5FB] to-[#180CFF] border-4 border-[#B9BFD8] text-2xl font-extrabold py-2  px-4 rounded-3xl text-stroke">
-              <button>Details</button>
+              <button> View Details</button>
             </div>
           </div>
         </div>
