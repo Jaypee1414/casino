@@ -7,6 +7,9 @@ const config = {
   ],
   theme: {
     extend: {
+      width: {
+        '26rem': '26rem',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

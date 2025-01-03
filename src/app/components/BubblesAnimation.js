@@ -26,7 +26,7 @@ export default function BubblesAnimation() {
     const newBubbles = Array.from({ length: 15 }, (_, i) => ({
       id: i,
       size: Math.random() * 8 + 4, // Random size between 4 and 12 pixels
-      speed: Math.random() * 9 + 2, // Random speed between 2 and 6 seconds
+      speed: Math.random() * 20 + 2, // Random speed between 2 and 6 seconds
       delay: Math.random() * -1, // Random delay start, negative to stagger
       yPosition: Math.random() * 100, // Random y position (0-100%)
     }))
