@@ -17,12 +17,14 @@ import ChatSideBar from "@/app/components/ChatSideBar";
 import DealingAnimation from "@/app/components/DealingCard";
 import { gsap } from 'gsap';
 import Bet from "@/app/components/Bet";
+import Discardpile from "@/app/components/Discardpile";
 
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
   const [isAutoSort, setIsAutoSort] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDiscardPileOpen, setIsDiscardPileOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [scale, setScale] = useState(1);
   const [gameMode, setGameMode] = useState("Bot");
@@ -56,6 +58,10 @@ export default function TongitGame() {
     setIsChatOpen(!isSidebarOpen);
   };
 
+  // Discard pile open
+  const DiscardPileModal = () => {
+    setIsDiscardPileOpen(!isDiscardPileOpen)
+  }
 
   // CARD ANIMATION THROW
   // State to keep track of selected card indices
@@ -325,10 +331,10 @@ export default function TongitGame() {
           </div>
           <div>
             {/* Deck  */}
-            <div className="p-4 2xl:px-8 rounded-md flex justify-center space-x-2 mb-10 mt-3 w-full"
+            <div className="p-4 2xl:px-8 rounded-md flex justify-center space-x-2 mb-10 mt-3 w-full relative"
             style={{
-  background: 'linear-gradient(to bottom, rgba(0, 40, 56, 0.2), rgba(122, 210, 175, 0.2))'
-}}
+              background: 'linear-gradient(to bottom, rgba(0, 40, 56, 0.2), rgba(122, 210, 175, 0.2))'
+            }}
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -367,6 +373,12 @@ export default function TongitGame() {
                   canDraw={canDrawFromDiscard()}
                 />
               </motion.div>
+              <Discardpile
+                discardCard={gameState.discardPile}
+                isOpen={isDiscardPileOpen}
+                onClose={() => setIsDiscardPileOpen(false)}
+              />
+              <button className="absolute right-0 text-white text-xl" onClick={DiscardPileModal}>-</button>
             </div>
           </div>
           {/* Game Bet Money */}

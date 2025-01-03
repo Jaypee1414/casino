@@ -23,7 +23,8 @@ export function DiscardPile({ topCard, onDraw, disabled, canDraw }) {
       disabled={disabled || !canDraw}
     >
       {canDraw && <Arrow/>}
-      <Card cardSize={'w-20 2xl:w-20 h-28 2xl:h-28 p-1 text-4xl 2xl:text-2xl'} card={topCard} />
+      <Card cardSize={'w-20 2xl:w-20 h-28 2xl:h-28 p-1 text-5xl 2xl:text-2xl p-3'} card={topCard} />
+      
     </button>
   );
 }
