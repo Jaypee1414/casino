@@ -9,6 +9,7 @@ const config = {
     extend: {
       width: {
         '26rem': '26rem',
+        '78': '78%',
       },
       colors: {
         background: "var(--background)",

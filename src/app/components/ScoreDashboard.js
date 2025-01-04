@@ -3,8 +3,8 @@ import { useState } from "react";
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
-import CrystalSnowAnimation from "./snowflakes";
-import { motion } from "framer-motion";
+import { motion,AnimatePresence } from "framer-motion";
+import { Card } from "../TongitsGame/play-bot/Card";
 
 function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
   const scoreboardRef = useRef(null);
@@ -54,7 +54,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
         }
         return prevCount - 1;
       });
-    }, 1000);
+    }, 100000);
 
     return () => clearInterval(timer);
   }, [resetGame, Reset]);
@@ -79,15 +79,15 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
         {/* ScoreBoard */}
         <div
           ref={scoreboardRef}
-          className=" lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl opacity-80"
+          className=" lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl opacity-80 "
         >
           {/* Dashboard */}
-          <div className="w-auto h-auto z-30">
+          <div className="w-screen h-screen z-30">
             {/* Scoreboard */}
             <img
               src=" /image/scoreboardBG.svg"
               alt="My image"
-              className="w-screen 2xl:w-[145px] h-full"
+              className="absolute w-9/12 bottom-3 left-1/2 transform -translate-x-1/2 "
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
@@ -100,24 +100,24 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   : "/image/scoreboardDefeat.svg"
               }
               alt="My image"
-              className="w-96 2xl:w-[145px] h-auto absolute -top-28 left-1/2 transform -translate-x-1/2 z-40"
+              className="w-[400px] 2xl:w-[145px] h-auto absolute  left-1/2 top-0 transform -translate-x-1/2 z-40"
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-1/2  flex flex-col gap-3 pt-14">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-1/2  flex flex-col gap-3 mt-16">
               {/* scoreboard user list */}
 
               {gameState.players.map((player, index) => {
                 return (
                   <div
-                    className=" w-full h-36 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg flex flex-row gap-3 relative"
+                    className=" w-full h-40 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg flex flex-row gap-3 relative"
                     key={index}
                   >
                     <div className="flex h-full items-center pl-5">
                       <img
                         src="https://miro.medium.com/v2/resize:fit:1400/1*rKl56ixsC55cMAsO2aQhGQ@2x.jpeg"
-                        className="rounded-full border-2 border-yellow-300 border-2 bg-black w-24 h-24 "
+                        className="rounded-full border-2 border-yellow-300 bg-black w-24 h-20 "
                       />
                     </div>
                     <div className="w-96">
@@ -136,69 +136,34 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                           className="w-full h-1 bg-yellow-300 border   rounded-lg"
                           style={{ backgroundColor: "yellow !important" }}
                         ></div>
-                        {/* Deduction */}
+                        {/* Player Card */}
                         <div className="flex flex-col">
                           <div className="flex flex-row justify-between">
-                            <h3
-                              className="font-robotoSans font-extrabold text-white text-xl"
-                              style={{
-                                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                              }}
-                            >
-                              Tongits
-                            </h3>
-                            <h3
-                              className="font-robotoSans font-extrabold text-white text-xl"
-                              style={{
-                                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                              }}
-                            >
-                              Special Cards
-                            </h3>
-                            <h3
-                              className="font-robotoSans font-extrabold text-white text-xl"
-                              style={{
-                                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                              }}
-                            >
-                              Burned Players
-                            </h3>
-                          </div>
-                        </div>
-                        {/* Deduction */}
-                        <div className="flex flex-col">
-                          <div className="flex flex-row justify-between">
-                            <h3
-                              className="font-robotoSans font-extrabold  text-xl"
-                              style={{
-                                color: "#60F900",
-                                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                              }}
-                            >
-                              +2300
-                            </h3>
-                            <h3
-                              className="font-robotoSans font-extrabold text-xl"
-                              style={{
-                                color: "#60F900",
-                                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                              }}
-                            >
-                              +2300
-                            </h3>
-                            <h3
-                              className="font-robotoSans font-extrabold  text-xl"
-                              style={{
-                                color: "#60F900",
-                                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                              }}
-                            >
-                              +2300
-                            </h3>
+                            {player.hand.map((card, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ scale: 0 }}
+                                animate={{
+                                  scale: 1,
+                                  x: index * -25, // Shift each card along the X axis
+                                }}
+                                className="transform scale-75 origin-top-left cursor-pointer rounded-md"
+                              >
+                                <Card
+                                  border={`1px solid black`}
+                                  transformCard={`perspective(500px) rotateX(0deg)`}
+                                  cardSize={
+                                    "w-14 h-20 p-1 text-md 2xl:text-lg"
+                                  }
+                                  card={card}
+                                />
+                              </motion.div>
+                            ))}
                           </div>
                         </div>
                       </div>
                     </div>
+                    {/* Player points */}
                     <div className="flex flex-col my-3 w-56 items-center">
                       <div className="">
                         <h3
@@ -245,14 +210,6 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   </div>
                 );
               })}
-            </div>
-          </div>
-          <div className="  text-white absolute -bottom-16 flex flex-row gap-5 left-1/2 transform -translate-x-1/2">
-            <div className="bg-gradient-to-b from-[#FF8D0B] border-4 border-[#B9BFD8] to-[#C5A683] text-2xl font-extrabold py-2  px-4 rounded-3xl text-stroke">
-              <button>Continue </button>
-            </div>
-            <div className="bg-gradient-to-b from-[#B4C5FB] to-[#180CFF] border-4 border-[#B9BFD8] text-2xl font-extrabold py-2  px-4 rounded-3xl text-stroke">
-              <button> View Details</button>
             </div>
           </div>
         </div>

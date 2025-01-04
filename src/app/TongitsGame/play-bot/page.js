@@ -247,7 +247,7 @@ export default function TongitGame() {
   if (!isDealingDone) {
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-screen bg-[url('/image/TableBot.svg')] bg-no-repeat bg-cover bg-center relative">
-        <DealingAnimation />
+        <DealingAnimation/>
       </div>
     );
   }
