@@ -42,7 +42,7 @@ function Discardpile({ isOpen, onClose, discardCard }) {
             }}
           />
             </button>
-            <div className="bg-[#0D41ED] h-96 w-56 mt-10  flex text-6xl text-black items-center flex-col py-5">
+            <div className="bg-[rgba(13,65,237,0.5)] h-96 w-56 mt-10  flex text-6xl text-black items-center flex-col py-5">
               <div className="bg-white h-auto py-2 px-3 rounded-xl">♠</div>
               <div className="flex flex-row w-full flex-wrap p-2 gap-1 justify-center">
                 {spades.map((card, index) => {
@@ -59,7 +59,7 @@ function Discardpile({ isOpen, onClose, discardCard }) {
                 })}
               </div>
             </div>
-            <div className="bg-[#0D41ED] h-96 w-56 mt-10  flex text-6xl text-red-600 items-center flex-col py-5">
+            <div className="bg-[rgba(13,65,237,0.5)] h-96 w-56 mt-10  flex text-6xl text-red-600 items-center flex-col py-5">
               <div className="bg-white h-auto py-2 px-3 rounded-xl">♥</div>
               <div className="flex flex-row w-full flex-wrap p-2 gap-1 justify-center">
                 {hearts.map((card, index) => {
@@ -76,7 +76,7 @@ function Discardpile({ isOpen, onClose, discardCard }) {
                 })}
               </div>
             </div>
-            <div className="bg-[#0D41ED] h-96 w-56 mt-10  flex text-6xl text-black items-center flex-col py-5">
+            <div className="bg-[rgba(13,65,237,0.5)] h-96 w-56 mt-10  flex text-6xl text-black items-center flex-col py-5">
               <div className="bg-white h-auto py-2 px-3 rounded-xl">♣</div>
               <div className="flex flex-row w-full flex-wrap p-2 gap-1 justify-center">
                 {clubs.map((card, index) => {
@@ -93,7 +93,7 @@ function Discardpile({ isOpen, onClose, discardCard }) {
                 })}
               </div>
             </div>
-            <div className="bg-[#0D41ED] h-96 w-56 mt-10  flex text-6xl text-red-600 items-center flex-col py-5">
+            <div className="bg-[rgba(13,65,237,0.5)] h-96 w-56 mt-10  flex text-6xl text-red-600 items-center flex-col py-5">
               <div className="bg-white h-auto py-2 px-3 rounded-xl">♦</div>
               <div className="flex flex-row w-full flex-wrap p-2 gap-1 justify-center">
                 {diamond.map((card, index) => {
