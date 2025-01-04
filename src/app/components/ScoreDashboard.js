@@ -54,7 +54,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
         }
         return prevCount - 1;
       });
-    }, 100000);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, [resetGame, Reset]);
