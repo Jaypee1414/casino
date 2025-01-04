@@ -42,13 +42,13 @@ export function MeldedCards({
           />
           <div
             className={`
-            absolute pointer-events-auto w-72 
+            absolute pointer-events-auto w-80
             ${playerIndex === 0 ? "bottom-72 left-96 right-96 -translate-x-1/2 z-10" : ""}
             ${playerIndex === 2 ? "top-52 2xl:top-72 left-72 2xl:left-96 z-10" : ""}
             ${playerIndex === 1 ? "top-52 right-64 2xl:right-96 z-10" : ""}
           `}
           >
-            <div className={`bg-opacity-5 bg-black  ${playerIndex === 0 ? "w-[1000px] flex" : ""} rounded-lg `}>
+            <div className={`bg-opacity-5 bg-white  ${playerIndex === 0 ? "w-[1000px] flex  justify-start" : ""} rounded-lg `}>
               <AnimatePresence>
                 {sortedMelds.map((meld, meldIndex) => ( 
                   <motion.div
@@ -68,8 +68,8 @@ export function MeldedCards({
                     className={`rounded-lg  first-line: ${
                       selectedSapawTarget?.playerIndex === playerIndex &&
                       selectedSapawTarget?.meldIndex === meldIndex
-                        ? "bg-black bg-opacity-30 flex justify-center"
-                        : "flex justify-center"
+                        ? "bg-black bg-opacity-30 flex justify-start"
+                        : "flex justify-start"
                     }`}
                     onClick={() => onSapawSelect({ playerIndex, meldIndex })}
                   >
