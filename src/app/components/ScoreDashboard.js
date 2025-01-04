@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import CrystalSnowAnimation from "./snowflakes";
 import { motion } from "framer-motion";
 
-function ScoreDashboard({ gameState, onClose, resetGame }) {
+function ScoreDashboard({ gameState, onClose, resetGame,Reset }) {
   const scoreboardRef = useRef(null);
   const router = useRouter();
   const [scale, setScale] = useState(1);
@@ -49,16 +49,15 @@ function ScoreDashboard({ gameState, onClose, resetGame }) {
       const timer = setInterval(() => {
         setCountdown((prevCount) => {
           if (prevCount === 1) {
+            Reset()
             clearInterval(timer);
           }
-          resetGame()
-          router.push('/TongitsGame/play-bot');
           return prevCount - 1;
         });
       }, 1000);
   
       return () => clearInterval(timer);
-    }, [resetGame,router]);
+    }, [resetGame,Reset]);
 
   return (
     <motion.div

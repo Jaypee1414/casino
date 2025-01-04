@@ -47,6 +47,8 @@ export default function TongitGame() {
   } = useTongitGame(gameMode);
   const [sapawTarget, setSapawTarget] = useState(null);
   const [statusMessage, setStatusMessage] = useState("");
+  const [isGameEnded,setIsGameEnded] = useState()
+  const [isDealingDone, setIsDealingDone] = useState(false);
   
   // Open left bar
   const toggleSidebar = () => {
@@ -57,6 +59,13 @@ export default function TongitGame() {
   const toggleChat = () => {
     setIsChatOpen(!isSidebarOpen);
   };
+
+  // resetGame
+  const Reset = () => {
+    resetGame()
+    setIsDealingDone(false)
+    setIsGameEnded(true)
+  }
 
   // Discard pile open
   const DiscardPileModal = () => {
@@ -219,24 +228,21 @@ export default function TongitGame() {
     }
   }, [gameState, isDeckEmpty, callDraw]);
 
-  const [isDealingDone, setIsDealingDone] = useState(false);
-
   useEffect(() => {
-    // Simulate fetching game state
     const fetchGameState = async () => {
-      // Replace this with your actual game state fetching logic
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated fetch
     };
 
     fetchGameState();
 
-    // Simulate the dealing animation duration with a timeout
+    // Simulate the dealing animation duration
     const timer = setTimeout(() => {
-      setIsDealingDone(true);
-    }, 900); // 3 seconds animation duration
+      setIsGameEnded(false)
+      setIsDealingDone(true); // End dealing animation
+    }, 900); // Animation duration
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer); // Cleanup timer on component unmount
+  }, [isGameEnded]); 
 
   if (!isDealingDone) {
     return (
@@ -319,7 +325,7 @@ export default function TongitGame() {
               </h2>
               {gameState.gameEnded ? (
                 <div>
-                  <ScoreDashboard gameState={gameState} resetGame={resetGame} onClose={() => setIsScoreboardVisible(false)}/>
+                  <ScoreDashboard gameState={gameState} resetGame={resetGame} onClose={() => setIsScoreboardVisible(false)} Reset={() => {Reset()}}/>
                 </div>
               ) : (
                 " "
