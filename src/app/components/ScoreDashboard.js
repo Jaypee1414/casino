@@ -48,7 +48,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
         }
         return prevCount - 1;
       });
-    }, 1000);
+    }, 1000000);
 
     return () => clearInterval(timer);
   }, [resetGame, Reset]);
@@ -171,7 +171,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                     {/* Player points */}
                     <div className="">
                       <div className="absolute right-0 p-5 flex flex-row justify-center gap-2 items-center ">
-                        <div className="rounded-full p-2 text-2xl bg-[url('/image/pointsBG.svg')] bg-no-repeat bg-cover bg-center font-extrabold">{player.score}</div>
+                        <div className="rounded-full p-2 text-2xl bg-[url('/image/pointsBG.svg')] bg-no-repeat bg-cover bg-center font-extrabold border-2 border-black">{player.score}</div>
                         <h4 className="text-white font-bold text-xl">Points</h4>
                       </div>
                       <img
