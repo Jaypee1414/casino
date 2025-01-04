@@ -44,8 +44,8 @@ export function MeldedCards({
             className={`
             absolute pointer-events-auto w-80
             ${playerIndex === 0 ? "bottom-72 left-96 right-96 -translate-x-1/2 z-10" : ""}
-            ${playerIndex === 2 ? "top-52 2xl:top-72 left-72 2xl:left-96 z-10" : ""}
-            ${playerIndex === 1 ? "top-52 right-64 2xl:right-96 z-10" : ""}
+            ${playerIndex === 2 ? "top-44 2xl:top-72 left-72 2xl:left-96 z-10" : ""}
+            ${playerIndex === 1 ? "top-44 right-64 2xl:right-96 z-10" : ""}
           `}
           >
             <div className={`bg-opacity-5 bg-white  ${playerIndex === 0 ? "w-[1000px] flex  justify-start" : ""} rounded-lg `}>
@@ -73,7 +73,7 @@ export function MeldedCards({
                     }`}
                     onClick={() => onSapawSelect({ playerIndex, meldIndex })}
                   >
-                    <div className="flex flex-row flex-wrap gap-1">
+                    <div className="flex flex-row flex-wrap ">
                       {meld.map((card, cardIndex) => (
                         <motion.div
                           key={cardIndex}

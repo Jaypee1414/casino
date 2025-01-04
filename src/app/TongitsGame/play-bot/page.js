@@ -411,7 +411,7 @@ export default function TongitGame() {
           <div className="h-[calc(100vh-8rem)] overflow-y-auto justify-center flex items-center">
             <div className="p-4">
               <MeldedCards
-                cardSize={"w-16 h-22 p-3 text-3xl"}
+                cardSize={"w-16 h-22  text-3xl"}
                 players={gameState.players}
                 onSapawSelect={(target) => {
                   setSapawTarget(target);
