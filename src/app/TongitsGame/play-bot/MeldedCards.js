@@ -11,11 +11,28 @@ export function MeldedCards({
   currentPlayerIndex,
   selectedSapawTarget,
 }) {
+  const rankOrder = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
+  const sortCardsByRank = (cards) => {
+    return cards.sort((a, b) => {
+      const rankA = rankOrder.indexOf(a.rank);
+      const rankB = rankOrder.indexOf(b.rank);
+      return rankA - rankB;
+    });
+  };
+
+  const sortMelds = (melds) => {
+    return melds.map((meld) => sortCardsByRank(meld));
+  };
+
+
+  console.log("players",players)
   return (
     <div className="fixed inset-0 pointer-events-none">
-      {players.map((player, playerIndex) => (
-        <div key={player.id}>
+      {players.map((player, playerIndex) => {
+        const sortedMelds = sortMelds(player.exposedMelds);
+        return(
+          <div key={player.id}>
           <PlayerIcon
             playerIndex={playerIndex}
             players={players}
@@ -32,11 +49,8 @@ export function MeldedCards({
           `}
           >
             <div className={`bg-opacity-5 bg-black  ${playerIndex === 0 ? "w-[1000px] flex" : ""} rounded-lg `}>
-              {/* <h3 className="font-semibold text-sm mb-1">
-              {player.name}'s Melds ({player.hand.length} cards)
-            </h3> */}
               <AnimatePresence>
-                {player.exposedMelds.map((meld, meldIndex) => (
+                {sortedMelds.map((meld, meldIndex) => ( 
                   <motion.div
                     key={meldIndex}
                     initial={{ opacity: 0, y: 20 }}
@@ -91,7 +105,8 @@ export function MeldedCards({
             </div>
           </div>
         </div>
-      ))}
+        )
+      })}
     </div>
   );
 }

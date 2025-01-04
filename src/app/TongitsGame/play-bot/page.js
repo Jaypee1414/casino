@@ -441,7 +441,7 @@ export default function TongitGame() {
             onClick={animateClick}
             src="/image/chatButton.svg"
             alt="My image"
-            className="w-24 h-24 absolute right-0 2xl:right-10 bottom-20" // Explicit width and height
+            className="w-24 h-24 absolute right-0 2xl:right-10 bottom-28" // Explicit width and height
             style={{
               transform: `scale(${scale})`,
               transition: "transform 0.3s ease-in-out",
@@ -450,7 +450,7 @@ export default function TongitGame() {
         </button>
         <ChatSideBar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
-        <div className="px-24 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
+        <div className="px-16 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
           <div className="space-x-3">
             {" "}
             {/* left button */}
