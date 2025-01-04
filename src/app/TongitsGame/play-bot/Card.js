@@ -61,7 +61,7 @@ export function Card({border,transformCard,id ,opacityCard, cardSize, card, onCl
     onClick={onClick}
     ref={boxRef} 
   >
-    <div className="text-left font-bold">{rank}</div>
+    <div className="text-left font-bold text-2xl">{rank}</div>
     <div className="text-center text-4xl 2xl:text-4xl">
       {getSuitSymbol(suit)}
     </div>
