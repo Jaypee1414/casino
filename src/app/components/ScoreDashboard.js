@@ -13,10 +13,9 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
   const [isWinner, setIsWinner] = useState();
   const [countdown, setCountdown] = useState(10);
 
-  // animate for pop up
+  // Animate for pop up
   useEffect(() => {
     const scoreboard = scoreboardRef.current;
-
     gsap.set(scoreboard, { scale: 0.5, opacity: 0 });
 
     gsap.to(scoreboard, {
@@ -30,8 +29,6 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
     });
   }, []);
 
-  console.log(gameState, "Game State");
-  console.log(gameState.winner.id === 0);
   useEffect(() => {
     if (gameState) {
       setIsWinner(gameState.winner.id);
@@ -43,15 +40,17 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
     const timer = setInterval(() => {
       setCountdown((prevCount) => {
         if (prevCount === 1) {
-          Reset();
-          clearInterval(timer);
+          setTimeout(() => {
+            Reset(); 
+          }, 0); 
+          clearInterval(timer); // Clear the countdown timer
         }
         return prevCount - 1;
       });
-    }, 1000000);
+    }, 1000);
 
     return () => clearInterval(timer);
-  }, [resetGame, Reset]);
+  }, [Reset]);
 
   return (
     <motion.div

@@ -23,11 +23,12 @@ export function Card({position, border,transformCard,id ,opacityCard, cardSize, 
         const rect = boxRef.current.getBoundingClientRect();
         setIsPosition(rect.x)
         controls.start({
-          x: `calc(${position.x}px - ${rect.x}px)`, // Random horizontal movement
+          x: `calc(${position.x}px - ${rect.x}px)`, 
           y:  -330, // Upward movement
-          rotate: [0, 720 - 360], // Random rotation
+          rotate: 360,
+          scale: [1, 1, 0.8], 
           // opacity: [1, 0], // Fade out Transition
-          transition: { duration: 0.4, ease: "easeIn" }
+          transition: { duration: 0.5, ease: "easeIn" }
         });
       }
     }, [isDiscarding, controls,position]);

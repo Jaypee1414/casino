@@ -124,7 +124,7 @@ export default function TongitGame() {
         discardCard(gameState.selectedCardIndices[0]);
         setSelectedIndices([]);
         setDiscardingIndex(null);
-      }, 500); 
+      }, 600); 
     }
   }, [gameState, discardCard,selectedIndices]);
 
