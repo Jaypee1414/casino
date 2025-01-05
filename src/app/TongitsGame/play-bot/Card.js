@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { Player } from '../../../hooks/use-tongit-game';
 import { Card as CardType } from '../../../utils/card-utils';
 
-export function Card({border,transformCard,id ,opacityCard, cardSize, card, onClick, small = false,isDiscarding}) {
+export function Card({position, border,transformCard,id ,opacityCard, cardSize, card, onClick, small = false,isDiscarding}) {
   const { suit, rank } = card;
   const boxRef = useRef(null)
   const [isPosition, setIsPosition] = useState()
@@ -23,14 +23,14 @@ export function Card({border,transformCard,id ,opacityCard, cardSize, card, onCl
         const rect = boxRef.current.getBoundingClientRect();
         setIsPosition(rect.x)
         controls.start({
-          x: 0, // Random horizontal movement
+          x: `calc(${position.x}px - ${rect.x}px)`, // Random horizontal movement
           y:  -310, // Upward movement
           rotate: [0, 720 - 360], // Random rotation
           // opacity: [1, 0], // Fade out Transition
           transition: { duration: 0.5, ease: "easeIn" }
         });
       }
-    }, [isDiscarding, controls]);
+    }, [isDiscarding, controls,position]);
 
   const getSuitSymbol = (suit) => {
     switch (suit) {

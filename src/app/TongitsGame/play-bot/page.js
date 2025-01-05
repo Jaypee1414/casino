@@ -50,6 +50,7 @@ export default function TongitGame() {
   const [statusMessage, setStatusMessage] = useState("");
   const [isGameEnded,setIsGameEnded] = useState()
   const [isDealingDone, setIsDealingDone] = useState(false);
+  const [position, setPosition] = useState({x:0, y:0})
   
   // Open left bar
   const toggleSidebar = () => {
@@ -378,6 +379,7 @@ export default function TongitGame() {
                     !canDrawFromDiscard()
                   }
                   canDraw={canDrawFromDiscard()}
+                  setPosition={setPosition}
                 />
               </motion.div>
               <Discardpile
@@ -396,6 +398,7 @@ export default function TongitGame() {
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
+              position={position}
                 cardSize={" w-10 md:w-20 h-22 p-3 text-4xl"}
                 hand={playerHand}
                 onCardClick={handleCardClick}

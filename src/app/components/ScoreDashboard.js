@@ -81,7 +81,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
             <img
               src=" /image/scoreboardBG.svg"
               alt="My image"
-              className="absolute w-9/12 bottom-6 left-1/2 transform -translate-x-1/2 "
+              className="absolute w-9/12 bottom-7 left-1/2 transform -translate-x-1/2 "
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
