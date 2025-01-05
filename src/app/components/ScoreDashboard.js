@@ -81,7 +81,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
             <img
               src=" /image/scoreboardBG.svg"
               alt="My image"
-              className="absolute w-9/12 bottom-4 left-1/2 transform -translate-x-1/2 "
+              className="absolute w-9/12 bottom-6 left-1/2 transform -translate-x-1/2 "
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
@@ -94,12 +94,12 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   : "/image/scoreboardDefeat.svg"
               }
               alt="My image"
-              className="w-[400px] 2xl:w-[145px] h-auto absolute  left-1/2 top-3 transform -translate-x-1/2 z-40"
+              className="w-[400px] 2xl:w-[145px] h-auto absolute  left-1/2 top-1 transform -translate-x-1/2 z-40"
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/5  flex flex-col gap-3 mt-14">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/5  flex flex-col gap-4 mt-16">
               {/* scoreboard user list */}
 
               {gameState.players.map((player, index) => {
@@ -171,7 +171,9 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                     {/* Player points */}
                     <div className="">
                       <div className="absolute right-0 p-5 flex flex-row justify-center gap-2 items-center ">
-                        <div className="rounded-full p-2 text-2xl bg-[url('/image/pointsBG.svg')] bg-no-repeat bg-cover bg-center font-extrabold border-2 w-14 h-14 border-black items-center justify-center flex ">{player.score}</div>
+                        <div className="rounded-full p-2 text-2xl bg-[url('/image/pointsBG.svg')] bg-no-repeat bg-cover bg-center font-extrabold border-2 w-14 h-14 border-black items-center justify-center flex ">
+                          {player.score}
+                        </div>
                         <h4 className="text-white font-bold text-xl">Points</h4>
                       </div>
                       <img
@@ -207,6 +209,24 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   </div>
                 );
               })}
+              <div className=" flex justify-end text-white font-extrabold text-xl gap-2">
+                <button
+                  className="bg-text-gradient py-2 px-5 rounded-full border-2 border-slate-300"
+                  style={{
+                    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                  }}
+                >
+                  Continue
+                </button>
+                <button
+                  className="bg-Button-gradient py-2 px-5  rounded-full border-2 border-slate-300"
+                  style={{
+                    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                  }}
+                >
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
         </div>

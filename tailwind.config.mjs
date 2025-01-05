@@ -24,6 +24,7 @@ const config = {
         jainiPurva: ['Jaini Purva', 'sans-serif'], 
       },
       backgroundImage: {
+        'Button-gradient': 'linear-gradient(to bottom, #B4C5FB, #180CFF)',
         'text-gradient': 'linear-gradient(to right, #E88345, #AEAF6C)',
         'user-name': 'linear-gradient(to right, #DC2424, #999999)',
         'rightBar-Button': 'linear-gradient(to right, #EB4C3D, #1664AD)',
