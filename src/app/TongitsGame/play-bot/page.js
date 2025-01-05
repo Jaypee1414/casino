@@ -18,6 +18,7 @@ import Bet from "@/app/components/Bet";
 import Discardpile from "@/app/components/Discardpile";
 import PlayerPoints from "@/app/components/PlayerPoints";
 import { calculateCardPoints } from "../../../utils/card-utils";
+import GameHeaderPot from "@/app/components/gameHeaderPot";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
@@ -29,6 +30,7 @@ export default function TongitGame() {
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
   const [isScoreboardVisible, setIsScoreboardVisible] = useState(false)
   const {
+    nextGame,
     resetGame,
     gameState,
     gameActions,
@@ -61,7 +63,7 @@ export default function TongitGame() {
 
   // resetGame
   const Reset = () => {
-    resetGame()
+    nextGame()
     setIsDealingDone(false)
     setIsGameEnded(true)
   }
@@ -261,14 +263,9 @@ export default function TongitGame() {
     }, 300);
   };
 
+  console.log("Game Ended", gameState.gameEnded)
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
-      <AnimatePresence>
-        {isScoreboardVisible && (
-          <ScoreDashboard onClose={() => setIsScoreboardVisible(false)} gameState={gameState} resetGame={resetGame}/>
-        )}
-      </AnimatePresence>
-
       {/* header game */}
       <div className="absolute w-screen h-16 top-0 bg-custom-gradient">
         <div className="flex flex-row h-full w-full justify-between">
@@ -291,15 +288,9 @@ export default function TongitGame() {
           <NetworkStatus />
         </div>
       </div>
-      <img
-        src="/image/headerGame.svg"
-        alt="My image"
-        className="w-auto absolute h-36 2xl:h-40 top-0"
-        style={{
-          transform: `scale(${scale})`,
-          transition: "transform 0.3s ease-in-out",
-        }}
-      />
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 ">
+      <GameHeaderPot gameState={gameState} resetGame={resetGame}/>
+      </div>
       <div className="flex w-full max-w-7xl gap-4">
         {/* activity log  */}
         <div className="">
