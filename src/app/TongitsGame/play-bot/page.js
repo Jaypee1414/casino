@@ -10,12 +10,10 @@ import { MeldedCards } from "./MeldedCards";
 import { motion, AnimatePresence } from "framer-motion";
 import { isValidMeld, shuffleDeck, sortCards } from "../../../utils/card-utils";
 import NetworkStatus from "@/app/components/NetworkStatus";
-import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 import ScoreDashboard from "@/app/components/ScoreDashboard";
 import ChatSideBar from "@/app/components/ChatSideBar";
 import DealingAnimation from "@/app/components/DealingCard";
-import { gsap } from 'gsap';
 import Bet from "@/app/components/Bet";
 import Discardpile from "@/app/components/Discardpile";
 import PlayerPoints from "@/app/components/PlayerPoints";
@@ -23,7 +21,6 @@ import { calculateCardPoints } from "../../../utils/card-utils";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
-  const [isAutoSort, setIsAutoSort] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDiscardPileOpen, setIsDiscardPileOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -127,7 +124,7 @@ export default function TongitGame() {
         discardCard(gameState.selectedCardIndices[0]);
         setSelectedIndices([]);
         setDiscardingIndex(null);
-      }, 1000); 
+      }, 500); 
     }
   }, [gameState, discardCard,selectedIndices]);
 

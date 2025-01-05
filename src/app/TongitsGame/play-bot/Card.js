@@ -24,10 +24,10 @@ export function Card({position, border,transformCard,id ,opacityCard, cardSize, 
         setIsPosition(rect.x)
         controls.start({
           x: `calc(${position.x}px - ${rect.x}px)`, // Random horizontal movement
-          y:  -310, // Upward movement
+          y:  -330, // Upward movement
           rotate: [0, 720 - 360], // Random rotation
           // opacity: [1, 0], // Fade out Transition
-          transition: { duration: 0.5, ease: "easeIn" }
+          transition: { duration: 0.4, ease: "easeIn" }
         });
       }
     }, [isDiscarding, controls,position]);
