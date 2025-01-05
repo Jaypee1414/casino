@@ -87,8 +87,8 @@ const applySapaw = (melds, sapawCard) => {
                 className={`rounded-lg first-line: ${
                   selectedSapawTarget?.playerIndex === playerIndex &&
                   selectedSapawTarget?.meldIndex === meldIndex
-                    ? "bg-black bg-opacity-30 flex justify-start"
-                    : "flex justify-start"
+                    ? "bg-black bg-opacity-30 flex h-auto justify-start"
+                    : "flex justify-start h-auto"
                 }`}
                 onClick={() => onSapawSelect({ playerIndex, meldIndex })}
               >

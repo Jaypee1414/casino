@@ -404,8 +404,16 @@ export function useTongitGame(initialGameMode) {
   }, [initialGameMode]);
 
   const resetGame = useCallback(() => {
+    const preservedPlayers = gameState.players.map(player => ({
+      ...player, 
+      consecutiveWins: player.consecutiveWins // Only preserve consecutiveWins
+    }));
+  
+    // Create the deck and deal the cards as before
     const deck = createDeck();
     const { hands, remainingDeck } = dealCards(deck, 3, 12);
+  
+    // Create new players, but use the preserved `consecutiveWins` values
     const players = hands.map((hand, index) => ({
       id: index,
       name: index === 0 ? 'You' : `Bot ${index}`,
@@ -413,11 +421,12 @@ export function useTongitGame(initialGameMode) {
       exposedMelds: [],
       secretMelds: [],
       score: 0,
-      consecutiveWins: 0,
+      consecutiveWins: preservedPlayers[index]?.consecutiveWins || 0, // Use the preserved value if available
       isSapawed: false,
       points: 0,
       turnsPlayed: 0,
     }));
+  
     setGameState({
       players,
       currentPlayerIndex: 0,
@@ -431,8 +440,11 @@ export function useTongitGame(initialGameMode) {
       selectedCardIndices: [],
       gameEnded: false,
     });
+  
+    // Mark game as initialized
     gameInitializedRef.current = true;
-  }, []);
+  }, [gameState?.players]);
+  
 
   useEffect(() => {
     if (gameState && isDeckEmpty() && !gameState.gameEnded) {
