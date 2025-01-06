@@ -1,14 +1,32 @@
-import React from 'react';
-import { Player } from '../../../hooks/use-tongit-game';
-import { Card as CardType } from '../../../utils/card-utils';
-import { Card } from './Card';
-import Arrow from '@/app/components/Arrow';
+import React, { useRef, useEffect } from "react";
+import { Player } from "../../../hooks/use-tongit-game";
+import { Card as CardType } from "../../../utils/card-utils";
+import { Card } from "./Card";
+import Arrow from "@/app/components/Arrow";
 
-export function DiscardPile({ topCard, onDraw, disabled, canDraw }) {
+export function DiscardPile({
+  topCard,
+  onDraw,
+  disabled,
+  canDraw,
+  setPosition,
+}) {
+  const posRef = useRef(null);
+
+  useEffect(() => {
+    if (posRef.current) {
+      const rect = posRef.current.getBoundingClientRect();
+      const { x, y } = rect;
+      setPosition({ x, y });
+    }
+  }, [setPosition]);
+
+
   if (!topCard) {
     return (
-      <button 
-        className=" w-20 2xl:w-20 h-28 2xl:h-28 bg-gray-300 border border-black rounded-lg shadow-md flex items-center justify-center"
+      <button
+      ref={posRef}
+        className=" w-1.5 2xl:w-20 h-24 2xl:h-28 bg-gray-300 border border-black rounded-lg shadow-md flex items-center justify-center"
         disabled={true}
       >
         Empty
@@ -17,14 +35,22 @@ export function DiscardPile({ topCard, onDraw, disabled, canDraw }) {
   }
 
   return (
-    <button 
-      className={`p-0 bg-transparent hover:bg-transparent ${!canDraw ? 'opacity-50 cursor-not-allowed' : ''}`}
-      onClick={onDraw}
-      disabled={disabled || !canDraw}
+    <div
     >
-      {canDraw && <Arrow/>}
-      <Card cardSize={'w-20 2xl:w-20 h-28 2xl:h-28 p-1 text-5xl 2xl:text-2xl p-3'} card={topCard} />
-      
-    </button>
+      <button
+      ref={posRef}  
+        className={`p-0 bg-transparent hover:bg-transparent ${
+          !canDraw ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        onClick={onDraw}
+        disabled={disabled || !canDraw}
+      >
+        {canDraw && <Arrow />}
+        <Card
+          cardSize={"w-1.5 2xl:w-20 h-24 2xl:h-28 p-1 text-5xl 2xl:text-2xl p-3"}
+          card={topCard}
+        />
+      </button>
+    </div>
   );
 }

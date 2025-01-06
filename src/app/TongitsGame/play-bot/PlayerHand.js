@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap';
 
 export function PlayerHand({
+  position,
   cardSize,
   hand,
   onCardClick,
@@ -25,7 +26,7 @@ export function PlayerHand({
 
       // Set initial state for cards
       gsap.set(cards, {
-        x: 0,
+        x: 3,
         y: 0,
         opacity: 0,
       });
@@ -35,7 +36,7 @@ export function PlayerHand({
         x: (index) => index * -45,  // Spread the cards horizontally
         opacity: 1,
         stagger: 0.05,  // Increase stagger for faster animation
-        duration: 0.8,  // Faster duration for the spread
+        duration: 0.8,  // Faster durationfor the spread
         ease: 'power2.out',  // Snappy easing
       });
 
@@ -89,6 +90,7 @@ ref={containerRef}
       }}
     >
       <Card
+      position={position}
         opacityCard={`${selectedCards.size === 0 || selectedCards.has(index) ? 'opacity-100' : 'opacity-85'}`}
         cardSize={cardSize}
         card={card}

@@ -10,19 +10,19 @@ import { MeldedCards } from "./MeldedCards";
 import { motion, AnimatePresence } from "framer-motion";
 import { isValidMeld, shuffleDeck, sortCards } from "../../../utils/card-utils";
 import NetworkStatus from "@/app/components/NetworkStatus";
-import PercentageLoader from "@/app/components/PercentageLoad";
 import Sidebar from "@/app/components/Sidebar";
 import ScoreDashboard from "@/app/components/ScoreDashboard";
 import ChatSideBar from "@/app/components/ChatSideBar";
 import DealingAnimation from "@/app/components/DealingCard";
-import { gsap } from 'gsap';
 import Bet from "@/app/components/Bet";
 import Discardpile from "@/app/components/Discardpile";
-
+import PlayerPoints from "@/app/components/PlayerPoints";
+import { calculateCardPoints } from "../../../utils/card-utils";
+import GameHeaderPot from "@/app/components/gameHeaderPot";
+import GameRound from "@/app/components/GameRound";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
-  const [isAutoSort, setIsAutoSort] = useState();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDiscardPileOpen, setIsDiscardPileOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -31,6 +31,7 @@ export default function TongitGame() {
   const [selectedSapawTarget, setSelectedSapawTarget] = useState(null);
   const [isScoreboardVisible, setIsScoreboardVisible] = useState(false)
   const {
+    nextGame,
     resetGame,
     gameState,
     gameActions,
@@ -49,6 +50,7 @@ export default function TongitGame() {
   const [statusMessage, setStatusMessage] = useState("");
   const [isGameEnded,setIsGameEnded] = useState()
   const [isDealingDone, setIsDealingDone] = useState(false);
+  const [position, setPosition] = useState({x:0, y:0})
   
   // Open left bar
   const toggleSidebar = () => {
@@ -62,7 +64,7 @@ export default function TongitGame() {
 
   // resetGame
   const Reset = () => {
-    resetGame()
+    nextGame()
     setIsDealingDone(false)
     setIsGameEnded(true)
   }
@@ -125,7 +127,7 @@ export default function TongitGame() {
         discardCard(gameState.selectedCardIndices[0]);
         setSelectedIndices([]);
         setDiscardingIndex(null);
-      }, 1000); 
+      }, 600); 
     }
   }, [gameState, discardCard,selectedIndices]);
 
@@ -262,14 +264,9 @@ export default function TongitGame() {
     }, 300);
   };
 
+  console.log("Game Ended", gameState.gameEnded)
   return (
     <div className="flex flex-col items-center justify-center w-full  min-h-screen bg-[url('/image/TableBot.svg')]  bg-no-repeat bg-cover bg-center relative">
-      <AnimatePresence>
-        {isScoreboardVisible && (
-          <ScoreDashboard onClose={() => setIsScoreboardVisible(false)} gameState={gameState} resetGame={resetGame}/>
-        )}
-      </AnimatePresence>
-
       {/* header game */}
       <div className="absolute w-screen h-16 top-0 bg-custom-gradient">
         <div className="flex flex-row h-full w-full justify-between">
@@ -292,15 +289,9 @@ export default function TongitGame() {
           <NetworkStatus />
         </div>
       </div>
-      <img
-        src="/image/headerGame.svg"
-        alt="My image"
-        className="w-auto absolute h-36 2xl:h-40 top-0"
-        style={{
-          transform: `scale(${scale})`,
-          transition: "transform 0.3s ease-in-out",
-        }}
-      />
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 ">
+      <GameHeaderPot gameState={gameState} resetGame={resetGame}/>
+      </div>
       <div className="flex w-full max-w-7xl gap-4">
         {/* activity log  */}
         <div className="">
@@ -377,6 +368,7 @@ export default function TongitGame() {
                     !canDrawFromDiscard()
                   }
                   canDraw={canDrawFromDiscard()}
+                  setPosition={setPosition}
                 />
               </motion.div>
               <Discardpile
@@ -389,13 +381,14 @@ export default function TongitGame() {
           </div>
           {/* Game Bet Money */}
           <div className="absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <Bet bet={200000}/>
+            <Bet bet={gameState.entryFee}/>
           </div>
           {/* Player Hand */}
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
-                cardSize={" w-10 md:w-20 h-22 p-3 text-4xl"}
+              position={position}
+                cardSize={" w-1.5 h-22 p-2 text-4xl"}
                 hand={playerHand}
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}
@@ -410,7 +403,7 @@ export default function TongitGame() {
           <div className="h-[calc(100vh-8rem)] overflow-y-auto justify-center flex items-center">
             <div className="p-4">
               <MeldedCards
-                cardSize={"w-16 h-22 p-3 text-3xl"}
+                cardSize={"w-16 h-22  text-3xl"}
                 players={gameState.players}
                 onSapawSelect={(target) => {
                   setSapawTarget(target);
@@ -441,7 +434,7 @@ export default function TongitGame() {
             onClick={animateClick}
             src="/image/chatButton.svg"
             alt="My image"
-            className="w-24 h-24 absolute right-0 2xl:right-10 bottom-28" // Explicit width and height
+            className="w-24 h-24 absolute right-2 2xl:right-10 bottom-28" // Explicit width and height
             style={{
               transform: `scale(${scale})`,
               transition: "transform 0.3s ease-in-out",
@@ -449,7 +442,12 @@ export default function TongitGame() {
           />
         </button>
         <ChatSideBar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
-
+        <div className="absolute right-0 bottom-64 w-24 h-24 ">
+          <PlayerPoints gameState={gameState} getCardValue={calculateCardPoints}/> 
+        </div>
+        <div className="absolute left-5 bottom-64">
+          <GameRound gameState={gameState}/> 
+        </div>
         <div className="px-16 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
           <div className="space-x-3">
             {" "}
