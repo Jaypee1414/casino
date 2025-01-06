@@ -12,6 +12,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
   const [scale, setScale] = useState(1);
   const [isWinner, setIsWinner] = useState();
   const [countdown, setCountdown] = useState(10);
+  const [closing, setClosing] = useState(false);  // Added closing state
 
   // Animate for pop up
   useEffect(() => {
@@ -37,20 +38,37 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
 
   // Countdown and auto-close effect
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prevCount) => {
-        if (prevCount === 1) {
-          setTimeout(() => {
-            Reset(); 
-          }, 0); 
-          clearInterval(timer); // Clear the countdown timer
-        }
-        return prevCount - 1;
-      });
-    }, 1000);
+    if (closing) {
+      const timer = setInterval(() => {
+        setCountdown((prevCount) => {
+          if (prevCount === 1) {
+            setTimeout(() => {
+              Reset(); // Reset the game after countdown ends
+            }, 0); 
+            clearInterval(timer); // Clear the countdown timer
+          }
+          return prevCount - 1;
+        });
+      }, 1000);
 
-    return () => clearInterval(timer);
-  }, [Reset]);
+      return () => clearInterval(timer);
+    }
+  }, [closing, Reset]);
+
+  // Close the scoreboard and wait for 10 seconds to reset the game
+  const handleClose = () => {
+    setClosing(true); // Start the countdown
+    gsap.to(scoreboardRef.current, {
+      duration: 0.5,
+      opacity: 0,
+      scale: 0.5,
+      ease: "back.in(1.7)",
+      onComplete: () => {
+        // Optionally, you can execute any code after the scoreboard animation is completed
+        onClose(); // Call the `onClose` function passed as prop
+      },
+    });
+  };
 
   return (
     <motion.div
@@ -210,12 +228,13 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
               })}
               <div className=" flex justify-end text-white font-extrabold text-xl gap-2">
                 <button
+                  onClick={handleClose} // Close button triggers the closing logic
                   className="bg-text-gradient py-2 px-5 rounded-full border-2 border-slate-300"
                   style={{
                     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                   }}
                 >
-                  Continue
+                  Close
                 </button>
                 <button
                   className="bg-Button-gradient py-2 px-5  rounded-full border-2 border-slate-300"
