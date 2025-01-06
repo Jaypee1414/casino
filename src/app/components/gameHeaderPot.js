@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 
-function GameHeaderPot({ gameState,resetGame }) {
-  const userWinner = gameState.players[0].consecutiveWins
-
-  if(userWinner === 3 || userWinner > 3 ){
-    resetGame()
-  }
+function GameHeaderPot({ gameState }) {
+  const userWinner = gameState.players[0].consecutiveWins - 1;
+  const potMoney = gameState.potMoney
+  console.log("Header", potMoney)
   return (
     <div className="relative">
       <Image
@@ -33,6 +31,9 @@ function GameHeaderPot({ gameState,resetGame }) {
             </div>
           ))}
         </div>
+      </div>
+      <div className="absolute top-7 right-14 transform -translate-x-1/2 ">
+        <h3 className="font-robotoSans text-yellow-300 font-extrabold text-3xl text-stroke-thick tracking-tight">Pot: {potMoney}</h3>
       </div>
     </div>
   );

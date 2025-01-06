@@ -31,7 +31,7 @@ export const GameState = {
   deck: [], // Array of Card objects
   discardPile: [], // Array of Card objects
   winner: null, // Player or null
-  potMoney: 0,
+  potMoney: 3000,
   tableCharge: 0,
   entryFee: 0,
   hasDrawnThisTurn: false,
@@ -468,7 +468,7 @@ export function useTongitGame(initialGameMode) {
         deck: remainingDeck,
         discardPile: [],
         winner: null,
-        potMoney: 0,
+        potMoney: 3000,
         tableCharge: 50,
         entryFee: 100,
         hasDrawnThisTurn: false,
@@ -478,6 +478,8 @@ export function useTongitGame(initialGameMode) {
       gameInitializedRef.current = true;
     }
   }, [initialGameMode]);
+
+
   const nextGame = useCallback(() => {
     const preservedPlayers = gameState.players.map((player) => ({
       consecutiveWins: player.consecutiveWins, // Only preserve consecutiveWins
@@ -507,7 +509,7 @@ export function useTongitGame(initialGameMode) {
       deck: remainingDeck,
       discardPile: [],
       winner: null,
-      potMoney: 0,
+      potMoney: 3000,
       tableCharge: 50,
       entryFee: 100,
       hasDrawnThisTurn: false,
