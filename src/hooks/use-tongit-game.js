@@ -32,6 +32,7 @@ export const GameState = {
   discardPile: [], // Array of Card objects
   winner: null, // Player or null
   potMoney: 3000,
+  round: 1,
   tableCharge: 0,
   entryFee: 0,
   hasDrawnThisTurn: false,
@@ -469,6 +470,7 @@ export function useTongitGame(initialGameMode) {
         discardPile: [],
         winner: null,
         potMoney: 3000,
+        round: 1,
         tableCharge: 50,
         entryFee: 100,
         hasDrawnThisTurn: false,
@@ -481,14 +483,16 @@ export function useTongitGame(initialGameMode) {
 
 
   const nextGame = useCallback(() => {
+    
+    // Check the Consecutive win of the player 
     const preservedPlayers = gameState.players.map((player) => ({
-      consecutiveWins: player.consecutiveWins, // Only preserve consecutiveWins
+      consecutiveWins: player.consecutiveWins, // retrieve the old value of consecutive of the player
     }));
-
+  
     // Create the deck and deal the cards as before
     const deck = createDeck();
     const { hands, remainingDeck } = dealCards(deck, 3, 12);
-
+  
     // Create new players, but use the preserved `consecutiveWins` values
     const players = hands.map((hand, index) => ({
       id: index,
@@ -502,7 +506,9 @@ export function useTongitGame(initialGameMode) {
       points: 0,
       turnsPlayed: 0,
     }));
-
+    // Increment the round by 1 (or set a default if it doesn't exist)
+    const nextRound = gameState.round + 1;
+  
     setGameState({
       players,
       currentPlayerIndex: 0,
@@ -515,11 +521,13 @@ export function useTongitGame(initialGameMode) {
       hasDrawnThisTurn: false,
       selectedCardIndices: [],
       gameEnded: false,
+      round: nextRound, // Update the round number
     });
-
+  
     // Mark game as initialized
     gameInitializedRef.current = true;
-  }, [gameState?.players]);
+  }, [gameState]);
+  
 
   const resetGame = useCallback(() => {
     if (initialGameMode && !gameInitializedRef.current) {
@@ -544,6 +552,7 @@ export function useTongitGame(initialGameMode) {
         discardPile: [],
         winner: null,
         potMoney: 0,
+        round: 1,
         tableCharge: 50,
         entryFee: 100,
         hasDrawnThisTurn: false,

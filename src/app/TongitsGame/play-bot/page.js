@@ -19,6 +19,7 @@ import Discardpile from "@/app/components/Discardpile";
 import PlayerPoints from "@/app/components/PlayerPoints";
 import { calculateCardPoints } from "../../../utils/card-utils";
 import GameHeaderPot from "@/app/components/gameHeaderPot";
+import GameRound from "@/app/components/GameRound";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
@@ -380,7 +381,7 @@ export default function TongitGame() {
           </div>
           {/* Game Bet Money */}
           <div className="absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <Bet bet={200000}/>
+            <Bet bet={gameState.entryFee}/>
           </div>
           {/* Player Hand */}
           <div>
@@ -443,6 +444,9 @@ export default function TongitGame() {
         <ChatSideBar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
         <div className="absolute right-0 bottom-64 w-24 h-24 ">
           <PlayerPoints gameState={gameState} getCardValue={calculateCardPoints}/> 
+        </div>
+        <div className="absolute left-5 bottom-64">
+          <GameRound gameState={gameState}/> 
         </div>
         <div className="px-16 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
           <div className="space-x-3">

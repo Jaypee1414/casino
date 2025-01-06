@@ -36,6 +36,9 @@ const config = {
         thin: '1px black', // Thin stroke
         thick: '1px black', // Thick stroke
       },
+      spacing: {
+        'left-3.2': '3.2rem',
+      },
     },
   },
   plugins: [
