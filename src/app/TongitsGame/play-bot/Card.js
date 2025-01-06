@@ -28,7 +28,7 @@ export function Card({position, border,transformCard,id ,opacityCard, cardSize, 
           rotate: 360,
           scale: [1, 1, 0.8], 
           // opacity: [1, 0], // Fade out Transition
-          transition: { duration: 0.5, ease: "easeIn" }
+          transition: { duration: 0.3, ease: "easeIn" }
         });
       }
     }, [isDiscarding, controls,position]);

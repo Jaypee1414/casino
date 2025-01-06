@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "../TongitsGame/play-bot/Card";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 function Discardpile({ isOpen, onClose, discardCard }) {
   const spades = discardCard.filter((card) => card?.suit === "spades");
@@ -18,8 +19,10 @@ function Discardpile({ isOpen, onClose, discardCard }) {
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
         >
-          <img
+          <Image
             src="/image/discardPileBG.svg"
+            width={1000}
+            height={1000}
             alt="My image"
             className="w-3/4 h-3/4 absolute"
             style={{
@@ -33,14 +36,16 @@ function Discardpile({ isOpen, onClose, discardCard }) {
             className="rounded-lg p-6 w-auto relative flex justify-center flex-row gap-2"
           >
             <button onClick={onClose}>
-            <img
-            src="/image/discardpileClosebtn.svg"
-            alt="My image"
-            className="w-14 h-14 absolute -top-10 -right-12"
-            style={{
-              transition: "transform 0.3s ease-in-out",
-            }}
-          />
+              <Image
+                width={1000}
+                height={1000}
+                src="/image/discardpileClosebtn.svg"
+                alt="My image"
+                className="w-14 h-14 absolute -top-10 -right-12"
+                style={{
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              />
             </button>
             <div className="bg-[rgba(13,65,237,0.5)] h-96 w-56 mt-10  flex text-6xl text-black items-center flex-col py-5">
               <div className="bg-white h-auto py-2 px-3 rounded-xl">♠</div>

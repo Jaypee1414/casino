@@ -39,7 +39,7 @@ export function DiscardPile({
     >
       <button
       ref={posRef}  
-        className={`p-0 bg-transparent hover:bg-transparent ${
+        className={`p-0 bg-transparent hover:bg-transparent  ${
           !canDraw ? "opacity-50 cursor-not-allowed" : ""
         }`}
         onClick={onDraw}
