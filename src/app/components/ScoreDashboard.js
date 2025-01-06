@@ -1,18 +1,15 @@
 "use client";
-import { useState } from "react";
-import React, { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { Card } from "../TongitsGame/play-bot/Card";
 
 function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
   const scoreboardRef = useRef(null);
-  const router = useRouter();
   const [scale, setScale] = useState(1);
   const [isWinner, setIsWinner] = useState();
   const [countdown, setCountdown] = useState(10);
-  const [closing, setClosing] = useState(false);  // Added closing state
+  const [closing, setClosing] = useState(false); // Added closing state
 
   // Animate for pop up
   useEffect(() => {
@@ -24,12 +21,10 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
       scale: 1,
       opacity: 1,
       ease: "back.out(1.7)",
-      onComplete: () => {
-        // Animation complete callback if needed
-      },
     });
   }, []);
 
+  // Set winner from gameState
   useEffect(() => {
     if (gameState) {
       setIsWinner(gameState.winner.id);
@@ -38,34 +33,38 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
 
   // Countdown and auto-close effect
   useEffect(() => {
-    if (closing) {
-      const timer = setInterval(() => {
-        setCountdown((prevCount) => {
-          if (prevCount === 1) {
-            setTimeout(() => {
-              Reset(); // Reset the game after countdown ends
-            }, 0); 
-            clearInterval(timer); // Clear the countdown timer
-          }
-          return prevCount - 1;
-        });
-      }, 1000);
+    if (!closing) return; // Prevent starting countdown if not in closing state
+    const timer = setInterval(() => {
+      setCountdown((prevCount) => {
+        if (prevCount === 1) {
+          setTimeout(() => {
+            Reset(); // Reset the game after countdown ends
+          }, 0);
+          clearInterval(timer); // Clear the countdown timer
+        }
+        return prevCount - 1;
+      });
+    }, 1000);
 
-      return () => clearInterval(timer);
-    }
+    return () => clearInterval(timer);
   }, [closing, Reset]);
 
-  // Close the scoreboard and wait for 10 seconds to reset the game
+  // Start countdown as soon as the scoreboard is displayed
+  useEffect(() => {
+    setClosing(true); // Start the countdown immediately when the component mounts
+  }, []);
+
+  // Handle close and reset the scoreboard with animation
   const handleClose = () => {
-    setClosing(true); // Start the countdown
+    setClosing(true); // Start countdown
     gsap.to(scoreboardRef.current, {
       duration: 0.5,
       opacity: 0,
       scale: 0.5,
       ease: "back.in(1.7)",
       onComplete: () => {
-        // Optionally, you can execute any code after the scoreboard animation is completed
-        onClose(); // Call the `onClose` function passed as prop
+        // Optionally execute code after the animation is complete
+        onClose(); // Close the scoreboard
       },
     });
   };
@@ -90,7 +89,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
         {/* ScoreBoard */}
         <div
           ref={scoreboardRef}
-          className=" lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl  "
+          className="lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl"
         >
           {/* Dashboard */}
           <div className="w-screen h-screen z-30">
@@ -98,7 +97,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
             <img
               src=" /image/scoreboardBG.svg"
               alt="My image"
-              className="absolute w-9/12 bottom-7 left-1/2 transform -translate-x-1/2 "
+              className="absolute w-9/12 bottom-7 left-1/2 transform -translate-x-1/2"
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
@@ -111,24 +110,24 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   : "/image/scoreboardDefeat.svg"
               }
               alt="My image"
-              className="w-[400px] 2xl:w-[145px] h-auto absolute  left-1/2 top-1 transform -translate-x-1/2 z-40"
+              className="w-[400px] 2xl:w-[145px] h-auto absolute left-1/2 top-1 transform -translate-x-1/2 z-40"
               style={{
                 transition: "transform 0.3s ease-in-out",
               }}
             />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/5  flex flex-col gap-4 mt-16">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/5 flex flex-col gap-4 mt-16">
               {/* scoreboard user list */}
 
               {gameState.players.map((player, index) => {
                 return (
                   <div
-                    className=" w-full h-36 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg flex flex-row gap-3 relative"
+                    className="w-full h-36 bg-opacity-5 bg-gradient-to-b from-[rgba(33,61,139,0.5)] to-[rgba(73,81,128,0.5)] border-4 border-yellow-300 rounded-lg flex flex-row gap-3 relative"
                     key={index}
                   >
                     <div className="flex h-full items-center pl-5 w-auto">
                       <img
                         src="https://miro.medium.com/v2/resize:fit:1400/1*rKl56ixsC55cMAsO2aQhGQ@2x.jpeg"
-                        className="rounded-full border-2 border-yellow-300 bg-black w-24 h-24 "
+                        className="rounded-full border-2 border-yellow-300 bg-black w-24 h-24"
                       />
                     </div>
                     <div className="w-40">
@@ -144,7 +143,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                         </h3>
                         {/* Line */}
                         <div
-                          className="w-full h-1 bg-yellow-400 border   rounded-lg"
+                          className="w-full h-1 bg-yellow-400 border rounded-lg"
                           style={{ backgroundColor: "yellow !important" }}
                         ></div>
                         {/* WINNER AND LOSE */}
@@ -152,8 +151,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                           <h3
                             className="font-robotoSans font-extrabold text-3xl p-2"
                             style={{
-                              color:
-                                player.id === isWinner ? "#FFEE00" : "#CEC9C9",
+                              color: player.id === isWinner ? "#FFEE00" : "#CEC9C9",
                               textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                             }}
                           >
@@ -205,7 +203,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                         <img
                           src=" /image/scoreboardCoints.svg"
                           alt="My image"
-                          className="w-16 2xl:w-[145px] "
+                          className="w-16 2xl:w-[145px]"
                           style={{
                             transition: "transform 0.3s ease-in-out",
                           }}
@@ -213,8 +211,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                         <h3
                           className="text-white text-2xl font-extrabold font-robotoSans"
                           style={{
-                            color:
-                              player.id === isWinner ? "#00FF22" : "#FF0000",
+                            color: player.id === isWinner ? "#00FF22" : "#FF0000",
                             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                           }}
                         >
@@ -237,7 +234,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   Close
                 </button>
                 <button
-                  className="bg-Button-gradient py-2 px-5  rounded-full border-2 border-slate-300"
+                  className="bg-Button-gradient py-2 px-5 rounded-full border-2 border-slate-300"
                   style={{
                     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                   }}
