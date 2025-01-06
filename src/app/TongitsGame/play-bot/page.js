@@ -388,7 +388,7 @@ export default function TongitGame() {
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
               position={position}
-                cardSize={" w-10 md:w-20 h-22 p-3 text-4xl"}
+                cardSize={" w-1.5 h-22 p-2 text-4xl"}
                 hand={playerHand}
                 onCardClick={handleCardClick}
                 selectedIndices={gameState.selectedCardIndices}

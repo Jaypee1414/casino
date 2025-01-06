@@ -38,6 +38,7 @@ const config = {
       },
       spacing: {
         'left-3.2': '3.2rem',
+        '1.5': '4.5rem', 
       },
     },
   },

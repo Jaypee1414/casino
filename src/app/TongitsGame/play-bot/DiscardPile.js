@@ -26,7 +26,7 @@ export function DiscardPile({
     return (
       <button
       ref={posRef}
-        className=" w-20 2xl:w-20 h-28 2xl:h-28 bg-gray-300 border border-black rounded-lg shadow-md flex items-center justify-center"
+        className=" w-1.5 2xl:w-20 h-24 2xl:h-28 bg-gray-300 border border-black rounded-lg shadow-md flex items-center justify-center"
         disabled={true}
       >
         Empty
@@ -47,7 +47,7 @@ export function DiscardPile({
       >
         {canDraw && <Arrow />}
         <Card
-          cardSize={"w-20 2xl:w-20 h-28 2xl:h-28 p-1 text-5xl 2xl:text-2xl p-3"}
+          cardSize={"w-1.5 2xl:w-20 h-24 2xl:h-28 p-1 text-5xl 2xl:text-2xl p-3"}
           card={topCard}
         />
       </button>
