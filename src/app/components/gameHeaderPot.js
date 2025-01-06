@@ -3,6 +3,7 @@ import Image from "next/image";
 
 function GameHeaderPot({ gameState }) {
   const userWinner = gameState.players[0].consecutiveWins - 1;
+  const round = gameState.round
   // const potMoney = gameState.potMoney
   return (
     <div className="relative">
@@ -32,7 +33,7 @@ function GameHeaderPot({ gameState }) {
         </div>
       </div>
       <div className="absolute top-7 right-0 transform -translate-x-1/2  w-48">
-        <h3 className="font-robotoSans text-yellow-300 font-extrabold text-3xl text-stroke-thick tracking-tight">Pot: {gameState.entryFee * 3}</h3>
+        <h3 className="font-robotoSans text-yellow-300 font-extrabold text-3xl text-stroke-thick tracking-tight">Pot: {(gameState.entryFee * 3) * round}</h3>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export function Deck({ cardsLeft, onDraw, disabled }) {
       onClick={onDraw}
       disabled={disabled}
     >
-      <span className="text-white font-bold font-jaro text-2xl tracking-tighter" 
+      <span className="text-rose-900 font-bold font-jaro text-4xl tracking-tighter" 
                   style={{
                     WebkitTextStroke: "0.5px black",
                     textStroke: "0.5px black",
