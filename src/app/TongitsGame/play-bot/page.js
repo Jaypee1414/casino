@@ -333,11 +333,6 @@ export default function TongitGame() {
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 ">
         <GameHeaderPot gameState={gameState} resetGame={resetGame} />
       </div>
-      {isPlayerTurn && !gameState.gameEnded && (
-        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-80 rounded-full p-2">
-          <span className="text-2xl font-bold">{timer}s</span>
-        </div>
-      )}
       <div className="flex w-full max-w-7xl gap-4">
         <div className="">
           <div className="h-[calc(100vh-8rem)]">
@@ -507,6 +502,13 @@ export default function TongitGame() {
         </div>
         <div className="absolute left-5 bottom-64">
           <GameRound gameState={gameState} />
+          {isPlayerTurn && !gameState.gameEnded && (
+        <div className={`absolute top-20 left-1/2 transform -translate-x-1/2 ${timer >= 10? "bg-yellow-400 " : "bg-rose-700"}  rounded-full w-14 h-14 flex justify-center items-center p-2`}>
+          <span className={`text-2xl font-bold ${timer >= 10 ? "text-black" : "text-white"} `}>{timer}s</span>
+        </div>
+      )}
+        </div>
+        <div>
         </div>
         <div className="px-16 2xl:px-36 flex w-screen items-center gap-11 h-32 absolute bottom-0 left-0 justify-between">
           <div className="space-x-3">
