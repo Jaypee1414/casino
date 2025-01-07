@@ -114,7 +114,8 @@ export default function TongitGame() {
       gameState &&
       gameState.currentPlayerIndex === 0 &&
       !gameState.gameEnded &&
-      (gameState.selectedCardIndices.length === 1 || timerExpired)
+      (gameState.selectedCardIndices.length === 1 || timerExpired) &&
+      gameState.hasDrawnThisTurn
     ) {
       let indexToDiscard;
       if (timerExpired) {
@@ -274,11 +275,18 @@ export default function TongitGame() {
     };
   }, [gameState]);
 
+  // HANDLE TO DRAW AND THROW A CARD
   useEffect(() => {
     if (timerExpired) {
-      handleDiscard();
+      const handleTimerExpired = async () => {
+        if (!gameState.hasDrawnThisTurn) {
+          await drawCard(false);
+        }
+        handleDiscard();
+      };
+      handleTimerExpired();
     }
-  }, [timerExpired, handleDiscard]);
+  }, [timerExpired, drawCard, handleDiscard, gameState?.hasDrawnThisTurn]);
 
   if (!isDealingDone) {
     return (
@@ -434,7 +442,6 @@ export default function TongitGame() {
               </button>
             </div>
           </div>
-          {/* Player Hand */}
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
               <PlayerHand
@@ -449,7 +456,6 @@ export default function TongitGame() {
             </div>
           </div>
         </div>
-        {/* melded */}
         <div className="absolute">
           <div className="h-[calc(100vh-8rem)] overflow-y-auto justify-center flex items-center">
             <div className="p-4">
