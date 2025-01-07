@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
+import Bet from "./Bet";
 
 function GameHeaderPot({ gameState }) {
   const userWinner = gameState.players[0].consecutiveWins - 1;
-  const round = gameState.round
+  const round = gameState.round;
   // const potMoney = gameState.potMoney
   return (
     <div className="relative">
@@ -32,8 +33,18 @@ function GameHeaderPot({ gameState }) {
           ))}
         </div>
       </div>
-      <div className="absolute top-7 right-0 transform -translate-x-1/2  w-48">
-        <h3 className="font-robotoSans text-yellow-300 font-extrabold text-3xl text-stroke-thick tracking-tight">Pot: {(gameState.entryFee * 3) * round}</h3>
+      <div className="absolute top-4 -right-4 transform -translate-x-1/2  w-48 flex flex-col gap-0">
+        <h3
+          className="font-jainiPurva  text-yellow-300 font-extrabold text-2xl"
+
+        >
+          Bet Amuont: {gameState.entryFee}
+        </h3>
+        <h3
+          className="font-jainiPurva  text-yellow-300 font-extrabold text-2xl"
+        >
+          Pot: {gameState.entryFee * 3 * round}
+        </h3>
       </div>
     </div>
   );

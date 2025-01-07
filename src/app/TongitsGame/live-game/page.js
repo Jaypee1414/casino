@@ -1,12 +1,22 @@
-import React from "react";
+"use client";
+import { React, useState } from "react";
 import NetworkStatus from "@/app/components/NetworkStatus";
-// import { useRouter } from 'next/navigation';
-function page() {
+import { useRouter } from "next/navigation";
+function GameBet() {
   // Router Back to the landing Page
-  // const router = useRouter();
-  // const handleButtonClickLive = () => {
-  //   router.push('/TongitsGame/live-game');
-  // };
+  const router = useRouter();
+  const handleButtonClickLive = () => {
+    router.push("/TongitsGame/live-game/LiveGame");
+  };
+
+  // State to track the index of the clicked image
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  // Function to handle the click event
+  const handleClick = (index) => {
+    // If the same button is clicked again, reset it
+    setActiveIndex(activeIndex === index ? null : index);
+  };
   return (
     <div
       className="w-full h-screen"
@@ -71,88 +81,91 @@ function page() {
             <div className="flex justify-between flex-row px-24 gap-10 w-screen">
               {/* VIP */}
               <div>
-              <button>
-                {" "}
-                <img
-                  src="/image/gamebet100.svg"
-                  alt="My image"
-                  className="w-auto h-56 hover:translate-y-[-10px] transition-transform ease-in-out duration-300"
-                  style={{
-                    transition: "transform 0.3s ease-in-out",
-                  }}
-                />
-              </button>
-              <button>
-                {" "}
-                <img
-                  src="/image/gamebet50.svg"
-                  alt="My image"
-                  className="w-auto h-56 hover:translate-y-[-10px] transition-transform ease-in-out duration-300"
-                  style={{
-                    transition: "transform 0.3s ease-in-out",
-                  }}
-                />
-              </button>
-              <button>
-                {" "}
-                <img
-                  src="/image/gamebet20.svg"
-                  alt="My image"
-                  className="w-auto h-56 hover:translate-y-[-10px] transition-transform ease-in-out duration-300"
-                  style={{
-                    transition: "transform 0.3s ease-in-out",
-                  }}
-                />
-              </button>
+                <button onClick={() => handleClick(0)}>
+                  <img
+                    src="/image/gamebet100.svg"
+                    alt="My image"
+                    className={`w-auto h-56 transition-transform ease-in-out duration-300 ${
+                      activeIndex === 0
+                        ? "transform translate-y-[-10px] scale-110"
+                        : ""
+                    }`}
+                  />
+                </button>
+                <button onClick={() => handleClick(1)}>
+                  <img
+                    src="/image/gamebet50.svg"
+                    alt="My image"
+                    className={`w-auto h-56 transition-transform ease-in-out duration-300 ${
+                      activeIndex === 1
+                        ? "transform translate-y-[-10px] scale-110"
+                        : ""
+                    }`}
+                  />
+                </button>
+                <button onClick={() => handleClick(2)}>
+                  <img
+                    src="/image/gamebet20.svg"
+                    alt="My image"
+                    className={`w-auto h-56 transition-transform ease-in-out duration-300 ${
+                      activeIndex === 2
+                        ? "transform translate-y-[-10px] scale-110"
+                        : ""
+                    }`}
+                  />
+                </button>
               </div>
+
               {/* REGULAR */}
               <div>
-              <button>
-                {" "}
-                <img
-                  src="/image/gamebet2.svg"
-                  alt="My image"
-                  className="w-auto h-56 hover:translate-y-[-10px] transition-transform ease-in-out duration-300"
-                  style={{
-                    transition: "transform 0.3s ease-in-out",
-                  }}
-                />
-              </button>
-              <button>
-                {" "}
-                <img
-                  src="/image/gamebet5.svg"
-                  alt="My image"
-                  className="w-auto h-56 hover:translate-y-[-10px] transition-transform ease-in-out duration-300"
-                  style={{
-                    transition: "transform 0.3s ease-in-out",
-                  }}
-                />
-              </button>
-              <button>
-                {" "}
-                <img
-                  src="/image/gamebet10.svg"
-                  alt="My image"
-                  className="w-auto h-56 hover:translate-y-[-10px] transition-transform ease-in-out duration-300"
-                  style={{
-                    transition: "transform 0.3s ease-in-out",
-                  }}
-                />
-              </button>
+                <button onClick={() => handleClick(3)}>
+                  <img
+                    src="/image/gamebet2.svg"
+                    alt="My image"
+                    className={`w-auto h-56 transition-transform ease-in-out duration-300 ${
+                      activeIndex === 3
+                        ? "transform translate-y-[-10px] scale-110"
+                        : ""
+                    }`}
+                  />
+                </button>
+                <button onClick={() => handleClick(4)}>
+                  <img
+                    src="/image/gamebet5.svg"
+                    alt="My image"
+                    className={`w-auto h-56 transition-transform ease-in-out duration-300 ${
+                      activeIndex === 4
+                        ? "transform translate-y-[-10px] scale-110"
+                        : ""
+                    }`}
+                  />
+                </button>
+                <button onClick={() => handleClick(5)}>
+                  <img
+                    src="/image/gamebet10.svg"
+                    alt="My image"
+                    className={`w-auto h-56 transition-transform ease-in-out duration-300 ${
+                      activeIndex === 5
+                        ? "transform translate-y-[-10px] scale-110"
+                        : ""
+                    }`}
+                  />
+                </button>
               </div>
             </div>
             {/* Button Quick Play */}
             <div className="w-full flex items-center justify-center py-16">
-              <button>
-              <img
-              src="/image/gamebetQuickplay.svg"
-              alt="My image"
-              className="w-52 h-auto"
-              style={{
-                transition: "transform 0.3s ease-in-out",
-              }}
-            />
+              <button
+              onClick={handleButtonClickLive}
+              >
+                <img
+                  src="/image/gamebetQuickplay.svg"
+                  alt="My image"
+                  className="w-52 h-auto"
+                  style={{
+                    transition: "transform 0.3s ease-in-out",
+                  }}
+                />
               </button>
             </div>
           </div>
@@ -162,4 +175,4 @@ function page() {
   );
 }
 
-export default page;
+export default GameBet;

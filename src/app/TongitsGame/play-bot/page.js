@@ -52,6 +52,8 @@ export default function TongitGame() {
   const [isGameEnded, setIsGameEnded] = useState();
   const [isDealingDone, setIsDealingDone] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [timer, setTimer] = useState(10);
+  const timerRef = useRef(null);
 
   // Open left bar
   const toggleSidebar = () => {
@@ -128,6 +130,7 @@ export default function TongitGame() {
         discardCard(gameState.selectedCardIndices[0]);
         setSelectedIndices([]);
         setDiscardingIndex(null);
+        setTimer(10); // Reset timer after discarding
       }, 400);
     }
   }, [gameState, discardCard, selectedIndices]);
@@ -247,6 +250,33 @@ export default function TongitGame() {
     return () => clearTimeout(timer); // Cleanup timer on component unmount
   }, [isGameEnded]);
 
+  useEffect(() => {
+    const isPlayerTurn = gameState && gameState.currentPlayerIndex === 0;
+    if (isPlayerTurn && !gameState.gameEnded) {
+      timerRef.current = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer === 0) {
+            clearInterval(timerRef.current);
+            // Auto-discard a random card if time runs out
+            const randomIndex = Math.floor(Math.random() * gameState.players[0].hand.length);
+            discardCard(randomIndex);
+            return 10;
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+    } else {
+      clearInterval(timerRef.current);
+      setTimer(10);
+    }
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [gameState, discardCard]);
+
   if (!isDealingDone) {
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-screen bg-[url('/image/TableBot.svg')] bg-no-repeat bg-cover bg-center relative">
@@ -293,6 +323,11 @@ export default function TongitGame() {
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 ">
         <GameHeaderPot gameState={gameState} resetGame={resetGame} />
       </div>
+      {isPlayerTurn && !gameState.gameEnded && (
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-80 rounded-full p-2">
+          <span className="text-2xl font-bold">{timer}s</span>
+        </div>
+      )}
       <div className="flex w-full max-w-7xl gap-4">
         {/* activity log  */}
         <div className="">
@@ -400,10 +435,6 @@ export default function TongitGame() {
               </button>
             </div>
           </div>
-          {/* Game Bet Money */}
-          <div className="absolute top-96 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <Bet bet={gameState.entryFee} />
-          </div>
           {/* Player Hand */}
           <div>
             <div className="pb-24 pr-20 2xl:py-24 2xl:pr-0">
@@ -455,7 +486,7 @@ export default function TongitGame() {
             onClick={animateClick}
             src="/image/chatButton.svg"
             alt="My image"
-            className="w-24 h-24 absolute right-2 2xl:right-10 bottom-28" // Explicit width and height
+            className="w-24 h-24 absolute right-2 2xl:right-10 bottom-28"
             style={{
               transform: `scale(${scale})`,
               transition: "transform 0.3s ease-in-out",
@@ -564,7 +595,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/auoSort.svg"
                 alt="My image"
-                className="w-32 h-32" // Explicit width and height
+                className="w-32 h-32"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -576,7 +607,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/shuffleButton.svg"
                 alt="My image"
-                className="w-32 h-32" // Explicit width and height
+                className="w-32 h-32"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -588,7 +619,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/withdrawButton.svg"
                 alt="My image"
-                className="w-36 h-32" // Explicit width and height
+                className="w-36 h-32"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -600,7 +631,7 @@ export default function TongitGame() {
                 onClick={animateClick}
                 src="/image/depositButton.svg"
                 alt="My image"
-                className="w-36 h-32" // Explicit width and height
+                className="w-36 h-32"
                 style={{
                   transform: `scale(${scale})`,
                   transition: "transform 0.3s ease-in-out",
@@ -613,3 +644,4 @@ export default function TongitGame() {
     </div>
   );
 }
+

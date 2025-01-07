@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { Card } from "../TongitsGame/play-bot/Card";
+import Scoreboard from "./Scoreboard";
 
 function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
   const scoreboardRef = useRef(null);
@@ -242,6 +243,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   View Details
                 </button>
               </div>
+              <Scoreboard gameState={gameState} onClose={handleClose}/>
             </div>
           </div>
         </div>
