@@ -21,6 +21,7 @@ import { calculateCardPoints } from "../../../utils/card-utils";
 import GameHeaderPot from "@/app/components/gameHeaderPot";
 import GameRound from "@/app/components/GameRound";
 import Image from "next/image";
+import CircularCountdown from "@/app/components/CountDown";
 
 export default function TongitGame() {
   const [playerHand, setPlayerHande] = useState();
@@ -502,11 +503,9 @@ export default function TongitGame() {
         </div>
         <div className="absolute left-5 bottom-64">
           <GameRound gameState={gameState} />
-          {isPlayerTurn && !gameState.gameEnded && (
-        <div className={`absolute top-20 left-1/2 transform -translate-x-1/2 ${timer >= 10? "bg-yellow-400 " : "bg-rose-700"}  rounded-full w-14 h-14 flex justify-center items-center p-2`}>
-          <span className={`text-2xl font-bold ${timer >= 10 ? "text-black" : "text-white"} `}>{timer}s</span>
+                  <div className={`absolute top-20 left-1/2 transform -translate-x-1/2  w-14 h-14 flex justify-center items-center p-2`}>
+          <CircularCountdown timer={timer} gameState={gameState} isPlayerTurn={isPlayerTurn}/>
         </div>
-      )}
         </div>
         <div>
         </div>
