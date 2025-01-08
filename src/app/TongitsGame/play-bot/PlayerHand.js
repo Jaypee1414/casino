@@ -82,7 +82,6 @@ ref={containerRef}
         transformStyle: 'preserve-3d',
         transform: 'perspective(1000px)',
         borderRadius: "0.5rem",
-        border:"1px solid black",
         bottom: "10px",
         right: "10px",
         position: "absolute", // Absolute positioning for overlap
@@ -91,6 +90,7 @@ ref={containerRef}
     >
       <Card
       position={position}
+      border={"1px solid black"}
         opacityCard={`${selectedCards.size === 0 || selectedCards.has(index) ? 'opacity-100' : 'opacity-85'}`}
         cardSize={cardSize}
         card={card}

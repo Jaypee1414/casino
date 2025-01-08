@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { Card } from "../TongitsGame/play-bot/Card";
+import Scoreboard from "./Scoreboard";
 
 function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
   const scoreboardRef = useRef(null);
@@ -10,6 +11,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
   const [isWinner, setIsWinner] = useState();
   const [countdown, setCountdown] = useState(10);
   const [closing, setClosing] = useState(false); // Added closing state
+  const [showDetails, setShowDetails] = useState(false); // New state for toggling scoreboard visibility
 
   // Animate for pop up
   useEffect(() => {
@@ -49,7 +51,6 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
     return () => clearInterval(timer);
   }, [closing, Reset]);
 
-  // Start countdown as soon as the scoreboard is displayed
   useEffect(() => {
     setClosing(true); // Start the countdown immediately when the component mounts
   }, []);
@@ -63,10 +64,14 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
       scale: 0.5,
       ease: "back.in(1.7)",
       onComplete: () => {
-        // Optionally execute code after the animation is complete
         onClose(); // Close the scoreboard
       },
     });
+  };
+
+  // Toggle the scoreboard details visibility
+  const handleViewDetails = () => {
+    setShowDetails((prevState) => !prevState); // Toggle the scoreboard visibility
   };
 
   return (
@@ -86,7 +91,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
           }}
         ></div>
 
-        {/* ScoreBoard */}
+        {/* Scoreboard */}
         <div
           ref={scoreboardRef}
           className="lg:w-screen lg:h-4/6 z-30 rounded-lg shadow-2xl"
@@ -117,7 +122,6 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
             />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/5 flex flex-col gap-4 mt-16">
               {/* scoreboard user list */}
-
               {gameState.players.map((player, index) => {
                 return (
                   <div
@@ -234,6 +238,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                   Close
                 </button>
                 <button
+                  onClick={handleViewDetails} // Toggle scoreboard visibility on button click
                   className="bg-Button-gradient py-2 px-5 rounded-full border-2 border-slate-300"
                   style={{
                     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
@@ -243,6 +248,7 @@ function ScoreDashboard({ gameState, onClose, resetGame, Reset }) {
                 </button>
               </div>
             </div>
+            {showDetails && <Scoreboard gameState={gameState} onClose={handleClose} />}
           </div>
         </div>
       </div>
